@@ -27,6 +27,13 @@
     nixos-cli = {
       url = "github:water-sucks/nixos";
     };
+
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.1";
+
+      # Optional but recommended to limit the size of your system closure.
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -36,6 +43,7 @@
     spicetify-nix,
     nixos-hardware,
     nixos-cli,
+    lanzaboote,
     ...
   } @ inputs: let
     lib = nixpkgs.lib;
@@ -63,6 +71,8 @@
           nixos-hardware.nixosModules.dell-precision-5530
 
           nixos-cli.nixosModules.nixos-cli
+
+          lanzaboote.nixosModules.lanzaboote
 
           ./system
         ];

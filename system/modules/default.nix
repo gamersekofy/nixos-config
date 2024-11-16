@@ -18,5 +18,6 @@
     ./nerdFonts.nix
     ./nixos-cli.nix
     ./vmware.nix
+    ./lanzaboote.nix
   ];
 }
