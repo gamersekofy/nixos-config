@@ -115,6 +115,7 @@
 
     # IDE
     jetbrains.idea-ultimate
+    jetbrains.rider
 
     # nix language server
     nixd

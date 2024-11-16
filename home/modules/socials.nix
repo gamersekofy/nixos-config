@@ -3,5 +3,6 @@
     zoom-us
     vesktop
     thunderbird
+    element-desktop
   ];
 }

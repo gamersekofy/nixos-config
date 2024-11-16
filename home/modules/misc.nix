@@ -16,5 +16,7 @@
     ddcutil
 
     galaxy-buds-client
+
+    fastfetch
   ];
 }

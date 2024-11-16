@@ -71,4 +71,9 @@
     enableZshIntegration = true;
     nix-direnv.enable = true;
   };
+
+  # Enable powershell
+  home.packages = with pkgs; [
+    powershell
+  ];
 }
