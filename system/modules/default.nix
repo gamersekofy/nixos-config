@@ -16,7 +16,7 @@
     ./virt.nix
     ./miscNixStuff.nix
     ./nerdFonts.nix
-    # ./nixos-cli.nix
+    ./nixos-cli.nix
     ./vmware.nix
   ];
 }
