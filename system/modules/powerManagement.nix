@@ -10,6 +10,8 @@
 
     thermald.enable = true;
 
+    fwupd.enable = true;
+
     # List of governors:
     #     - performance
     #     - powersave

@@ -4,7 +4,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Copied from default configuration file
-  boot.initrd.luks.devices."luks-bc043db2-6b73-4181-9324-6a4ddd9574cf".device = "/dev/disk/by-uuid/bc043db2-6b73-4181-9324-6a4ddd9574cf";
+  boot.initrd.luks.devices."luks-520879a6-1cac-4c27-95b1-1d5a0d817684".device = "/dev/disk/by-uuid/520879a6-1cac-4c27-95b1-1d5a0d817684";
 
   # GRUB and MC theme disabled due to an issue - "nixos.png not found"
   # Enable Grub and set required parameters to make system bootable
