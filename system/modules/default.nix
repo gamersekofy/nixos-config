@@ -19,5 +19,7 @@
     ./nixos-cli.nix
     ./vmware.nix
     ./lanzaboote.nix
+    ./gaming.nix
+    ./printing.nix
   ];
 }
