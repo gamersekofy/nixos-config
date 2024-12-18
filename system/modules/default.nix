@@ -7,7 +7,7 @@
     #./hyprland.nix
     ./syncthing.nix
     ./kdePlasma.nix
-    ./pulseAudio.nix
+    ./media.nix
     ./suspendThenHibernate.nix
     ./spicetify.nix
     ./hardware-configuration.nix
