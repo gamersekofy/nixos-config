@@ -17,5 +17,6 @@
     kdePackages.qtmultimedia
     plasmusic-toolbar
     plasma-browser-integration
+    kdePackages.filelight
   ];
 }

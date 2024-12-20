@@ -12,6 +12,16 @@
     functions = {
       gitignore = "touch .gitignore && curl -sL https://www.gitignore.io/api/$argv >> .gitignore";
       finit = "nix flake init --template \"https://flakehub.com/f/the-nix-way/dev-templates/*#$argv\"";
+      y = ''
+        function y
+          set tmp (mktemp -t "yazi-cwd.XXXXXX")
+          yazi $argv --cwd-file="$tmp"
+          if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+          	builtin cd -- "$cwd"
+          end
+          rm -f -- "$tmp"
+        end
+      '';
     };
 
     generateCompletions = true;
@@ -70,6 +80,23 @@
     enable = true;
     enableZshIntegration = true;
     nix-direnv.enable = true;
+  };
+
+  programs.yazi = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
+  programs.bat = {
+    enable = true;
+    enableFishIntegration = true;
+
+    themes = {
+      catppuccin = {
+        src = builtins.readFile ./batThemes/CatppuccinMocha.tmTheme;
+        file = "CatppuccinMocha.tmTheme";
+      };
+    };
   };
 
   # Enable powershell

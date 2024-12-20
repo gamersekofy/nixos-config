@@ -18,5 +18,7 @@
     galaxy-buds-client
 
     fastfetch
+
+    yubioath-flutter
   ];
 }

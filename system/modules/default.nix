@@ -17,9 +17,9 @@
     ./miscNixStuff.nix
     ./nerdFonts.nix
     ./nixos-cli.nix
-    ./vmware.nix
     ./lanzaboote.nix
     ./gaming.nix
     ./printing.nix
+    ./yubikey.nix
   ];
 }
