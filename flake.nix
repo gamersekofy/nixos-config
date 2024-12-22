@@ -34,6 +34,14 @@
       # Optional but recommended to limit the size of your system closure.
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      # If you are not running an unstable channel of nixpkgs, select the corresponding branch of nixvim.
+      # url = "github:nix-community/nixvim/nixos-24.11";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -44,6 +52,7 @@
     nixos-hardware,
     nixos-cli,
     lanzaboote,
+    nixvim,
     ...
   } @ inputs: let
     lib = nixpkgs.lib;
@@ -74,6 +83,8 @@
 
           lanzaboote.nixosModules.lanzaboote
 
+          inputs.nixvim.nixosModules.nixvim
+ 
           ./system
         ];
       };

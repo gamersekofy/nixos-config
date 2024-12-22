@@ -21,5 +21,6 @@
     ./gaming.nix
     ./printing.nix
     ./yubikey.nix
+    ./neovim.nix
   ];
 }
