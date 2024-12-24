@@ -4,7 +4,7 @@
     ./graphics.nix
     ./powerManagement.nix
     ./wireless.nix
-    #./hyprland.nix
+    #./wayland.nix
     ./syncthing.nix
     ./kdePlasma.nix
     ./media.nix

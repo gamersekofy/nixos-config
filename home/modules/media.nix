@@ -2,6 +2,7 @@
 {
   home.packages = with pkgs; [
     nicotine-plus
+    gimp
   ];
 
   programs.mpv.enable = true;
