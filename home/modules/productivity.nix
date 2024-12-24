@@ -1,8 +1,8 @@
-{ pkgs, ... }: 
-{
-	home.packages = with pkgs; [
-		kdePackages.arianna
-		obsidian
-		libreoffice-qt6-fresh
-	];
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    kdePackages.arianna
+    calibre
+    obsidian
+    libreoffice-qt6-fresh
+  ];
 }
