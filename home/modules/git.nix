@@ -9,8 +9,7 @@
     userName = "Uzair Mohammed";
     userEmail = "uzair.hamed@gmail.com";
     extraConfig = {
-#      credential.helper = "oauth";
-      credential.credentialStore = "cache";
+      credential.helper = "store";
       init.defaultBranch = "master";
     };
   };
