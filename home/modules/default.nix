@@ -8,6 +8,6 @@
     ./browsers.nix
     ./productivity.nix
     ./media.nix
-    #./neovim.nix
+    ./hyprland.nix
   ];
 }
