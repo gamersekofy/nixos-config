@@ -38,6 +38,14 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+    };
+
+    hyprland-qtutils = {
+      url = "github:hyprwm/hyprland-qtutils";
+    };
   };
 
   outputs = {
@@ -49,6 +57,7 @@
     nixos-cli,
     lanzaboote,
     nixvim,
+    hyprland-qtutils,
     ...
   } @ inputs: let
     lib = nixpkgs.lib;
@@ -60,6 +69,9 @@
         modules = [
           home-manager.nixosModules.home-manager
           {
+	    home-manager.extraSpecialArgs = {
+	        inherit inputs;
+	    };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "backup";
