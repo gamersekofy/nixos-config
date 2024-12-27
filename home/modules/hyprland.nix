@@ -1,6 +1,8 @@
 {pkgs, inputs, ...}: {
+  imports = [
+     ./waybar.nix
+  ];
   programs.kitty.enable = true;
-  programs.waybar.enable = true;
 
   home.packages = [
     inputs.hyprland-qtutils.packages."${pkgs.system}".default
@@ -8,6 +10,7 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
+    xwayland.enable = true;
 
     settings = {
       "$mod" = "SUPER";
@@ -30,5 +33,9 @@
             9)
         );
     };
+
+    extraConfig = ''
+    	exec-once = waybar
+    '';
   };
 }
