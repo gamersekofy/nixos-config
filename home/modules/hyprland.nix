@@ -8,11 +8,20 @@
     ./mako.nix
     ./walker.nix
     ./network-manager.nix
+    ./rofi.nix
+    ./cliphist.nix
   ];
+
   programs.kitty.enable = true;
 
   home.packages = [
     inputs.hyprland-qtutils.packages."${pkgs.system}".default
+    pkgs.brightnessctl
+    pkgs.kdePackages.xwaylandvideobridge
+      pkgs.wl-clipboard
+
+      pkgs.libsForQt5.qt5ct
+      pkgs.kdePackages.qt6ct
   ];
 
   wayland.windowManager.hyprland = {
@@ -24,12 +33,13 @@
       bind =
         [
           "$mod, Return, exec, kitty"
-	  "$mod, SPACE, exec, walker"
-
-	  "$mod, V, togglefloating,"
+	  "$mod, SPACE, exec, rofi -show run"
 	  "$mod, E, exec, dolphin"
 
+	  "$mod SHIFT, V, togglefloating,"
 	  "$mod SHIFT, Q, killactive,"
+
+	  "$mod, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
         ]
         ++ (
           # workspaces
@@ -75,7 +85,6 @@
 
     extraConfig = ''
       exec-once = waybar
-      exec-one = nm-applet --indicator
     '';
   };
 }
