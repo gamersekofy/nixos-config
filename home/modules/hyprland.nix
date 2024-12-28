@@ -11,7 +11,7 @@
     ./rofi.nix
     ./cliphist.nix
     ./wlogout.nix
-    ./wlsunset
+    ./wlsunset.nix
   ];
 
   programs.kitty.enable = true;
