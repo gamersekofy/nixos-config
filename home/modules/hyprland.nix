@@ -12,7 +12,6 @@
     ./cliphist.nix
     ./wlogout.nix
     ./wlsunset.nix
-    ./playerctld.nix
   ];
 
   programs.kitty.enable = true;
@@ -22,6 +21,7 @@
     pkgs.brightnessctl
     pkgs.kdePackages.xwaylandvideobridge
     pkgs.wl-clipboard
+    pkgs.playerctl
 
     pkgs.libsForQt5.qt5ct
     pkgs.kdePackages.qt6ct
