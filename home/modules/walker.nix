@@ -1,6 +1,6 @@
 {
-    programs.walker = {
-        enable = true;
-	runAsService = true;
-    };
+  programs.walker = {
+    enable = true;
+    runAsService = true;
+  };
 }
