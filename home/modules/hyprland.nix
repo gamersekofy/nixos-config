@@ -11,6 +11,7 @@
     ./rofi.nix
     ./cliphist.nix
     ./wlogout.nix
+    ./wlsunset
   ];
 
   programs.kitty.enable = true;
@@ -34,7 +35,7 @@
       bind =
         [
           "$mod, Return, exec, kitty"
-          "$mod, SPACE, exec, rofi -show run"
+          "$mod, SPACE, exec, walker"
           "$mod, E, exec, dolphin"
 
           "$mod SHIFT, V, togglefloating,"
