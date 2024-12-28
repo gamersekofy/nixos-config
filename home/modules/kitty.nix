@@ -6,7 +6,7 @@
 		enableFishIntegration = true;
 	};
 	font = {
-	    name = "CaskaydiaCove Nerd Font"
+	    name = "CaskaydiaCove Nerd Font";
 	};
     };
 }
