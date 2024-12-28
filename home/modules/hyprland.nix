@@ -167,7 +167,7 @@
       ];
 
       input = {
-        kb_layout = us;
+        kb_layout = "us";
         touchpad = {
           natural_scroll = true;
           scroll_factor = 0.4;
