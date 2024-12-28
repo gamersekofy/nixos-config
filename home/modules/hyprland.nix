@@ -12,6 +12,7 @@
     ./cliphist.nix
     ./wlogout.nix
     ./wlsunset.nix
+    ./playerctld.nix
   ];
 
   programs.kitty.enable = true;
