@@ -4,6 +4,7 @@
   ];
   home.sessionVariables = {
     EDITOR = "nvim";
+    SHELL = "fish";
     ELECTRON_OZONE_PLATFORM_HINT = "wayland";
     NIXOS_CONFIG = "/home/uzair/Documents/nixos-config";
   };
