@@ -4,6 +4,7 @@
   ...
 }: {
   imports = [
+    ./kitty.nix
     ./waybar.nix
     ./mako.nix
     ./walker.nix
@@ -13,8 +14,6 @@
     ./wlogout.nix
     ./wlsunset.nix
   ];
-
-  programs.kitty.enable = true;
 
   home.packages = [
     inputs.hyprland-qtutils.packages."${pkgs.system}".default
