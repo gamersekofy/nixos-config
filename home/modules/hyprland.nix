@@ -7,6 +7,7 @@
     ./waybar.nix
     ./mako.nix
     ./walker.nix
+    ./network-manager.nix
   ];
   programs.kitty.enable = true;
 
@@ -28,7 +29,7 @@
 	  "$mod, V, togglefloating,"
 	  "$mod, E, exec, dolphin"
 
-	  "$mod, Q, killactive,"
+	  "$mod SHIFT, Q, killactive,"
         ]
         ++ (
           # workspaces
@@ -62,10 +63,19 @@
 	        natural_scroll = true;
 	    };
 	};
+
+	general = {
+	    resize_on_border = true;
+	};
+
+	decoration = {
+	    
+	};
     };
 
     extraConfig = ''
       exec-once = waybar
+      exec-one = nm-applet --indicator
     '';
   };
 }
