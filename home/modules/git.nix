@@ -1,5 +1,4 @@
-{ pkgs, ... }: 
-{
+{pkgs, ...}: {
   # Enable and configure Git
   programs.git = {
     enable = true;

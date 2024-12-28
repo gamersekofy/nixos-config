@@ -5,7 +5,7 @@
     kdePackages.kalgebra
 
     keepassxc
-    
+
     pciutils
     glxinfo
     clinfo

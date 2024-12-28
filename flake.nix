@@ -46,6 +46,10 @@
     hyprland-qtutils = {
       url = "github:hyprwm/hyprland-qtutils";
     };
+
+    walker = {
+      url = "github:abenz1267/walker";
+    };
   };
 
   outputs = {
@@ -58,6 +62,7 @@
     lanzaboote,
     nixvim,
     hyprland-qtutils,
+    walker,
     ...
   } @ inputs: let
     lib = nixpkgs.lib;
@@ -80,6 +85,7 @@
               imports = [
                 ./home/home.nix
                 nixvim.homeManagerModules.nixvim
+		walker.homeManagerModules.default
               ];
             };
           }

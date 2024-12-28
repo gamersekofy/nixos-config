@@ -2,7 +2,7 @@
   imports = [
     ./neovim.nix
   ];
-    home.sessionVariables = {
+  home.sessionVariables = {
     EDITOR = "nvim";
     ELECTRON_OZONE_PLATFORM_HINT = "wayland";
     NIXOS_CONFIG = "/home/uzair/Documents/nixos-config";

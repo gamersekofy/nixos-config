@@ -1,7 +1,6 @@
- { pkgs, ... }: 
- {
- 	home.packages = with pkgs; [
-		firefox-bin
-		microsoft-edge
-	];
- }
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    firefox-bin
+    microsoft-edge
+  ];
+}

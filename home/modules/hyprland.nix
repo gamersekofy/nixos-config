@@ -1,6 +1,12 @@
-{pkgs, inputs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   imports = [
-     ./waybar.nix
+    ./waybar.nix
+    ./mako.nix
+    ./walker.nix
   ];
   programs.kitty.enable = true;
 
@@ -16,8 +22,13 @@
       "$mod" = "SUPER";
       bind =
         [
-          "$mod, F, exec, firefox"
-	  "$mod, Return, exec, kitty"
+          "$mod, Return, exec, kitty"
+	  "$mod, SPACE, exec, walker"
+
+	  "$mod, V, togglefloating,"
+	  "$mod, E, exec, dolphin"
+
+	  "$mod, Q, killactive,"
         ]
         ++ (
           # workspaces
@@ -32,10 +43,29 @@
             )
             9)
         );
+
+	bindm = [
+	    "$mod, mouse:272, movewindow"
+	    "$mod, mouse:273, resizewindow"
+	];
+
+	bindel = [
+	    ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+	    ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+	    ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+	    ",XF86MonBrightnessUp, exec, brightnessctl s 10%+"
+	    ",XF86MonBrightnessDown, exec, brightnessctl s 10%-"
+	];
+
+	input = {
+	    touchpad = {
+	        natural_scroll = true;
+	    };
+	};
     };
 
     extraConfig = ''
-    	exec-once = waybar
+      exec-once = waybar
     '';
   };
 }
