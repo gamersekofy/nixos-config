@@ -182,7 +182,7 @@
 
         border_size = 2;
 
-        "col.acive_border" = "rgba($mauveAlphaee)";
+        "col.active_border" = "rgba($mauveAlphaee)";
 	"col.inactive_border" = "rgba($overlay1Alphaee)";
       };
 
