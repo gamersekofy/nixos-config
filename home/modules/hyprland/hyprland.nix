@@ -5,7 +5,7 @@
 }: {
   imports = [
     ./kitty.nix
-    #./waybar.nix
+    ./waybar.nix
     ./mako.nix
     ./walker.nix
     ./network-manager.nix
