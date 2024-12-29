@@ -26,7 +26,7 @@
 	"custom/power" = {
 	  tooltip = false;
 	  on-click = "wlogout &";
-	  format = "󰈆";
+	  format = "";
 	};
       };
     };
@@ -62,6 +62,33 @@
       @define-color pink      #f5c2e7;
       @define-color flamingo  #f2cdcd;
       @define-color rosewater #f5e0dc;
+
+      * {
+         font-family: JetBrainsMono NF;
+	 font-size: 15px;
+      }
+
+      #custom-power {
+         background-color: @base;
+	 color: @red;
+	 padding: 0.5rem 1rem;
+	 margin: 5px 0;
+	 border-radius: 5px 20px 20px 5px;
+      }
+
+      #battery {
+         color: @green;
+      }
+
+      #battery.charging {
+         background-color: @green;
+	 color: @base;
+      }
+
+      #battery.warning:not(.charging) {
+         background-color: @red;
+	 color: @base;
+      }
     '';
   };
 }
