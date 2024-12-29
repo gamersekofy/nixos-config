@@ -12,15 +12,20 @@
         ];
         modules-left = ["hyprland/workspaces" "hyprland/window"];
         modules-center = ["tray"];
-        modules-right = ["pulseaudio" "backlight" "bluetooth" "network" "battery" "clock" "custom/power"];
+        modules-right = ["pulseaudio" "backlight" "network" "bluetooth" "battery" "clock" "custom/power"];
 
         "hyprland/workspaces" = {
           on-scroll-up = "hyprctl dispatch workspace e+1";
           on-scroll-down = "hyprctl dispatch workspace e-1";
         };
 
-        "hyrland/window" = {
+        "hyprland/window" = {
           separate-outputs = true;
+	  format = " 󱂬 { }";
+	  rewrite = {
+	    "(.*) — Mozilla Firefox" = "";
+	    "kitty" = "";
+	  };
         };
 
 	# ----------------------------------------------
@@ -42,6 +47,26 @@
 
 	"backlight" = {
 	  format = "󰃠 {percent}%";
+	};
+
+	"bluetooth" = {
+	  format-disabled = "󰂲";
+	  format-off = "󰂲";
+	  format-on = "󰂯";
+	  format-connected = "󰂱";
+	  tooltip-format-connected = "Connected to {device_alias}";
+	  format-connected-battery = "󰂱 {device_battery_percentage}%";
+	};
+
+	"network" = {
+	  format = "{ifname}";
+	  format-ethernet = "󰈀";
+	  tooltip-format-ethernet = "{ifname}";
+	  format-wifi = "{icon}";
+	  tooltip-format-wifi = "Connected to {essid} with IP: {ipaddr} and signal strength: {signalStrength}";
+	  format-disconnected = "󰤭";
+	  tooltip-format-disconnected = "Disconnected";
+	  format-icons = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
 	};
 
 	"battery" = {
@@ -101,32 +126,31 @@
             @define-color flamingo  #f2cdcd;
             @define-color rosewater #f5e0dc;
 
-            * {
-               font-family: JetBrainsMono NF;
+      * {
+         font-family: JetBrainsMono NF;
       	 font-size: 15px;
-            }
+      }
 
-            #custom-power {
-               background-color: @base;
+      #custom-power {
+         background-color: @base;
       	 color: @red;
       	 padding: 0.5rem 1rem;
       	 margin: 5px 0;
       	 border-radius: 5px 20px 20px 5px;
-            }
+      }
 
-            #battery {
-               color: @green;
-            }
+      #battery {
+         color: @green;
+      }
 
-            #battery.charging {
-               background-color: @green;
+      #battery.charging {
+      	 color: @green;
+      }
+
+      #battery.warning:not(.charging), #battery.critical:not(.charging) {
+         background-color: @red;
       	 color: @base;
-            }
-
-            #battery.warning:not(.charging) {
-               background-color: @red;
-      	 color: @base;
-            }
+      }
 
       #waybar {
         background: transparent;
@@ -142,13 +166,13 @@
       }
 
       #workspaces button {
-        color: @lavender;
+        color: @text;
         border-radius: 1rem;
         padding: 0.4rem;
       }
 
       #workspaces button.active {
-        color: @sky;
+        color: @mauve;
         border-radius: 1rem;
       }
 
@@ -178,6 +202,18 @@
           border-radius: 0;
       }
 
+      #bluetooth.off {
+        color: @red;
+      }
+
+      #bluetooth.on {
+        color: @blue;
+      }
+
+      #bluetooth.connected {
+        color: @blue;
+      }
+
       #pulseaudio {
         color: @maroon;
         border-radius: 1rem 0px 0px 1rem;
@@ -203,6 +239,18 @@
       #tray {
         margin-right: 1rem;
         border-radius: 1rem;
+      }
+
+      #network {
+         color: @text;
+      }
+
+      #network.disabled {
+          color: @red;
+      }
+
+      #network.disconnected {
+          color: @red;
       }
     '';
   };
