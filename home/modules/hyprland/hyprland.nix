@@ -13,7 +13,6 @@
     ./cliphist.nix
     ./wlogout.nix
     ./wlsunset.nix
-    ./hyprpanel.nix
   ];
 
   home.packages = [
@@ -205,7 +204,7 @@
     };
 
     extraConfig = ''
-      exec-once hyprpanel
+      exec-once waybar
     '';
   };
 }
