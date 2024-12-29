@@ -7,6 +7,7 @@
 	};
 	font = {
 	    name = "CaskaydiaCove Nerd Font";
+	    size = 12;
 	};
     };
 }

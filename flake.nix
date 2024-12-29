@@ -50,6 +50,11 @@
     walker = {
       url = "github:abenz1267/walker";
     };
+
+    hyprpanel = {
+      url = "github:Jas-SinghFSU/HyprPanel";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -86,6 +91,7 @@
                 ./home/home.nix
                 nixvim.homeManagerModules.nixvim
 		walker.homeManagerModules.default
+		inputs.hyprpanel.homeManagerModules.hyprpanel
               ];
             };
           }

@@ -5,7 +5,7 @@
 }: {
   imports = [
     ./kitty.nix
-    ./waybar.nix
+    #./waybar.nix
     ./mako.nix
     ./walker.nix
     ./network-manager.nix
@@ -13,6 +13,7 @@
     ./cliphist.nix
     ./wlogout.nix
     ./wlsunset.nix
+    ./hyprpanel.nix
   ];
 
   home.packages = [
@@ -204,7 +205,7 @@
     };
 
     extraConfig = ''
-      exec-once = waybar
+      exec-once hyprpanel
     '';
   };
 }
