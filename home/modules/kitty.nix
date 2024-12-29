@@ -1,7 +1,7 @@
 {
     programs.kitty = {
         enable = true;
-	themeFile = "./kittyThemes/mocha";
+	themeFile = "Catppuccin-Mocha";
 	shellIntegration = {
 		enableFishIntegration = true;
 	};
