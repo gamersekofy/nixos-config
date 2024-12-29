@@ -127,9 +127,9 @@
 
           "$mod, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
 
-	  # Scroll through existing workspaces with mod + scroll
-	  "$mod, mouse_down, workspace, e+1"
-	  "$mod, mouse_up, workspace, e-1"
+          # Scroll through existing workspaces with mod + scroll
+          "$mod, mouse_down, workspace, e+1"
+          "$mod, mouse_up, workspace, e-1"
         ]
         ++ (
           # workspaces
@@ -148,8 +148,6 @@
       bindm = [
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizewindow"
-
-	
       ];
 
       bindel = [
@@ -162,9 +160,9 @@
 
       bindl = [
         ", XF86AudioNext, exec, playerctl next"
-	", XF86AudioPause, exec, playerctl play-pause"
-	", XF86AudioPlay, exec, playerctl play-pause"
-	", XF86AudioPrev, exec, playerctl previous"
+        ", XF86AudioPause, exec, playerctl play-pause"
+        ", XF86AudioPlay, exec, playerctl play-pause"
+        ", XF86AudioPrev, exec, playerctl previous"
       ];
 
       input = {
@@ -184,23 +182,23 @@
         border_size = 2;
 
         "col.active_border" = "rgba($mauveAlphaee)";
-	"col.inactive_border" = "rgba($overlay1Alphaee)";
+        "col.inactive_border" = "rgba($overlay1Alphaee)";
       };
 
       decoration = {
         rounding = 5;
-	
-	blur = {
-	    enabled = true;
-	    size = 3;
-	    passes = 1;
-	    vibrancy = 0.1696;
-	};
+
+        blur = {
+          enabled = true;
+          size = 3;
+          passes = 1;
+          vibrancy = 0.1696;
+        };
       };
 
       gestures = {
         workspace_swipe = true;
-	workspace_swipe_fingers = 3;
+        workspace_swipe_fingers = 3;
       };
     };
 
