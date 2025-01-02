@@ -8,6 +8,6 @@
     ./browsers.nix
     ./productivity.nix
     ./media.nix
-    ./hyprland/hyprland.nix
+    #./hyprland/hyprland.nix
   ];
 }

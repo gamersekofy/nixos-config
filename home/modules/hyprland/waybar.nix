@@ -11,8 +11,8 @@
           "HDMI-A-1"
         ];
         modules-left = ["hyprland/workspaces" "hyprland/window"];
-        modules-center = ["tray"];
-        modules-right = ["pulseaudio" "backlight" "network" "bluetooth" "battery" "clock" "custom/power"];
+        modules-center = ["bluetooth" "tray"];
+        modules-right = ["pulseaudio" "backlight" "battery" "clock" "custom/power"];
 
         "hyprland/workspaces" = {
           on-scroll-up = "hyprctl dispatch workspace e+1";
@@ -21,10 +21,10 @@
 
         "hyprland/window" = {
           separate-outputs = true;
-	  format = " 󱂬 { }";
+	  format = " 󱂬 {class}";
+	  icon = true;
 	  rewrite = {
-	    "(.*) — Mozilla Firefox" = "";
-	    "kitty" = "";
+	  	"(.*) — Mozilla Firefox" = "Firefox";
 	  };
         };
 
