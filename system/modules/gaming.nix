@@ -6,6 +6,6 @@
   environment.systemPackages = with pkgs; [
     heroic
     mangohud
-    osu-lazer
+    osu-lazer-bin
   ];
 }
