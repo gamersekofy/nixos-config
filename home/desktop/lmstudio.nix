@@ -3,6 +3,5 @@
   xdg.desktopEntries.lmstudio = {
     name = "LM Studio";
     exec = "lmstudio --enable-features=UseOzonePlatform --ozone-platform=wayland %U";
-    icon = "./icons/lmstudio.png";
   };
 }
