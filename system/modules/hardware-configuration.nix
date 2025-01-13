@@ -14,20 +14,20 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/f687d29b-d636-432a-98bb-af7f6e3dc226";
+    { device = "/dev/disk/by-uuid/937e3ce3-554d-4249-b1b0-1d4c0dcf568c";
       fsType = "ext4";
     };
 
-  boot.initrd.luks.devices."luks-33fd1822-bf27-4a3e-a8e7-1c703185a503".device = "/dev/disk/by-uuid/33fd1822-bf27-4a3e-a8e7-1c703185a503";
+  boot.initrd.luks.devices."luks-1335075f-fce0-4057-964d-b30cca308aef".device = "/dev/disk/by-uuid/1335075f-fce0-4057-964d-b30cca308aef";
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/653C-4F14";                                                                                                                                                                    
+    { device = "/dev/disk/by-uuid/0C95-0FAD";                                                                                                                                                                    
       fsType = "vfat";                                                                                                                                                                                           
       options = [ "fmask=0077" "dmask=0077" ];                                                                                                                                                                   
     };                                                                                                                                                                                                           
                                                                                                                                                                                                                  
   swapDevices =                                                                                                                                                                                                  
-    [ { device = "/dev/disk/by-uuid/7b97e697-298b-4af4-b8ff-8b0bef8d7520"; }                                                                                                                                     
+    [ { device = "/dev/disk/by-uuid/23c2d8c2-21f7-4c92-be68-23eb2f689e30"; }                                                                                                                                     
     ];                                                                                                                                                                                                           
                                                                                                                                                                                                                  
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking                                                                                                                         

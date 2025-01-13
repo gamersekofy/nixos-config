@@ -21,7 +21,7 @@
     #};
 
     nixos-hardware = {
-      url = "github:NixOS/nixos-hardware/893d255bed44d251e84e90fad25e7ad5f45cf117";
+      url = "github:NixOS/nixos-hardware";
     };
 
     nixos-cli = {
