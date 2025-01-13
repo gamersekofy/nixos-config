@@ -1,10 +1,9 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    kdePackages.kdenlive
     kdePackages.kget
-    kdePackages.kalgebra
 
     keepassxc
+    yubioath-flutter
 
     pciutils
     glxinfo
@@ -19,6 +18,7 @@
 
     fastfetch
 
-    yubioath-flutter
-  ];
+    lmstudio
+
+      ];
 }

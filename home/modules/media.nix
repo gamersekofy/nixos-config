@@ -2,6 +2,7 @@
   home.packages = with pkgs; [
     nicotine-plus
     gimp
+    kdePackages.kdenlive
   ];
 
   programs.mpv.enable = true;
