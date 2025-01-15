@@ -68,7 +68,7 @@
     lib = nixpkgs.lib;
   in {
     nixosConfigurations = {
-      nixos = lib.nixosSystem {
+      precision-5530 = lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [
@@ -83,7 +83,7 @@
 
             home-manager.users.uzair = {
               imports = [
-                ./home/home.nix
+                ./hosts/precision-5530/home/home.nix
                 nixvim.homeManagerModules.nixvim
 		walker.homeManagerModules.default
               ];
@@ -98,7 +98,7 @@
 
           lanzaboote.nixosModules.lanzaboote
  
-          ./system
+          ./hosts/precision-5530/system
         ];
       };
     };
