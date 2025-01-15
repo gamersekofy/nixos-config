@@ -2,6 +2,6 @@
   users.users.uzair = {
     isNormalUser = true;
     description = "Uzair Mohammed";
-    extraGroups = ["networkmanager" "wheel" "docker" ];
+    extraGroups = ["networkmanager" "wheel" "docker"];
   };
 }

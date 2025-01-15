@@ -74,9 +74,9 @@
         modules = [
           home-manager.nixosModules.home-manager
           {
-	    home-manager.extraSpecialArgs = {
-	        inherit inputs;
-	    };
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+            };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "backup";
@@ -85,7 +85,7 @@
               imports = [
                 ./hosts/precision-5530/home/home.nix
                 nixvim.homeManagerModules.nixvim
-		walker.homeManagerModules.default
+                walker.homeManagerModules.default
               ];
             };
           }
@@ -97,7 +97,7 @@
           nixos-cli.nixosModules.nixos-cli
 
           lanzaboote.nixosModules.lanzaboote
- 
+
           ./hosts/precision-5530/system
         ];
       };

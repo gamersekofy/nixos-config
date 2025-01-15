@@ -1,5 +1,8 @@
-{pkgs, inputs, ...}: {
-
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   # Nix flake Cachix stuff
   nix.settings = {
     substituters = ["https://hyprland.cachix.org"];

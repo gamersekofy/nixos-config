@@ -2,8 +2,8 @@
   networking.hostName = "precision-5530"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-    # Enable CUPS to print documents.
-    services.printing.enable = true;
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
