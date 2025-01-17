@@ -3,6 +3,7 @@
     nicotine-plus
     gimp
     kdePackages.kdenlive
+    vlc
   ];
 
   programs.mpv.enable = true;
