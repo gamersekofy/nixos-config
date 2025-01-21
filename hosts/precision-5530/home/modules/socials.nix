@@ -4,5 +4,6 @@
     vesktop
     thunderbird
     element-desktop
+    telegram-desktop
   ];
 }
