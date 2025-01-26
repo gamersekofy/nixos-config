@@ -86,19 +86,16 @@
                 ./hosts/precision-5530/home/home.nix
                 nixvim.homeManagerModules.nixvim
                 walker.homeManagerModules.default
+		spicetify-nix.homeManagerModules.default
               ];
             };
           }
 
-          #inputs.minegrub-world-sel-theme.nixosModules.default
-
-          nixos-hardware.nixosModules.dell-precision-5530
-
-          nixos-cli.nixosModules.nixos-cli
-
-          lanzaboote.nixosModules.lanzaboote
-
           ./hosts/precision-5530/system
+          #inputs.minegrub-world-sel-theme.nixosModules.default
+          nixos-hardware.nixosModules.dell-precision-5530
+          nixos-cli.nixosModules.nixos-cli
+          lanzaboote.nixosModules.lanzaboote
         ];
       };
     };

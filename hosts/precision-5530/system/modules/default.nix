@@ -9,7 +9,6 @@
     ./kdePlasma.nix
     ./media.nix
     ./suspendThenHibernate.nix
-    ./spicetify.nix
     ./hardware-configuration.nix
     ./tzLocale.nix
     ./users.nix
