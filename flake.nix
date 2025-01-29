@@ -50,10 +50,6 @@
     walker = {
       url = "github:abenz1267/walker";
     };
-
-    textfox = {
-      url = "github:adriankarlen/textfox";
-    };
   };
 
   outputs = {
@@ -67,7 +63,6 @@
     nixvim,
     hyprland-qtutils,
     walker,
-    textfox,
     ...
   } @ inputs: let
     lib = nixpkgs.lib;
@@ -92,7 +87,6 @@
                 nixvim.homeManagerModules.nixvim
                 walker.homeManagerModules.default
 		spicetify-nix.homeManagerModules.default
-		textfox.homeManagerModules.default
               ];
             };
           }
