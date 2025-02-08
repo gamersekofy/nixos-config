@@ -10,11 +10,13 @@
   services.displayManager.sddm.wayland.enable = true;
 
   environment.systemPackages = with pkgs; [
+    kdePackages.xdg-desktop-portal-kde
     kdePackages.kdeconnect-kde
     kdePackages.plasma-nm
     kdePackages.qtwebsockets
     kdePackages.qtmultimedia
     plasmusic-toolbar
+    plasma-browser-integration
     kdePackages.filelight
   ];
 }
