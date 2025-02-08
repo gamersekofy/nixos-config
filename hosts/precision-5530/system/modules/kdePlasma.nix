@@ -20,8 +20,8 @@
     kdePackages.filelight
 
     (catppuccin-kde.override {
-    	flavour = [ "latte" "mocha" ];
-	accents = [ "mauve" ];
+      flavour = ["latte" "mocha"];
+      accents = ["mauve"];
     })
   ];
 }
