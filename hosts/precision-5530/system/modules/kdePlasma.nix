@@ -18,5 +18,10 @@
     plasmusic-toolbar
     plasma-browser-integration
     kdePackages.filelight
+
+    (catppuccin-kde).override {
+    	flavour = [ "latte" "mocha" ];
+	accents = [ "mauve" ];
+    }
   ];
 }
