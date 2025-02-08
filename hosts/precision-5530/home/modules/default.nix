@@ -9,5 +9,6 @@
     ./productivity.nix
     ./media.nix
     #./hyprland/hyprland.nix
+    ./gaming.nix
   ];
 }

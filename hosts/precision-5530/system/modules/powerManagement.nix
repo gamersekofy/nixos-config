@@ -8,8 +8,6 @@
     # Conflict with auto-cpufreq
     power-profiles-daemon.enable = false;
 
-    thermald.enable = true;
-
     # List of governors:
     #     - performance
     #     - powersave

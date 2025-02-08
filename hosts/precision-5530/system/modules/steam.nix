@@ -1,0 +1,3 @@
+{
+   programs.steam.enabled = true;
+}

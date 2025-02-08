@@ -1,7 +1,6 @@
 {
   imports = [
     ./bootloader.nix
-    ./graphics.nix
     ./powerManagement.nix
     ./wireless.nix
     #./wayland.nix
@@ -17,8 +16,8 @@
     ./nerdFonts.nix
     ./nixos-cli.nix
     ./lanzaboote.nix
-    ./gaming.nix
     ./printing.nix
     ./yubikey.nix
+    ./steam.nix
   ];
 }
