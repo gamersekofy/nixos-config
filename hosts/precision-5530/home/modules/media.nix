@@ -7,6 +7,7 @@
     nicotine-plus
     gimp
     kdePackages.kdenlive
+    digikam
   ];
 
   programs.mpv.enable = true;
