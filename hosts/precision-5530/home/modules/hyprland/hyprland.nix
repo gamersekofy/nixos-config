@@ -23,8 +23,8 @@
     pkgs.wl-clipboard
     pkgs.playerctl
 
-    pkgs.libsForQt5.qt5ct
-    pkgs.kdePackages.qt6ct
+    pkgs.libsForQt5.qt5.qtwayland
+    pkgs.kdePackages.qtwayland
   ];
 
   wayland.windowManager.hyprland = {
