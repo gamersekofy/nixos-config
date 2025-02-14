@@ -3,7 +3,6 @@
     ./bootloader.nix
     ./powerManagement.nix
     ./wireless.nix
-    #./wayland.nix
     ./syncthing.nix
     ./kdePlasma.nix
     ./media.nix
@@ -19,5 +18,6 @@
     ./printing.nix
     ./yubikey.nix
     ./steam.nix
+    ./hyprland.nix
   ];
 }
