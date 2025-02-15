@@ -50,6 +50,10 @@
     walker = {
       url = "github:abenz1267/walker";
     };
+
+    nixcord = {
+      url = "github:kaylorben/nixcord";
+    };
   };
 
   outputs = {
