@@ -25,7 +25,7 @@
     unzip
 
     # IDE
-    #(jetbrains.plugins.addPlugins jetbrains.idea-ultimate ["github-copilot"])
+    (jetbrains.plugins.addPlugins jetbrains.idea-ultimate ["github-copilot"])
     jetbrains.rider
 
     # nix language server
