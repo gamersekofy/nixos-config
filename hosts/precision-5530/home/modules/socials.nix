@@ -39,6 +39,7 @@
         serverInfo.enable = true;
         reverseImageSearch.enable = true;
         fakeNitro.enable = true;
+	readAllNotificationsButton.enable = true;
       };
     };
   };
