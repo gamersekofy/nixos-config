@@ -15,7 +15,10 @@
   programs.nixcord = {
     enable = true;
     config = {
-      themeLinks = ["https://raw.githubusercontent.com/catppuccin/discord/refs/heads/main/themes/mocha.theme.css"];
+      themeLinks = [
+      	#"https://raw.githubusercontent.com/catppuccin/discord/refs/heads/main/themes/mocha.theme.css"
+	"https://raw.githubusercontent.com/refact0r/system24/refs/heads/main/theme/flavors/catppuccin-mocha.theme.css"
+      ];
       plugins = {
         spotifyCrack = {
           enable = true;
