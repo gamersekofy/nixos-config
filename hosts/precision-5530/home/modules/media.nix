@@ -8,9 +8,8 @@
     gimp
     kdePackages.kdenlive
     digikam
+    haruna
   ];
-
-  programs.mpv.enable = true;
 
   programs.obs-studio = {
     enable = true;
