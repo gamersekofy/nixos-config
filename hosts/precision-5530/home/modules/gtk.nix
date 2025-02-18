@@ -6,7 +6,7 @@
         accents = ["mauve"];
         variant = "mocha";
       };
-      name = "catppuccin-gtk";
+      name = "catppuccin-mocha-mauve-standard";
     };
   };
 }
