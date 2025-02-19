@@ -17,9 +17,6 @@
     plasmusic-toolbar
     plasma-browser-integration
     kdePackages.filelight
-    maliit-keyboard
-    kdePackages.kweather
-    kdePackages.kclock
 
     (catppuccin-kde.override {
       flavour = ["latte" "mocha"];
