@@ -22,5 +22,7 @@
       flavour = ["latte" "mocha"];
       accents = ["mauve"];
     })
+
+    qogir-icon-theme
   ];
 }
