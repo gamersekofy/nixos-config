@@ -23,6 +23,8 @@
       accents = ["mauve"];
     })
 
-    qogir-icon-theme
+    (catppuccin-papirus-folders.override {
+      accent = "mauve";
+    })
   ];
 }
