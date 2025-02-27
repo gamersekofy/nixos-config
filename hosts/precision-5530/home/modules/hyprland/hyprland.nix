@@ -14,6 +14,7 @@
     ./wlogout.nix
     ./wlsunset.nix
     ./hyprpaper.nix
+    ./hyprpanel.nix
   ];
 
   home.packages = [
