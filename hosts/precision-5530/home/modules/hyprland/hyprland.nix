@@ -128,6 +128,9 @@
 
           "$mod, V, exec, cliphist list | walker --dmenu | cliphist decode | wl-copy"
 
+	  # Emoji
+	  "$mod, ., exec, walker --modules emojis | wl-copy"
+
           # Scroll through existing workspaces with mod + scroll
           "$mod, mouse_down, workspace, e+1"
           "$mod, mouse_up, workspace, e-1"

@@ -5,7 +5,6 @@
 
   programs.hyprpanel = {
     enable = true;
-    systemd.enable = true;
     hyprland.enable = true;
 
     theme = "catppuccin_mocha";
@@ -13,9 +12,9 @@
     layout = {
       "bar.layouts" = {
         "0" = {
-          left = ["dashboard" "workspaces"];
-          middle = ["media"];
-          right = ["volume" "systray" "notifications"];
+          left = ["dashboard" "workspaces" "media" ];
+          middle = ["clock"];
+          right = [ "battery" "volume" "systray" "notifications"];
         };
       };
     };
@@ -34,7 +33,7 @@
         };
 
 	dashboard = {
-		directories.enabled = true;
+		directories.enabled = false;
 	};
       };
 

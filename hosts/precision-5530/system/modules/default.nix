@@ -18,6 +18,6 @@
     ./printing.nix
     ./yubikey.nix
     ./steam.nix
-    ./hyprland.nix
+    #./hyprland.nix
   ];
 }
