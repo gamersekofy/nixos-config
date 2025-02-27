@@ -5,8 +5,8 @@
 }: {
   imports = [
     ./kitty.nix
-    ./waybar.nix
-    ./mako.nix
+    #./waybar.nix
+    #./mako.nix
     ./walker.nix
     ./network-manager.nix
     ./rofi.nix
@@ -125,7 +125,7 @@
           "$mod SHIFT, V, togglefloating,"
           "$mod SHIFT, Q, killactive,"
 
-          "$mod, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
+          "$mod, V, exec, cliphist list | walker --dmenu | cliphist decode | wl-copy"
 
           # Scroll through existing workspaces with mod + scroll
           "$mod, mouse_down, workspace, e+1"
