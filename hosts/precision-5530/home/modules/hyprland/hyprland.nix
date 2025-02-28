@@ -5,8 +5,8 @@
 }: {
   imports = [
     ./kitty.nix
-    #./waybar.nix
-    #./mako.nix
+    ./waybar.nix
+    ./mako.nix
     ./walker.nix
     ./network-manager.nix
     ./rofi.nix
@@ -14,7 +14,6 @@
     ./wlogout.nix
     ./wlsunset.nix
     ./hyprpaper.nix
-    ./hyprpanel.nix
   ];
 
   home.packages = [

@@ -54,10 +54,6 @@
     nixcord = {
       url = "github:kaylorben/nixcord";
     };
-
-    hyprpanel = {
-    	url = "github:jas-singhfsu/hyprpanel";
-    };
   };
 
   outputs = {
@@ -71,7 +67,6 @@
     nixvim,
     hyprland-qtutils,
     walker,
-    hyprpanel,
     ...
   } @ inputs: let
     lib = nixpkgs.lib;
@@ -89,7 +84,6 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "backup";
-	    nixpkgs.overlays = [ inputs.hyprpanel.overlay ];
 
             home-manager.users.uzair = {
               imports = [
