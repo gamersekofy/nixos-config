@@ -5,5 +5,6 @@
     calibre
     obsidian
     libreoffice-qt6-fresh
+    xournalpp
   ];
 }
