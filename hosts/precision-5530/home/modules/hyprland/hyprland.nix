@@ -134,6 +134,10 @@
           # Scroll through existing workspaces with mod + scroll
           "$mod, mouse_down, workspace, e+1"
           "$mod, mouse_up, workspace, e-1"
+
+	  # Switch between windows in a floating workspace
+	  "ALT, Tab, cyclenext,"
+	  "ALT, Tab, beingactivetotop,"
         ]
         ++ (
           # workspaces
