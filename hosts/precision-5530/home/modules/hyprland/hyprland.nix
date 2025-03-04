@@ -26,6 +26,8 @@
 
     pkgs.libsForQt5.qt5.qtwayland
     pkgs.kdePackages.qtwayland
+
+    pkgs.rofi-wayland
   ];
 
   wayland.windowManager.hyprland = {
@@ -116,7 +118,7 @@
       "$mod" = "SUPER";
       "$terminal" = "kitty";
       "$files" = "dolphin";
-      "$menu" = "walker";
+      "$menu" = "rofi -show drun";
       bind =
         [
           "$mod, Return, exec, $terminal"
@@ -218,6 +220,8 @@
 
     extraConfig = ''
       exec-once = waybar
+      env = NIXOS_OZONE_WL,1
+      env = ELECTRON_OZONE_PLATFORM_HINT,wayland
     '';
   };
 }
