@@ -137,7 +137,7 @@
 
 	  # Switch between windows in a floating workspace
 	  "ALT, Tab, cyclenext,"
-	  "ALT, Tab, beingactivetotop,"
+	  "ALT, Tab, bringactivetotop,"
         ]
         ++ (
           # workspaces
@@ -171,6 +171,11 @@
         ", XF86AudioPause, exec, playerctl play-pause"
         ", XF86AudioPlay, exec, playerctl play-pause"
         ", XF86AudioPrev, exec, playerctl previous"
+
+	# Laptop lid open and close event
+	", switch:Lid Switch, exec, hyprlock"
+	", switch:off:Lid Switch, exec, hyprctl keyword monitor \"eDP-1, disable\""
+	", switch:on:Lid Switch, exec, hyprctl keyword monitor \"eDP-1, 3840x2160, 0x0, 2\""
       ];
 
       input = {
@@ -213,7 +218,6 @@
 
     extraConfig = ''
       exec-once = waybar
-      env = QT_QPA_PLATFORM,wayland
     '';
   };
 }
