@@ -21,70 +21,70 @@
 
         "hyprland/window" = {
           separate-outputs = true;
-	  format = " 󱂬 {class}";
-	  icon = true;
-	  rewrite = {
-	  	"(.*) — Mozilla Firefox" = "Firefox";
-	  };
+          format = " 󱂬 {class}";
+          icon = true;
+          rewrite = {
+            "(.*) — Mozilla Firefox" = "Firefox";
+          };
         };
 
-	# ----------------------------------------------
+        # ----------------------------------------------
 
-	"tray" = {
-	  icon-size = 21;
-	  spacing = 10;
-	};
+        "tray" = {
+          icon-size = 21;
+          spacing = 10;
+        };
 
-	# ----------------------------------------------
+        # ----------------------------------------------
 
-	"pulseaudio" = {
-	  format = "{icon} {volume}%";
-	  format-muted = " {volume}%";
-	  format-icons = {
-	    default = [ "" "" "" ];
-	  };
-	};
+        "pulseaudio" = {
+          format = "{icon} {volume}%";
+          format-muted = " {volume}%";
+          format-icons = {
+            default = ["" "" ""];
+          };
+        };
 
-	"backlight" = {
-	  format = "󰃠 {percent}%";
-	};
+        "backlight" = {
+          format = "󰃠 {percent}%";
+        };
 
-	"bluetooth" = {
-	  format-disabled = "󰂲";
-	  format-off = "󰂲";
-	  format-on = "󰂯";
-	  format-connected = "󰂱";
-	  tooltip-format-connected = "Connected to {device_alias}";
-	  format-connected-battery = "󰂱 {device_battery_percentage}%";
-	};
+        "bluetooth" = {
+          format-disabled = "󰂲";
+          format-off = "󰂲";
+          format-on = "󰂯";
+          format-connected = "󰂱";
+          tooltip-format-connected = "Connected to {device_alias}";
+          format-connected-battery = "󰂱 {device_battery_percentage}%";
+        };
 
-	"network" = {
-	  format = "{ifname}";
-	  format-ethernet = "󰈀";
-	  tooltip-format-ethernet = "{ifname}";
-	  format-wifi = "{icon}";
-	  tooltip-format-wifi = "Connected to {essid} with IP: {ipaddr} and signal strength: {signalStrength}";
-	  format-disconnected = "󰤭";
-	  tooltip-format-disconnected = "Disconnected";
-	  format-icons = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
-	};
+        "network" = {
+          format = "{ifname}";
+          format-ethernet = "󰈀";
+          tooltip-format-ethernet = "{ifname}";
+          format-wifi = "{icon}";
+          tooltip-format-wifi = "Connected to {essid} with IP: {ipaddr} and signal strength: {signalStrength}";
+          format-disconnected = "󰤭";
+          tooltip-format-disconnected = "Disconnected";
+          format-icons = ["󰤯" "󰤟" "󰤢" "󰤥" "󰤨"];
+        };
 
-	"battery" = {
-	  states = {
-	    warning = 30;
-	    critical = 15;
-	  };
-	  
-	  format = " {capacity}%";
-	  format-charging = " {capacity}%";
-	};
+        "battery" = {
+          states = {
+            warning = 30;
+            critical = 15;
+          };
 
-	"clock" = {
-	  timezone = "America/Los_Angeles";
-	  tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-	  format-alt = "󰃭 {:%d/%m/%Y}";
-	  format = " {:%H:%M}";
-	};
+          format = " {capacity}%";
+          format-charging = " {capacity}%";
+        };
+
+        "clock" = {
+          timezone = "America/Los_Angeles";
+          tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+          format-alt = "󰃭 {:%d/%m/%Y}";
+          format = " {:%H:%M}";
+        };
 
         "custom/power" = {
           tooltip = false;

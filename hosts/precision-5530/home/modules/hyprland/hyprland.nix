@@ -9,11 +9,12 @@
     ./mako.nix
     ./walker.nix
     ./network-manager.nix
-    ./rofi.nix
     ./cliphist.nix
     ./wlogout.nix
     ./wlsunset.nix
     ./hyprpaper.nix
+    ./hypridle.nix
+    ./hyprlock.nix
   ];
 
   home.packages = [
@@ -127,8 +128,8 @@
 
           "$mod, V, exec, cliphist list | walker --dmenu | cliphist decode | wl-copy"
 
-	  # Emoji
-	  "$mod, PERIOD, exec, walker --modules emojis | wl-copy"
+          # Emoji
+          "$mod, PERIOD, exec, walker --modules emojis | wl-copy"
 
           # Scroll through existing workspaces with mod + scroll
           "$mod, mouse_down, workspace, e+1"
@@ -202,7 +203,7 @@
       gestures = {
         workspace_swipe = true;
         workspace_swipe_fingers = 3;
-	workspace_swipe_distance = 450;
+        workspace_swipe_distance = 450;
       };
     };
 
