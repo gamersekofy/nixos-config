@@ -30,6 +30,7 @@
 
     pkgs.rofi-wayland
     pkgs.rofimoji
+    pkgs.nemo
 
     pkgs.blueman
     pkgs.pavucontrol
@@ -122,7 +123,7 @@
 
       "$mod" = "SUPER";
       "$terminal" = "kitty";
-      "$files" = "dolphin";
+      "$files" = "nemo";
       "$menu" = "rofi -show drun -show-icons";
       #"$menu" = "walker";
       bind =
