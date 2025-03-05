@@ -2,8 +2,8 @@
   services.hyprpaper = {
     enable = true;
     settings = {
-      preload = ["/home/uzair/Pictures/nix-wallpaper-catppuccin-mocha.png"];
-      wallpaper = [", /home/uzair/Pictures/nix-wallpaper-catppuccin-mocha.png"];
+      preload = ["/home/uzair/Pictures/FlowersWallpaper.jpeg"];
+      wallpaper = [", /home/uzair/Pictures/FlowersWallpaper.jpeg"];
     };
   };
 }

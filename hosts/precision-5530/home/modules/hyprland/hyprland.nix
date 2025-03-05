@@ -118,7 +118,8 @@
       "$mod" = "SUPER";
       "$terminal" = "kitty";
       "$files" = "dolphin";
-      "$menu" = "rofi -show drun";
+      #"$menu" = "rofi -show drun";
+      "$menu" = "walker"
       bind =
         [
           "$mod, Return, exec, $terminal"
