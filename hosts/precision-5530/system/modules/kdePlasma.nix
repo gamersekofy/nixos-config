@@ -10,7 +10,6 @@
   	enable = true;
 	wayland.enable = true;
 	theme = "catppuccin-mocha";
-	package = pkgs.kdePackages.sddm;
   };
 
   environment.systemPackages = with pkgs; [
@@ -32,11 +31,11 @@
       accent = "mauve";
     })
 
-    (catppuccin-sddm-override {
+    (catppuccin-sddm.override {
       flavor = "mocha";
       font = "DepartureMono Nerd Font";
       fontSize = "12";
-      background = "${sddmWallpaper.jpg}";
+      background = "${./sddmWallpaper.jpg}";
       loginBackground = true;
     })
   ];
