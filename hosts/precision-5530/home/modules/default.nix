@@ -10,6 +10,6 @@
     ./media.nix
     ./hyprland/hyprland.nix
     ./gaming.nix
-    ./gtk.nix
+    ./themes.nix
   ];
 }
