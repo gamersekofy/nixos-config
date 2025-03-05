@@ -186,6 +186,10 @@
         ", switch:on:Lid Switch, exec, hyprctl keyword monitor \"eDP-1, 3840x2160, 0x0, 2\""
       ];
 
+      windowrulev2 = [
+      	"float, class:org.pulseaudio.pavucontrol"
+      ];
+
       input = {
         kb_layout = "us";
         touchpad = {

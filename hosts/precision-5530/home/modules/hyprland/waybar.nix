@@ -10,9 +10,9 @@
           "eDP-1"
           "HDMI-A-1"
         ];
-        modules-left = ["hyprland/workspaces" "hyprland/window"];
-        modules-center = ["bluetooth" "tray"];
-        modules-right = ["pulseaudio" "backlight" "battery" "clock" "custom/power"];
+        modules-left = ["hyprland/workspaces" "hyprland/window" "tray"];
+        modules-center = [ "clock" ];
+        modules-right = [ "bluetooth" "network" "pulseaudio" "backlight" "battery" "custom/power"];
 
         "hyprland/workspaces" = {
           on-scroll-up = "hyprctl dispatch workspace e+1";
@@ -32,7 +32,7 @@
 
         "tray" = {
           icon-size = 21;
-          spacing = 10;
+          spacing = 7;
         };
 
         # ----------------------------------------------
@@ -43,6 +43,7 @@
           format-icons = {
             default = ["" "" ""];
           };
+	  on-click = "pavucontrol";
         };
 
         "backlight" = {
@@ -50,10 +51,10 @@
         };
 
         "bluetooth" = {
-          format-disabled = "󰂲";
-          format-off = "󰂲";
-          format-on = "󰂯";
-          format-connected = "󰂱";
+          format-disabled = "󰂲 Disabled";
+          format-off = "󰂲 Off";
+          format-on = "󰂯 On";
+          format-connected = "󰂱 Connected";
           tooltip-format-connected = "Connected to {device_alias}";
           format-connected-battery = "󰂱 {device_battery_percentage}%";
         };
@@ -62,9 +63,9 @@
           format = "{ifname}";
           format-ethernet = "󰈀";
           tooltip-format-ethernet = "{ifname}";
-          format-wifi = "{icon}";
+          format-wifi = "{icon} Connected";
           tooltip-format-wifi = "Connected to {essid} with IP: {ipaddr} and signal strength: {signalStrength}";
-          format-disconnected = "󰤭";
+          format-disconnected = "󰤭 Offline";
           tooltip-format-disconnected = "Disconnected";
           format-icons = ["󰤯" "󰤟" "󰤢" "󰤥" "󰤨"];
         };
@@ -82,7 +83,7 @@
         "clock" = {
           timezone = "America/Los_Angeles";
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-          format-alt = "󰃭 {:%d/%m/%Y}";
+          format-alt = "󰃭 {:%m/%d/%Y}";
           format = " {:%H:%M}";
         };
 
