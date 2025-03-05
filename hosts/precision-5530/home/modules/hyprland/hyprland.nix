@@ -220,7 +220,11 @@
           passes = 1;
           vibrancy = 0.1696;
         };
+
+	shadow.enabled = false;
       };
+
+      misc.vfr = true;
 
       gestures = {
         workspace_swipe = true;
