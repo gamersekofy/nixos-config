@@ -119,7 +119,7 @@
       "$terminal" = "kitty";
       "$files" = "dolphin";
       #"$menu" = "rofi -show drun";
-      "$menu" = "walker"
+      "$menu" = "walker";
       bind =
         [
           "$mod, Return, exec, $terminal"
