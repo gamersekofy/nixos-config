@@ -9,6 +9,7 @@
         output = [
           "eDP-1"
           "HDMI-A-1"
+	  "DP-1"
         ];
         modules-left = ["hyprland/workspaces" "hyprland/window" "tray"];
         modules-center = [ "clock" ];

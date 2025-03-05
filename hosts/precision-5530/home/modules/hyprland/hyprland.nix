@@ -24,6 +24,7 @@
     pkgs.kdePackages.xwaylandvideobridge
     pkgs.wl-clipboard
     pkgs.playerctl
+    pkgs.zsh
 
     pkgs.libsForQt5.qt5.qtwayland
     pkgs.kdePackages.qtwayland
@@ -183,8 +184,8 @@
 
         # Laptop lid open and close event
         ", switch:Lid Switch, exec, hyprlock"
-        ", switch:off:Lid Switch, exec, hyprctl keyword monitor \"eDP-1, disable\""
-        ", switch:on:Lid Switch, exec, hyprctl keyword monitor \"eDP-1, 3840x2160, 0x0, 2\""
+        ", switch:off:Lid Switch, exec, ./lid.sh close"
+        ", switch:on:Lid Switch, exec, ./lid.sh open"
       ];
 
       windowrulev2 = [
