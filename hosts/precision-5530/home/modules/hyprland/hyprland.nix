@@ -28,6 +28,10 @@
     pkgs.kdePackages.qtwayland
 
     pkgs.rofi-wayland
+    pkgs.rofimoji
+
+    pkgs.blueman
+    pkgs.pavucontrol
   ];
 
   wayland.windowManager.hyprland = {
@@ -118,8 +122,8 @@
       "$mod" = "SUPER";
       "$terminal" = "kitty";
       "$files" = "dolphin";
-      #"$menu" = "rofi -show drun";
-      "$menu" = "walker";
+      "$menu" = "rofi -show drun";
+      #"$menu" = "walker";
       bind =
         [
           "$mod, Return, exec, $terminal"
@@ -132,7 +136,7 @@
           "$mod, V, exec, cliphist list | walker --dmenu | cliphist decode | wl-copy"
 
           # Emoji
-          "$mod, PERIOD, exec, walker --modules emojis | wl-copy"
+          "$mod, PERIOD, exec, rofi -modi \"emoji:rofimoji\" -show emoji"
 
           # Scroll through existing workspaces with mod + scroll
           "$mod, mouse_down, workspace, e+1"
@@ -205,7 +209,7 @@
         rounding = 5;
 
         blur = {
-          enabled = true;
+          enabled = false;
           size = 3;
           passes = 1;
           vibrancy = 0.1696;

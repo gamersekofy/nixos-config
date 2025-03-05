@@ -19,7 +19,7 @@
         accents = ["mauve"];
       };
 
-      name = "CatppuccinMochaMauve";
+      name = "Breeze";
     };
   };
 }
