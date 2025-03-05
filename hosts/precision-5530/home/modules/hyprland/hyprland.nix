@@ -122,7 +122,7 @@
       "$mod" = "SUPER";
       "$terminal" = "kitty";
       "$files" = "dolphin";
-      "$menu" = "rofi -show drun";
+      "$menu" = "rofi -show drun -show-icons";
       #"$menu" = "walker";
       bind =
         [
@@ -133,7 +133,7 @@
           "$mod SHIFT, V, togglefloating,"
           "$mod SHIFT, Q, killactive,"
 
-          "$mod, V, exec, cliphist list | walker --dmenu | cliphist decode | wl-copy"
+          "$mod, V, exec, rofi -modi clipboard:/home/uzair/Documents/cliphist-rofi-img -show clipboard -show-icons"
 
           # Emoji
           "$mod, PERIOD, exec, rofi -modi \"emoji:rofimoji\" -show emoji"
