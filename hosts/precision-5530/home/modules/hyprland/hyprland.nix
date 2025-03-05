@@ -15,6 +15,7 @@
     ./hyprpaper.nix
     ./hypridle.nix
     ./hyprlock.nix
+    ./udiskie.nix
   ];
 
   home.packages = [

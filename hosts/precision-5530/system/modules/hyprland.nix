@@ -24,6 +24,7 @@
   };
 
   security.pam.services.hyprlock = {};
+  services.udisks2.enable = true;
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
