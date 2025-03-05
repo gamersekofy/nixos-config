@@ -143,9 +143,9 @@
           "$mod, mouse_down, workspace, e+1"
           "$mod, mouse_up, workspace, e-1"
 
-	  # Switch between windows in a floating workspace
-	  "ALT, Tab, cyclenext,"
-	  "ALT, Tab, bringactivetotop,"
+          # Switch between windows in a floating workspace
+          "ALT, Tab, cyclenext,"
+          "ALT, Tab, bringactivetotop,"
         ]
         ++ (
           # workspaces
@@ -180,10 +180,10 @@
         ", XF86AudioPlay, exec, playerctl play-pause"
         ", XF86AudioPrev, exec, playerctl previous"
 
-	# Laptop lid open and close event
-	", switch:Lid Switch, exec, hyprlock"
-	", switch:off:Lid Switch, exec, hyprctl keyword monitor \"eDP-1, disable\""
-	", switch:on:Lid Switch, exec, hyprctl keyword monitor \"eDP-1, 3840x2160, 0x0, 2\""
+        # Laptop lid open and close event
+        ", switch:Lid Switch, exec, hyprlock"
+        ", switch:off:Lid Switch, exec, hyprctl keyword monitor \"eDP-1, disable\""
+        ", switch:on:Lid Switch, exec, hyprctl keyword monitor \"eDP-1, 3840x2160, 0x0, 2\""
       ];
 
       input = {
