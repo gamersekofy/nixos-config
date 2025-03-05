@@ -7,7 +7,6 @@
     ./kitty.nix
     ./waybar.nix
     ./mako.nix
-    ./walker.nix
     ./network-manager.nix
     ./cliphist.nix
     ./wlogout.nix
@@ -126,7 +125,6 @@
       "$terminal" = "kitty";
       "$files" = "nemo";
       "$menu" = "rofi -show drun -show-icons";
-      #"$menu" = "walker";
       bind =
         [
           "$mod, Return, exec, $terminal"

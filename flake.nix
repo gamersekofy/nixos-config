@@ -47,10 +47,6 @@
       url = "github:hyprwm/hyprland-qtutils";
     };
 
-    walker = {
-      url = "github:abenz1267/walker";
-    };
-
     nixcord = {
       url = "github:kaylorben/nixcord";
     };
@@ -66,7 +62,6 @@
     lanzaboote,
     nixvim,
     hyprland-qtutils,
-    walker,
     ...
   } @ inputs: let
     lib = nixpkgs.lib;
@@ -89,7 +84,6 @@
               imports = [
                 ./hosts/precision-5530/home/home.nix
                 nixvim.homeManagerModules.nixvim
-                walker.homeManagerModules.default
 		spicetify-nix.homeManagerModules.default
               ];
             };
