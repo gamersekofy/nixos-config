@@ -192,6 +192,11 @@
       	"float, class:org.pulseaudio.pavucontrol"
       ];
 
+      monitor = [
+      	"eDP-1, highres, 0x0, 2"
+	"DP-1, highres, 1920x0, 1"
+      ];
+
       input = {
         kb_layout = "us";
         touchpad = {
