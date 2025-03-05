@@ -4,10 +4,14 @@
   services.xserver.enable = false;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
-  services.displayManager.sddm.wayland.enable = true;
+  services.displayManager.sddm = {
+  	enable = true;
+	wayland.enable = true;
+	theme = "catppuccin-mocha";
+	package = pkgs.kdePackages.sddm;
+  };
 
   environment.systemPackages = with pkgs; [
     kdePackages.kdeconnect-kde
@@ -26,6 +30,14 @@
 
     (catppuccin-papirus-folders.override {
       accent = "mauve";
+    })
+
+    (catppuccin-sddm-override {
+      flavor = "mocha";
+      font = "DepartureMono Nerd Font";
+      fontSize = "12";
+      background = "${sddmWallpaper.jpg}";
+      loginBackground = true;
     })
   ];
 }
