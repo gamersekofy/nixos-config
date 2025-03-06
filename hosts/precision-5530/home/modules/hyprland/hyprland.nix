@@ -134,7 +134,7 @@
           "$mod SHIFT, V, togglefloating,"
           "$mod SHIFT, Q, killactive,"
 
-          "$mod, V, exec, rofi -modi clipboard:/home/uzair/Documents/cliphist-rofi-img -show clipboard -show-icons"
+          "$mod, V, exec, rofi -modi clipboard:./cliphist-rofi-img -show clipboard -show-icons"
 
           # Emoji
           "$mod, PERIOD, exec, rofi -modi \"emoji:rofimoji\" -show emoji"
