@@ -4,36 +4,30 @@
   ...
 }: {
   imports = [
-    ./kitty.nix
-    ./waybar.nix
-    ./mako.nix
-    ./network-manager.nix
-    ./cliphist.nix
-    ./wlogout.nix
-    ./wlsunset.nix
+    ../../../../common/home/wm-utils/kitty.nix
+    ../../../../common/home/wm-utils/mako.nix
+    ../../../../common/home/wm-utils/network-manager.nix
+    ../../../../common/home/wm-utils/cliphist.nix
+    ../../../../common/home/wm-utils/wlogout.nix
+    ../../../../common/home/wm-utils/wlsunset.nix
+    ../../../../common/home/wm-utils/udiskie.nix
     ./hyprpaper.nix
     ./hypridle.nix
     ./hyprlock.nix
-    ./udiskie.nix
+    ./waybar.nix
   ];
 
   home.packages = [
     inputs.hyprland-qtutils.packages."${pkgs.system}".default
-    pkgs.brightnessctl
+
     pkgs.kdePackages.xwaylandvideobridge
-    pkgs.wl-clipboard
-    pkgs.playerctl
+
     pkgs.zsh
 
     pkgs.libsForQt5.qt5.qtwayland
     pkgs.kdePackages.qtwayland
 
-    pkgs.rofi-wayland
-    pkgs.rofimoji
     pkgs.nemo
-
-    pkgs.blueman
-    pkgs.pavucontrol
   ];
 
   wayland.windowManager.hyprland = {
@@ -134,7 +128,7 @@
           "$mod SHIFT, V, togglefloating,"
           "$mod SHIFT, Q, killactive,"
 
-          "$mod, V, exec, rofi -modi clipboard:./cliphist-rofi-img -show clipboard -show-icons"
+          "$mod, V, exec, rofi -modi clipboard:../../../common/home/wm-utils/cliphist-rofi-img -show clipboard -show-icons"
 
           # Emoji
           "$mod, PERIOD, exec, rofi -modi \"emoji:rofimoji\" -show emoji"
@@ -187,12 +181,12 @@
       ];
 
       windowrulev2 = [
-      	"float, class:org.pulseaudio.pavucontrol"
+        "float, class:org.pulseaudio.pavucontrol"
       ];
 
       monitor = [
-      	"eDP-1, highres, 0x0, 2"
-	"DP-1, highres, 1920x0, 1"
+        "eDP-1, highres, 0x0, 2"
+        "DP-1, highres, 1920x0, 1"
       ];
 
       input = {
@@ -225,7 +219,7 @@
           vibrancy = 0.1696;
         };
 
-	shadow.enabled = false;
+        shadow.enabled = false;
       };
 
       misc.vfr = true;
