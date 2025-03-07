@@ -12,6 +12,6 @@
     ./gaming.nix
     ./themes.nix
 
-    ./niri.nix
+    ./niri
   ];
 }
