@@ -26,6 +26,7 @@
         QT_QPA_PLATFORM = "wayland";
         DISPLAY = ":0";
       };
+
       outputs = {
         "eDP-1" = {
           enable = true;
@@ -70,7 +71,7 @@
       };
 
       spawn-at-startup = [
-        {command = ["waybar"];}
+        {command = ["systemctl" "--user" "reset-failed" "waybar.service"];}
         {command = ["xwayland-satellite"];}
         {command = ["swww-daemon"];}
         {command = ["swww" "img" "~/Pictures/FlowersWallpaper.jpeg"];}
@@ -97,7 +98,7 @@
         "Mod+Return".action = spawn "kitty";
         "Mod+Space".action = spawn "rofi" "-show" "drun" "-show-icons";
         "Mod+V".action = spawn "rofi" "-modi" "clipboard:/home/uzair/Documents/nixos-config/hosts/common/home/wm-utils/cliphist-rofi-img" "-show" "clipboard" "-show-icons";
-        "Mod+Period".action = spawn "rofi" "-modi" "\"emoji:rofimoji\"" "-show emoji";
+        "Mod+Period".action = spawn "rofi" "-modi" "\"emoji:rofimoji\"" "-show" "emoji";
 
         "Mod+Shift+Slash".action = show-hotkey-overlay;
 
