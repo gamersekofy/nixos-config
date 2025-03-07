@@ -11,6 +11,7 @@
     ../../../../common/home/wm-utils/wlogout.nix
     ../../../../common/home/wm-utils/wlsunset.nix
     ../../../../common/home/wm-utils/udiskie.nix
+    ../../../../common/home/wm-utils/packages.nix
     ./hyprpaper.nix
     ./hypridle.nix
     ./hyprlock.nix
