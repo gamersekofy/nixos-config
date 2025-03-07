@@ -8,10 +8,10 @@
     ./browsers.nix
     ./productivity.nix
     ./media.nix
-    #./hyprland/hyprland.nix
     ./gaming.nix
     ./themes.nix
 
-    ./niri
+    #./niri
+    #./hyprland/hyprland.nix
   ];
 }

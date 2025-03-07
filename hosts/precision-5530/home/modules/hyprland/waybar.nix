@@ -1,5 +1,5 @@
 {
-  imports = ["../../../../common/home/wm-utils/waybar.nix"];
+  imports = [../../../../common/home/wm-utils/waybar.nix];
   programs.waybar = {
     settings = {
       mainBar = {
