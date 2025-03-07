@@ -88,7 +88,7 @@
               imports = [
                 ./hosts/precision-5530/home/home.nix
                 nixvim.homeManagerModules.nixvim
-		spicetify-nix.homeManagerModules.default
+		        spicetify-nix.homeManagerModules.default
               ];
             };
           }
@@ -98,7 +98,7 @@
           nixos-hardware.nixosModules.dell-precision-5530
           nixos-cli.nixosModules.nixos-cli
           lanzaboote.nixosModules.lanzaboote
-	  inputs.niri.nixosModules.niri
+	      inputs.niri.nixosModules.niri
         ];
       };
     };

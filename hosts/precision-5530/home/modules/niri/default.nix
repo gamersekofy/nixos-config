@@ -1,5 +1,14 @@
-{
+{inputs, ...}: {
     imports = [
-        ./alacritty.nix
+        inputs.niri.homeModules.niri
+        ../../../../common/wm-utils/kitty.nix
     ];
+
+    programs.niri = {
+        settings = {
+            binds = {
+
+            };
+        };
+    };
 }
