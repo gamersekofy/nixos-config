@@ -11,5 +11,7 @@
     #./hyprland/hyprland.nix
     ./gaming.nix
     ./themes.nix
+
+    ./niri.nix
   ];
 }

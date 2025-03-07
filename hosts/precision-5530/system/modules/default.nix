@@ -18,8 +18,12 @@
     ./printing.nix
     ./yubikey.nix
     ./steam.nix
-    #./hyprland.nix
+
     ./wayland.nix
     ./sddm.nix
+
+    ./kdePlasma.nix
+    #./hyprland.nix
+    ./niri.nix
   ];
 }

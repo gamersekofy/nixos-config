@@ -98,6 +98,7 @@
           nixos-hardware.nixosModules.dell-precision-5530
           nixos-cli.nixosModules.nixos-cli
           lanzaboote.nixosModules.lanzaboote
+	  inputs.niri.nixosModules.niri
         ];
       };
     };
