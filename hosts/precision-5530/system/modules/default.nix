@@ -19,5 +19,7 @@
     ./yubikey.nix
     ./steam.nix
     #./hyprland.nix
+    ./wayland.nix
+    ./sddm.nix
   ];
 }
