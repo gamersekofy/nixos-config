@@ -28,6 +28,7 @@
       };
 
       outputs = {
+        # Internal display
         "eDP-1" = {
           enable = true;
           mode.width = 3840;
@@ -36,6 +37,26 @@
           position.x = 0;
           position.y = 0;
         };
+
+	# Ultrawide Display
+	"Dell Inc. DELL U3818DW 97F8P8CE0U0L" = {
+	  enable = true;
+	  mode.width = 3840;
+	  mode.height = 1600;
+	  scale = 1;
+	  position.x = 1920;
+	  position.y = 0;
+	};
+
+	# Acer Portable Display
+	"Acer Technologies PM161Q J 1444001165V01" = {
+	  enable = true;
+	  mode.width = 1920;
+	  mode.height = 1080;
+	  scale = 1;
+	  position.x = 1920;
+	  position. y = 0;
+	};
       };
 
       input = {
@@ -92,6 +113,14 @@
             matches = [{app-id = "org.pulseaudio.pavucontrol";}];
             open-floating = true;
         }
+
+	{
+	   matches = [
+	     {app-id = "^thunderbird$";}
+	     {title = "\d+ Reminders?$";}
+	   ];
+	   open-floating = true;
+	}
       ];
 
       binds = with config.lib.niri.actions; {

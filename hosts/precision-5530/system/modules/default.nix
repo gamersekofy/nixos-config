@@ -4,7 +4,6 @@
     ./powerManagement.nix
     ./wireless.nix
     ./syncthing.nix
-    ./kdePlasma.nix
     ./media.nix
     ./suspendThenHibernate.nix
     ./hardware-configuration.nix
@@ -22,7 +21,7 @@
     ./wayland.nix
     ./sddm.nix
 
-    ./kdePlasma.nix
+    #./kdePlasma.nix
     #./hyprland.nix
     ./niri.nix
   ];
