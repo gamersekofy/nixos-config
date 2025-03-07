@@ -7,8 +7,8 @@
     SHELL = "/etc/profiles/per-user/uzair/bin/fish";
     ELECTRON_OZONE_PLATFORM_HINT = "wayland";
     NIXOS_CONFIG = "/home/uzair/Documents/nixos-config";
-    XCURSOR_THEME="Furina-v2";
-    XCURSOR_SIZE=32;
+    XCURSOR_THEME = "Furina-v2";
+    XCURSOR_SIZE = 32;
   };
 
   programs.helix = {

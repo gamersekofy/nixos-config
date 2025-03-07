@@ -23,4 +23,15 @@
       name = "Breeze";
     };
   };
+
+  home.packages = [
+    (catppuccin-kde.override {
+      flavour = ["latte" "mocha"];
+      accents = ["mauve"];
+    })
+
+    (catppuccin-papirus-folders.override {
+      accent = "mauve";
+    })
+  ];
 }

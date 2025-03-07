@@ -15,7 +15,7 @@
   programs.nixcord = {
     enable = true;
     config = {
-      themeLinks = [ "https://raw.githubusercontent.com/refact0r/system24/refs/heads/main/theme/flavors/catppuccin-mocha.theme.css" ];
+      themeLinks = ["https://raw.githubusercontent.com/refact0r/system24/refs/heads/main/theme/flavors/catppuccin-mocha.theme.css"];
       plugins = {
         spotifyCrack = {
           enable = true;
@@ -39,7 +39,7 @@
         serverInfo.enable = true;
         reverseImageSearch.enable = true;
         fakeNitro.enable = true;
-	readAllNotificationsButton.enable = true;
+        readAllNotificationsButton.enable = true;
       };
     };
   };

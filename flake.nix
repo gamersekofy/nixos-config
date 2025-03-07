@@ -50,6 +50,10 @@
     nixcord = {
       url = "github:kaylorben/nixcord";
     };
+
+    niri = {
+      url = "github:sodiboo/niri-flake";
+    };
   };
 
   outputs = {
