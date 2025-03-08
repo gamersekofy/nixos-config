@@ -12,7 +12,7 @@
           "DP-1"
         ];
         modules-center = ["clock"];
-        modules-right = ["bluetooth" "network" "pulseaudio" "backlight" "battery" "custom/power"];
+        modules-right = ["network" "pulseaudio" "backlight" "battery" "custom/power"];
 
         # ----------------------------------------------
 
@@ -29,7 +29,7 @@
           format-icons = {
             default = ["" "" ""];
           };
-          on-click = "pavucontrol";
+          on-click = "pavucontrol &";
         };
 
         "backlight" = {
@@ -62,15 +62,16 @@
             critical = 15;
           };
 
-          format = " {capacity}%";
-          format-charging = " {capacity}%";
+          format = "{icon}{capacity}%";
+          format-charging = " {capacity}%";
+          format-icons = ["" "" "" "" ""];
         };
 
         "clock" = {
           timezone = "America/Los_Angeles";
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
           format-alt = "󰃭 {:%m/%d/%Y}";
-          format = " {:%H:%M}";
+          format = " {:%H:%M} {:%A %b %e}";
         };
 
         "custom/power" = {
