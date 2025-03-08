@@ -38,25 +38,25 @@
           position.y = 0;
         };
 
-	# Ultrawide Display
-	"Dell Inc. DELL U3818DW 97F8P8CE0U0L" = {
-	  enable = true;
-	  mode.width = 3840;
-	  mode.height = 1600;
-	  scale = 1;
-	  position.x = 1920;
-	  position.y = 0;
-	};
+	    # Ultrawide Display
+        "Dell Inc. DELL U3818DW 97F8P8CE0U0L" = {
+          enable = true;
+          mode.width = 3840;
+          mode.height = 1600;
+          scale = 1;
+          position.x = 1920;
+          position.y = 0;
+        };
 
-	# Acer Portable Display
-	"Acer Technologies PM161Q J 1444001165V01" = {
-	  enable = true;
-	  mode.width = 1920;
-	  mode.height = 1080;
-	  scale = 1;
-	  position.x = 1920;
-	  position. y = 0;
-	};
+        # Acer Portable Display
+        "Acer Technologies PM161Q J 1444001165V01" = {
+          enable = true;
+          mode.width = 1920;
+          mode.height = 1080;
+          scale = 1;
+          position.x = 1920;
+          position. y = 0;
+        };
       };
 
       input = {
@@ -76,6 +76,11 @@
             enable = true;
             max-scroll-amount = "25%";
         };
+      };
+
+      cursor = {
+        theme = "Furina-v2";
+        size = 32;
       };
 
       layout = {
@@ -114,13 +119,32 @@
             open-floating = true;
         }
 
-	{
-	   matches = [
-	     {app-id = "^thunderbird$";}
-	     {title = "\d+ Reminders?$";}
-	   ];
-	   open-floating = true;
-	}
+        # Thunderbird reminders popup
+	    {
+	        matches = [
+	            {app-id = "^thunderbird$";}
+	            {title = "\d+ Reminders?$";}
+	        ];
+	        open-floating = true;
+	    }
+
+	    # IntelliJ greeter
+        {
+	        matches = [
+	            {app-id = "jetbrains-idea";}
+	            {title = "Welcome to IntelliJ IDEA";}
+	        ];
+	        open-floating = true;
+	    }
+
+	    # Blueman window
+        {
+	        matches = [
+	            {app-id = ".blueman-manager-wrapped";}
+	            {title = "Bluetooth Devices";}
+	        ];
+	        open-floating = true;
+	    }
       ];
 
       binds = with config.lib.niri.actions; {
