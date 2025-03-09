@@ -8,6 +8,13 @@
 
         "niri/workspaces" = {
           format = "{index}";
+          format-icons = {
+            main = "󱄄";
+            thunderbird = "󰛮";
+            work = "󰑴";
+            active = "";
+            default = "";
+          };
         };
 
         "niri/window" = {
