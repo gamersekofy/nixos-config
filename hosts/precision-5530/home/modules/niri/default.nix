@@ -18,6 +18,8 @@
   home.packages = with pkgs; [
     swww
     xwayland-satellite
+    libsForQt5.qt5.qtwayland
+    kdePackages.qtwayland
   ];
 
   programs.niri = {

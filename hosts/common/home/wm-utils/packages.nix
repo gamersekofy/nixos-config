@@ -9,5 +9,6 @@
 
         pkgs.blueman
         pkgs.pavucontrol
+        pkgs.nemo
     ];
 }

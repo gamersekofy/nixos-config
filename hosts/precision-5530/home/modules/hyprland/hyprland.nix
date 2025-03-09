@@ -27,8 +27,6 @@
 
     pkgs.libsForQt5.qt5.qtwayland
     pkgs.kdePackages.qtwayland
-
-    pkgs.nemo
   ];
 
   wayland.windowManager.hyprland = {
