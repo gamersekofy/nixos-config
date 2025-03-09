@@ -1,5 +1,4 @@
-{pkgs, inputs, ...}: {
-  imports = [inputs.catppuccin.homeManagerModules.catppuccin];
+{pkgs, ...}: {
   gtk = {
     enable = true;
     theme = {
@@ -27,9 +26,6 @@
     (pkgs.catppuccin-papirus-folders.override {
       accent = "mauve";
     })
-
-    pkgs.kdePackages.qtstyleplugin-kvantum
-    pkgs.libsForQt5.qtstyleplugin-kvantum
   ];
 
   catppuccin.kvantum = {
