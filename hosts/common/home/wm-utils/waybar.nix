@@ -26,7 +26,7 @@
         "clock" = {
           timezone = "America/Los_Angeles";
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-          format = " {:%H:%M} 󰃭 {:%a, :%b :%e}";
+          format = "{:%H:%M}";
         };
 
         # ----------------------------------------------
@@ -180,7 +180,7 @@
 
     #clock {
     	color: @base;
-    	background-color: flamingo;
+    	background-color: @flamingo;
     	border-radius: 0rem;
     	margin: 5px;
     	padding: 5px;
@@ -230,10 +230,11 @@
 
     #custom-power {
     	margin: 5px;
-    	margin-right: 6px;
     	color: @base;
     	border-radius: 0rem;
     	background-color: @red;
+    	padding-left: 10px;
+    	padding-right: 13px;
     }
 
     #network {
