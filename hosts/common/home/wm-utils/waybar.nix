@@ -70,8 +70,7 @@
         "clock" = {
           timezone = "America/Los_Angeles";
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-          format-alt = "󰃭 {:%m/%d/%Y}";
-          format = " {:%H:%M} {:%A %b %e}";
+          format = " {:%H:%M} 󰃭 {:%A %b %e}";
         };
 
         "custom/power" = {
