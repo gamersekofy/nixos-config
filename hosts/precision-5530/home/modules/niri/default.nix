@@ -12,6 +12,7 @@
     ../../../../common/home/wm-utils/wlsunset.nix
     ../../../../common/home/wm-utils/udiskie.nix
     ../../../../common/home/wm-utils/packages.nix
+    ../../../../common/home/wm-utils/swaylock.nix
     ./waybar.nix
   ];
 
@@ -67,6 +68,10 @@
         "main" = {};
         "thunderbird" = {};
         "work" = {};
+      };
+
+      switch-events = {
+        lid-open.action.spawn = ["swaylock"];
       };
 
       input = {
