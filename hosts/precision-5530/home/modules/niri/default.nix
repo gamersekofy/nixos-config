@@ -145,6 +145,14 @@
 	        ];
 	        open-floating = true;
 	    }
+
+	    # Spotify
+        {
+	        matches = [
+	            {app-id = "spotify";}
+	        ];
+	        open-fullscreen = true;
+	    }
       ];
 
       binds = with config.lib.niri.actions; {
