@@ -5,7 +5,7 @@
 }: {
   imports = [
     ../../../../common/home/wm-utils/kitty.nix
-    ../../../../common/home/wm-utils/mako.nix
+    ../../../../common/home/wm-utils/swaync.nix
     ../../../../common/home/wm-utils/network-manager.nix
     ../../../../common/home/wm-utils/cliphist.nix
     ../../../../common/home/wm-utils/wlogout.nix
@@ -170,6 +170,10 @@
         "Mod+Period".action = spawn "rofi" "-modi" "\"emoji:rofimoji\"" "-show" "emoji";
 
         "Mod+Shift+Slash".action = show-hotkey-overlay;
+
+        # Toggle SwayNC notification panel or toggle DND with shift
+        "Mod+N".action = spawn "swaync-client" "-t" "-sw";
+        "Mod+Shift+N".action = spawn "swaync-client" "-d" "-sw";
 
         "XF86AudioRaiseVolume" = {
           action = spawn "wpctl" "set-volume" "-l" "1" "@DEFAULT_AUDIO_SINK@" "2%+";
