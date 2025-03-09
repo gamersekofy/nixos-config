@@ -13,14 +13,14 @@
   qt = {
     # Seems to break Plasma settings when set to true
     enable = true;
-    platformTheme.name = "kde";
+    #platformTheme.name = "CatppuccinMochaMauve";
     style = {
       package = pkgs.catppuccin-kde.override {
         flavour = ["mocha"];
         accents = ["mauve"];
       };
 
-      name = "Breeze";
+     #name = "Breeze";
     };
   };
 

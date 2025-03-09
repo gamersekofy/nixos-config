@@ -158,17 +158,19 @@
     }
 
     #workspaces button {
-    	color: @text;
+    	color: @base;
     	border-radius: 0rem;
+	padding: 3px;
+	background-color: @mauve;
     }
 
     #workspaces button.active {
-    	color: @surface0;
-    	background-color: @mauve;
+    	color: @text;
+    	background-color: @base;
     }
 
     #workspaces button:hover {
-    	color: @mauve;
+    	color: @base;
     	border-radius: 0rem;
     }
 
@@ -176,6 +178,7 @@
     	background-color: @surface0;
     	border-radius: 0rem;
     	margin: 5px;
+	padding: 5px;
     }
 
     #clock {
@@ -184,6 +187,13 @@
     	border-radius: 0rem;
     	margin: 5px;
     	padding: 5px;
+    }
+
+    #privacy {
+        background-color: @pink;
+	padding: 5px;
+	margin: 5px;
+	color: @base;
     }
 
     #backlight {
