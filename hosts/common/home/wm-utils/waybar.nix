@@ -269,7 +269,8 @@
 
          #custom-notification{
          	margin: 5px;
-         	padding-right: 9px;
+         	padding-right: 10px;
+		padding-left: 9px;
          	border-radius: 0rem;
          }
 
@@ -286,13 +287,13 @@
          #custom-notification.dnd-notification {
          	background-color: @pink;
          	color: @base;
-         	padding-right: 12px
+         	padding-right: 12px;
          }
 
          #custom-notification.dnd-none {
          	background-color: @maroon;
          	color: @base;
-         	padding-right: 12px
+         	padding-right: 12px;
          }
 
          #network {
