@@ -42,7 +42,7 @@
           position.y = 0;
         };
 
-	    # Ultrawide Display
+	# Ultrawide Display
         "Dell Inc. DELL U3818DW 97F8P8CE0U0L" = {
           enable = true;
           mode.width = 3840;
@@ -104,6 +104,12 @@
         };
         default-column-width = {proportion = 1. / 2.;};
         center-focused-column = "never";
+
+	tab-indicator = {
+	  place-within-column = false;
+	  width = 5.5;
+	  position = "bottom";
+	};
       };
 
       spawn-at-startup = [
