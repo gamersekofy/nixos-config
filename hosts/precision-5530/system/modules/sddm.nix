@@ -2,6 +2,7 @@
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
+    package = pkgs.kdePackages.sddm;
     theme = "catppuccin-mocha";
   };
 
@@ -14,4 +15,13 @@
       loginBackground = true;
     })
   ];
+
+  /*catppuccin.sddm = {
+    enable = true;
+    flavor = "mocha";
+    font = "DepartureMono Nerf Font";
+    fontSize = 12;
+    loginBackground = true;
+    background = "${./sddmWallpaper.jpeg}";
+  };*/
 }
