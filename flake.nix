@@ -54,6 +54,8 @@
     niri = {
       url = "github:sodiboo/niri-flake";
     };
+
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs = {
@@ -99,6 +101,7 @@
           nixos-cli.nixosModules.nixos-cli
           lanzaboote.nixosModules.lanzaboote
 	      inputs.niri.nixosModules.niri
+	      inputs.catppuccin.nixosModules.catppuccin
         ];
       };
     };
