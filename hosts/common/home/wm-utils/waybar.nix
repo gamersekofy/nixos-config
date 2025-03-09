@@ -12,7 +12,7 @@
           "DP-1"
         ];
         modules-center = ["clock"];
-        modules-right = ["network" "pulseaudio" "backlight" "battery" "custom/power"];
+        modules-right = ["privacy" "network" "pulseaudio" "backlight" "battery" "custom/power"];
 
         # ----------------------------------------------
 
@@ -22,6 +22,20 @@
         };
 
         # ----------------------------------------------
+
+        "clock" = {
+          timezone = "America/Los_Angeles";
+          tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+          format = " {:%H:%M} 󰃭 {:%A %b %e}";
+        };
+
+        # ----------------------------------------------
+
+        "privacy" = {
+            icon-spacing = 7;
+            icon-size = 21;
+
+        };
 
         "pulseaudio" = {
           format = "{icon} {volume}%";
@@ -65,12 +79,6 @@
           format = "{icon}{capacity}%";
           format-charging = " {capacity}%";
           format-icons = ["" "" "" "" ""];
-        };
-
-        "clock" = {
-          timezone = "America/Los_Angeles";
-          tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-          format = " {:%H:%M} 󰃭 {:%A %b %e}";
         };
 
         "custom/power" = {
