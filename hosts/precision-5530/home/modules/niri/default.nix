@@ -151,7 +151,7 @@
 	        matches = [
 	            {app-id = "spotify";}
 	        ];
-	        open-fullscreen = true;
+	        open-maximized = true;
 	    }
       ];
 
