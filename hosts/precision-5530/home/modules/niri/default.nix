@@ -120,34 +120,26 @@
             clip-to-geometry = true;
         }
 
-        {
-            matches = [{app-id = "org.pulseaudio.pavucontrol";}];
-            open-floating = true;
-        }
 
-        # Thunderbird reminders popup
+        # Open Thunderbird windows on Thunderbird workspace
 	    {
 	        matches = [
 	            {app-id = "^thunderbird$";}
-	            {title = "\d+ Reminders?$";}
 	        ];
-	        open-floating = true;
+	        open-on-workspace = "thunderbird";
 	    }
 
-	    # IntelliJ greeter
-        {
+        # Float these windows
+	    {
 	        matches = [
-	            {app-id = "jetbrains-idea";}
-	            {title = "Welcome to IntelliJ IDEA";}
-	        ];
-	        open-floating = true;
-	    }
-
-	    # Blueman window
-        {
-	        matches = [
-	            {app-id = ".blueman-manager-wrapped";}
-	            {title = "Bluetooth Devices";}
+	            # Thunderbird event reminder popup
+	            {app-id = "^thunderbird$"; title = "\d+ Reminders?$";}
+	            # IntelliJ welcome screen
+	            {app-id = "jetbrains-idea"; title = "Welcome to IntelliJ IDEA";}
+	            # Blueman
+	            {app-id = ".blueman-manager-wrapped"; title = "Bluetooth Devices";}
+	            # Pavucontrol
+	            {app-id = "org.pulseaudio.pavucontrol";}
 	        ];
 	        open-floating = true;
 	    }
