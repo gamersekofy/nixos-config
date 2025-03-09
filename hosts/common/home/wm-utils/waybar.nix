@@ -33,7 +33,7 @@
 
         "privacy" = {
             icon-spacing = 7;
-            icon-size = 21;
+            icon-size = 15;
 
         };
 

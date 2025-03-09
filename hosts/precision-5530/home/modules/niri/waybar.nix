@@ -12,7 +12,7 @@
 
         "niri/window" = {
           separate-outputs = false;
-          format = " 󱂬 {title} ";
+          format = " 󱂬 ";
           icon = true;
         };
       };
