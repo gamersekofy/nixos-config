@@ -4,10 +4,10 @@
     systemd.enable = true;
     settings = {
       mainBar = {
-        modules-left = ["niri/workspaces" "niri/window" "tray"];
+        modules-left = ["niri/workspaces" "tray"];
 
         "niri/workspaces" = {
-          format = "{index}";
+          format = "{icon}";
           format-icons = {
             main = "󱄄";
             thunderbird = "󰛮";
@@ -19,7 +19,7 @@
 
         "niri/window" = {
           separate-outputs = false;
-          format = " 󱂬 ";
+          format = "";
           icon = true;
         };
       };
