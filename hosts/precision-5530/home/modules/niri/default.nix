@@ -59,6 +59,12 @@
         };
       };
 
+      workspaces = {
+        "main" = {};
+        "thunderbird" = {};
+        "work" = {};
+      };
+
       input = {
         touchpad = {
                 accel-profile = "adaptive";
