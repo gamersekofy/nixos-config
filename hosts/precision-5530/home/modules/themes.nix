@@ -12,7 +12,7 @@
 
   qt = {
     # Seems to break Plasma settings when set to true
-    enable = false;
+    enable = true;
     platformTheme.name = "kde";
     style = {
       package = pkgs.catppuccin-kde.override {
