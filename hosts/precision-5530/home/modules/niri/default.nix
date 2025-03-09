@@ -29,6 +29,8 @@
         DISPLAY = ":0";
       };
 
+      prefer-no-csd = true;
+
       outputs = {
         # Internal display
         "eDP-1" = {
