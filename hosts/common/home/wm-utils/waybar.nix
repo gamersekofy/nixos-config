@@ -83,8 +83,8 @@
           format = "{ifname}";
           format-ethernet = "󰈀";
           tooltip-format-ethernet = "{ifname}";
-          format-wifi = "{icon} Connected";
-          tooltip-format-wifi = "Connected to {essid} with IP: {ipaddr} and signal strength: {signalStrength}";
+          format-wifi = "{icon} {essid}";
+          tooltip-format-wifi = "Connected with IP {ipaddr} and signal strength: {signalStrength}";
           format-disconnected = "󰤭 Offline";
           tooltip-format-disconnected = "Disconnected";
           format-icons = ["󰤯" "󰤟" "󰤢" "󰤥" "󰤨"];
