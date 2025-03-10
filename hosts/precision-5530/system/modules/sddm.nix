@@ -19,7 +19,7 @@
   /*catppuccin.sddm = {
     enable = true;
     flavor = "mocha";
-    font = "DepartureMono Nerf Font";
+    font = "DepartureMono Nerd Font";
     fontSize = 12;
     loginBackground = true;
     background = "${./sddmWallpaper.jpeg}";
