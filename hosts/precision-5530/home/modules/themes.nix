@@ -8,6 +8,11 @@
       };
       name = "catppuccin-mocha-mauve-standard";
     };
+
+    iconTheme = {
+      package = (pkgs.catppuccin-papirus-folders.override {accent = "mauve";});
+      name = "Papirus-Dark";
+    };
   };
 
   qt = {
