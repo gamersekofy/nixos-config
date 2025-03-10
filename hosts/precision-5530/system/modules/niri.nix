@@ -2,4 +2,6 @@
    programs.niri = {
        enable = true;
    };
+
+   services.tumbler.enable = true;
 }

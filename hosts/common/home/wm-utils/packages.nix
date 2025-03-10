@@ -9,6 +9,6 @@
 
         pkgs.blueman
         pkgs.pavucontrol
-        pkgs.nemo
+        pkgs.xfce.thunar
     ];
 }
