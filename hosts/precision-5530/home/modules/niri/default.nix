@@ -180,6 +180,12 @@
         "Mod+N".action = spawn "swaync-client" "-t" "-sw";
         "Mod+Shift+N".action = spawn "swaync-client" "-d" "-sw";
 
+	# Launch file explorer
+	"Mod+E".action = spawn "thunar";
+
+	# Lock screen
+	"Mod+L".action = spawn "swaylock";
+
         "XF86AudioRaiseVolume" = {
           action = spawn "wpctl" "set-volume" "-l" "1" "@DEFAULT_AUDIO_SINK@" "2%+";
           allow-when-locked = true;
