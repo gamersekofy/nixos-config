@@ -11,18 +11,23 @@
     vmware-workstation
   ];
 
-  virtualisation.vmware.host.enable = true;
+  virtualisation = {
+    vmware.host.enable = true;
 
-  # Docker
-  virtualisation.docker = {
-    enable = false;
-    rootless = {
+    # Docker
+    docker = {
       enable = true;
-      setSocketVariable = true;
+      rootless = {
+        enable = true;
+        setSocketVariable = true;
+      };
+
+      daemon.settings = {
+        data-root = "/home/uzair/DockerData";
+      };
     };
 
-    daemon.settings = {
-      data-root = "/home/uzair/DockerData";
-    };
+    # Run Android apps
+    waydroid.enable = true;
   };
 }
