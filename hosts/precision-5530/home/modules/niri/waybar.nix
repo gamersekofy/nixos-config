@@ -4,7 +4,7 @@
     systemd.enable = true;
     settings = {
       mainBar = {
-        modules-left = ["niri/workspaces" "tray"];
+        modules-left = ["niri/workspaces" "tray" "privacy" ];
 
         "niri/workspaces" = {
           format = "{icon}";

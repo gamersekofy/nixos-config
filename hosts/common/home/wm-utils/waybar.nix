@@ -12,7 +12,7 @@
           "DP-1"
         ];
         modules-center = ["clock"];
-        modules-right = ["privacy" "custom/notification" "network" "pulseaudio" "backlight" "battery" "custom/power"];
+        modules-right = ["custom/notification" "network" "pulseaudio" "backlight" "battery" "custom/power"];
 
         # ----------------------------------------------
 
