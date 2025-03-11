@@ -12,8 +12,9 @@
     ../../../../common/home/wm-utils/wlsunset.nix
     ../../../../common/home/wm-utils/udiskie.nix
     ../../../../common/home/wm-utils/packages.nix
-    ../../../../common/home/wm-utils/swaylock.nix
+    ./swaylock.nix
     ./waybar.nix
+    ./swayidle.nix
   ];
 
   home.packages = with pkgs; [
@@ -71,7 +72,7 @@
       };
 
       switch-events = {
-        lid-open.action.spawn = ["swaylock"];
+        lid-close.action.spawn = ["swaylock --clock --screenshot --effect-pixelate 50"];
       };
 
       input = {
@@ -184,7 +185,7 @@
 	"Mod+E".action = spawn "thunar";
 
 	# Lock screen
-	"Mod+L".action = spawn "swaylock";
+	"Mod+L".action = spawn "swaylock --clock --screenshot --effect-pixelate 50";
 
         "XF86AudioRaiseVolume" = {
           action = spawn "wpctl" "set-volume" "-l" "1" "@DEFAULT_AUDIO_SINK@" "2%+";
