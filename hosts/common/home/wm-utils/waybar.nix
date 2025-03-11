@@ -11,7 +11,7 @@
           "HDMI-A-1"
           "DP-1"
         ];
-        modules-center = ["clock"];
+        modules-center = ["clock" "privacy"];
         modules-right = ["custom/notification" "network" "pulseaudio" "backlight" "battery" "custom/power"];
 
         # ----------------------------------------------
