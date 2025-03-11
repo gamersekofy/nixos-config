@@ -26,7 +26,7 @@
         "clock" = {
           timezone = "America/Los_Angeles";
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-          format = "{:%H:%M}";
+          format = "{:%H:%M - %a, %b %d}";
         };
 
         # ----------------------------------------------
