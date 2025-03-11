@@ -72,7 +72,7 @@
       };
 
       switch-events = {
-        lid-close.action.spawn = ["swaylock --clock --screenshot --effect-pixelate 50"];
+        lid-close.action.spawn = ["swaylock" "--clock" "--screenshot" "--effect-pixelate" "50"];
       };
 
       input = {
@@ -185,7 +185,7 @@
 	"Mod+E".action = spawn "thunar";
 
 	# Lock screen
-	"Mod+L".action = spawn "swaylock --clock --screenshot --effect-pixelate 50";
+	"Mod+L".action = spawn "swaylock" "--clock" "--screenshot" "--effect-pixelate" "50";
 
         "XF86AudioRaiseVolume" = {
           action = spawn "wpctl" "set-volume" "-l" "1" "@DEFAULT_AUDIO_SINK@" "2%+";
