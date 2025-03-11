@@ -1,5 +1,5 @@
 {
-   programs.swayidle = {
+   services.swayidle = {
       events = [
          {
 	    event = "before-sleep";
