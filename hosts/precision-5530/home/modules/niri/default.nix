@@ -156,12 +156,16 @@
 	            {app-id = ".blueman-manager-wrapped"; title = "Bluetooth Devices";}
 	            # Pavucontrol
 	            {app-id = "org.pulseaudio.pavucontrol";}
+		    # KDE Polkit password popup
+		    {app-id = "org.kde.polkit-kde-authentication-agent-1";}
+		    # Thunar file explorer
+		    {app-id = "thunar";}
 	        ];
 	        open-floating = true;
 	    }
 
 	    # Spotify
-        {
+	    {
 	        matches = [
 	            {app-id = "spotify";}
 	        ];
