@@ -7,7 +7,7 @@
         modules-left = ["niri/workspaces" "tray"];
 
         "niri/workspaces" = {
-          format = "{icon}";
+          format = "{index}";
           format-icons = {
             main = "󱄄";
             thunderbird = "󰛮";
