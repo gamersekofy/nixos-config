@@ -11,7 +11,7 @@
           "HDMI-A-1"
           "DP-1"
         ];
-        modules-center = ["clock" "privacy"];
+        modules-center = ["mpris" "clock" "privacy"];
         modules-right = ["custom/notification" "network" "pulseaudio" "backlight" "battery" "custom/power"];
 
         # ----------------------------------------------
@@ -23,18 +23,29 @@
 
         # ----------------------------------------------
 
+        "mpris" = {
+            format = "{player_icon} {title}";
+            tooltip-format = "{status} {title} {dynamic} on {player}";
+            format-paused = "{player_icon} <s>{title}</s>";
+            player-icons = {
+                default = "󰎅";
+                spotify = "󰓇";
+                firefox = "󰈹";
+            };
+        };
+
         "clock" = {
           timezone = "America/Los_Angeles";
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
           format = "{:%H:%M - %a, %b %d}";
         };
 
-        # ----------------------------------------------
-
         "privacy" = {
-          icon-spacing = 7;
-          icon-size = 15;
-        };
+                  icon-spacing = 7;
+                  icon-size = 15;
+                };
+
+        # ----------------------------------------------
 
         "custom/notification" = {
           tooltip = false;
