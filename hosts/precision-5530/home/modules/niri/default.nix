@@ -159,7 +159,7 @@
 		    # KDE Polkit password popup
 		    {app-id = "org.kde.polkit-kde-authentication-agent-1";}
 		    # Thunar file explorer
-		    {app-id = "thunar";}
+		    {app-id = "org.gnome.Nautilus";}
 	        ];
 	        open-floating = true;
 	    }
@@ -186,7 +186,7 @@
         "Mod+Shift+N".action = spawn "swaync-client" "-d" "-sw";
 
 	# Launch file explorer
-	"Mod+E".action = spawn "thunar";
+	"Mod+E".action = spawn "nautilus";
 
 	# Lock screen
 	"Mod+L".action = spawn "swaylock" "--clock" "--screenshot" "--effect-pixelate" "50";

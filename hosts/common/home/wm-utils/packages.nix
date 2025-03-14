@@ -1,14 +1,17 @@
 {pkgs, ... }: {
-    home.packages = [
-        pkgs.brightnessctl
-        pkgs.wl-clipboard
-        pkgs.playerctl
+    home.packages = with pkgs; [
+        brightnessctl
+        wl-clipboard
+        playerctl
 
-        pkgs.rofi-wayland
-        pkgs.rofimoji
+        rofi-wayland
+        rofimoji
 
-        pkgs.blueman
-        pkgs.pavucontrol
-        pkgs.xfce.thunar
+        blueman
+        pavucontrol
+        nautilus
+
+	kdePackages.okular
+	kdePackages.gwenview
     ];
 }
