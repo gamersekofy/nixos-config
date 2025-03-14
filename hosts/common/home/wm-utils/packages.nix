@@ -13,5 +13,6 @@
 
 	kdePackages.okular
 	kdePackages.gwenview
+	kdePackages.kdeconnect-kde
     ];
 }
