@@ -17,7 +17,7 @@
 
   qt = {
     # Seems to break Plasma settings when set to true
-    enable = true;
+    enable = false;
     platformTheme.name = "kvantum";
     style.name = "kvantum";
   };
@@ -33,10 +33,10 @@
     })
   ];
 
-  catppuccin.kvantum = {
-      enable = true;
-      flavor = "mocha";
-      accent = "mauve";
-      apply = true;
-  };
+  #catppuccin.kvantum = {
+  #    enable = true;
+  #    flavor = "mocha";
+  #    accent = "mauve";
+  #    apply = true;
+  #};
 }
