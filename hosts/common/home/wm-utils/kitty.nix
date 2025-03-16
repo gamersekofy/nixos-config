@@ -10,4 +10,6 @@
       size = 12;
     };
   };
+
+  services.clipse.imageDisplay.type = "kitty";
 }

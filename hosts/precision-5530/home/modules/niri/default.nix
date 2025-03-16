@@ -7,7 +7,7 @@
     ../../../../common/home/wm-utils/kitty.nix
     ../../../../common/home/wm-utils/swaync.nix
     ../../../../common/home/wm-utils/network-manager.nix
-    ../../../../common/home/wm-utils/cliphist.nix
+    ../../../../common/home/wm-utils/clipse.nix
     ../../../../common/home/wm-utils/wlogout.nix
     ../../../../common/home/wm-utils/wlsunset.nix
     ../../../../common/home/wm-utils/udiskie.nix
@@ -171,12 +171,31 @@
 	        ];
 	        open-maximized = true;
 	    }
+
+        # Float and blur clipse window
+        {
+	        matches = [
+	            {app-id = "kitty"; title = "clipse";}
+	        ];
+	        open-floating = true;
+	        opacity = 0.9;
+	    }
+
+       # Increase scroll factor for kitty windows
+        {
+	        matches = [
+	            {app-id = "kitty";}
+	        ];
+	        scroll-factor = 3;
+	    }
+
       ];
 
       binds = with config.lib.niri.actions; {
         "Mod+Return".action = spawn "kitty";
         "Mod+Space".action = spawn "rofi" "-show" "drun" "-show-icons";
-        "Mod+V".action = spawn "rofi" "-modi" "clipboard:/home/uzair/Documents/nixos-config/hosts/common/home/wm-utils/cliphist-rofi-img" "-show" "clipboard" "-show-icons";
+        #"Mod+V".action = spawn "rofi" "-modi" "clipboard:/home/uzair/Documents/nixos-config/hosts/common/home/wm-utils/cliphist-rofi-img" "-show" "clipboard" "-show-icons";
+        "Mod+V".action = spawn "kitty" "clipse";
         "Mod+Period".action = spawn "rofi" "-modi" "\"emoji:rofimoji\"" "-show" "emoji";
 
         "Mod+Shift+Slash".action = show-hotkey-overlay;
