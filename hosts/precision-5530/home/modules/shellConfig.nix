@@ -90,9 +90,4 @@
     enable = true;
     enableFishIntegration = true;
   };
-
-  # Enable powershell
-  home.packages = with pkgs; [
-    powershell
-  ];
 }
