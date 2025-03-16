@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    kdePackages.arianna
-    kdePackages.kalgebra
+    qalculate-qt
     calibre
     obsidian
     libreoffice-qt6-fresh
