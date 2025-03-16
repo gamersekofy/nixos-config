@@ -1,9 +1,9 @@
 {
-  imports = [../../../../common/home/wm-utils/waybar.nix];
+  imports = [../../../../common/home/wm-utils/waybar];
   programs.waybar = {
     settings = {
       mainBar = {
-        modules-left = ["hyprland/workspaces" "hyprland/window" "tray"];
+        modules-left = ["hyprland/workspaces" "tray"];
 
         "hyprland/workspaces" = {
           on-scroll-up = "hyprctl dispatch workspace e+1";

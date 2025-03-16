@@ -7,7 +7,7 @@
     ../../../../common/home/wm-utils/kitty.nix
     ../../../../common/home/wm-utils/mako.nix
     ../../../../common/home/wm-utils/network-manager.nix
-    ../../../../common/home/wm-utils/cliphist.nix
+    ../../../../common/home/wm-utils/clipse.nix
     ../../../../common/home/wm-utils/wlogout.nix
     ../../../../common/home/wm-utils/wlsunset.nix
     ../../../../common/home/wm-utils/udiskie.nix
@@ -116,7 +116,7 @@
 
       "$mod" = "SUPER";
       "$terminal" = "kitty";
-      "$files" = "nemo";
+      "$files" = "nautilus";
       "$menu" = "rofi -show drun -show-icons";
       bind =
         [
@@ -127,7 +127,8 @@
           "$mod SHIFT, V, togglefloating,"
           "$mod SHIFT, Q, killactive,"
 
-          "$mod, V, exec, rofi -modi clipboard:/home/uzair/Documents/nixos-config/hosts/common/home/wm-utils/cliphist-rofi-img -show clipboard -show-icons"
+          #"$mod, V, exec, rofi -modi clipboard:/home/uzair/Documents/nixos-config/hosts/common/home/wm-utils/cliphist-rofi-img -show clipboard -show-icons"
+	  "$mod, V, exec, kitty clipse"
 
           # Emoji
           "$mod, PERIOD, exec, rofi -modi \"emoji:rofimoji\" -show emoji"
@@ -231,7 +232,6 @@
     };
 
     extraConfig = ''
-      exec-once = waybar
       env = NIXOS_OZONE_WL,1
       env = ELECTRON_OZONE_PLATFORM_HINT,wayland
     '';
