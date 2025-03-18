@@ -26,6 +26,7 @@
 
     kdePackages.qtwayland
     kdePackages.qt6ct
+    kdePackages.breeze
   ];
 
   programs.niri = {
@@ -180,7 +181,7 @@
         # Float and blur clipse window
         {
 	        matches = [
-	            {app-id = "kitty"; title = "clipse";}
+	            {title = "clipse";}
 	        ];
 	        open-floating = true;
 	        opacity = 0.9;
