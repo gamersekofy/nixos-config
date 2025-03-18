@@ -142,7 +142,7 @@
                 top-right = 6.0;
             };
             clip-to-geometry = true;
-	    opacity = 0.95;
+	    opacity = 0.94;
         }
 
 
