@@ -81,6 +81,8 @@
         lid-close.action.spawn = ["swaylock" "--clock" "--screenshot" "--effect-pixelate" "50"];
       };
 
+      screenshot_path = "~/Pictures/Screenshots/Screenshot_%Y%m%d_%H%M%S.png";
+
       input = {
         touchpad = {
                 accel-profile = "adaptive";
@@ -134,12 +136,13 @@
       window-rules = [
         {
             geometry-corner-radius = {
-                bottom-left = 12.0;
-                bottom-right = 12.0;
-                top-left = 12.0;
-                top-right = 12.0;
+                bottom-left = 6.0;
+                bottom-right = 6.0;
+                top-left = 6.0;
+                top-right = 6.0;
             };
             clip-to-geometry = true;
+	    opacity = 0.95;
         }
 
 
