@@ -20,14 +20,19 @@
   home.packages = with pkgs; [
     swww
     xwayland-satellite
+
     libsForQt5.qt5.qtwayland
+    libsForQt5.qt5ct
+
     kdePackages.qtwayland
+    kdePackages.qt6ct
   ];
 
   programs.niri = {
     settings = {
       environment = {
         QT_QPA_PLATFORM = "wayland";
+	QT_QPA_PLATFORMTHEME = "qt6ct";
         DISPLAY = ":0";
       };
 
