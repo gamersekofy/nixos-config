@@ -12,7 +12,7 @@
 
     keyBindings = {
       choose = "enter";
-      clearSelected = "d";
+      clearSelected = "S";
       down = "down";
       end = "end";
       filter = "/";
@@ -20,7 +20,7 @@
       more = "?";
       nextPage = "right";
       prevPage = "left";
-      preview = "space";
+      preview = "t";
       quit = "q";
       remove = "x";
       selectDown = "ctrl+down";
