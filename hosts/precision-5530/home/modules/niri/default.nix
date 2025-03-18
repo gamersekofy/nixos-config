@@ -81,7 +81,7 @@
         lid-close.action.spawn = ["swaylock" "--clock" "--screenshot" "--effect-pixelate" "50"];
       };
 
-      screenshot_path = "~/Pictures/Screenshots/Screenshot_%Y%m%d_%H%M%S.png";
+      screenshot-path = "~/Pictures/Screenshots/Screenshot_%Y%m%d_%H%M%S.png";
 
       input = {
         touchpad = {
@@ -108,7 +108,7 @@
       };
 
       layout = {
-        gaps = 10;
+        gaps = 5;
         focus-ring.enable = false;
         border = {
           enable = true;
