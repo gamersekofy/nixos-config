@@ -9,6 +9,7 @@
     kdePackages.kdenlive
     digikam
     haruna
+    gpu-screen-recorder-gtk
   ];
 
   programs.obs-studio = {
