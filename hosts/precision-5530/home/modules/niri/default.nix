@@ -120,7 +120,7 @@
         center-focused-column = "never";
 
 	tab-indicator = {
-	  place-within-column = false;
+	  place-within-column = true;
 	  width = 5.5;
 	  position = "bottom";
 	};

@@ -13,6 +13,11 @@
       package = (pkgs.catppuccin-papirus-folders.override {accent = "mauve";});
       name = "Papirus-Dark";
     };
+
+    cursorTheme = {
+      name = "Furina-v2";
+      size = 32;
+    };
   };
 
   qt = {
