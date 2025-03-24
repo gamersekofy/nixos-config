@@ -1,11 +1,11 @@
-{
+{lib, ...}:{
   powerManagement = {
     enable = true;
     powertop.enable = true;
   };
 
   services = {
-    # Conflict with auto-cpufreq
-    power-profiles-daemon.enable = false;
+    power-profiles-daemon.enable = true;
+    tlp.enable = lib.mkForce false;
   };
 }
