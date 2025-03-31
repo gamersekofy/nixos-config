@@ -1,6 +1,10 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    firefox-bin
     microsoft-edge
   ];
+
+  programs.firefox = {
+    enable = true;
+    nativeMessagingHosts = [pkgs.kdePackages.plasma-browser-integration];
+  };
 }

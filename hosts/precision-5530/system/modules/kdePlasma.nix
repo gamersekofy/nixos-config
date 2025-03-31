@@ -8,7 +8,6 @@
     kdePackages.qtwebsockets
     kdePackages.qtmultimedia
     plasmusic-toolbar
-    kdePackages.plasma-browser-integration
     kdePackages.filelight
     maliit-keyboard
   ];
