@@ -4,7 +4,7 @@
     systemd.enable = true;
     settings = {
       mainBar = {
-        modules-left = ["niri/workspaces" "tray"];
+        modules-left = ["niri/workspaces" "tray" "wlr/taskbar"];
 
         "niri/workspaces" = {
           format = "{index}";
@@ -22,6 +22,15 @@
           format = "";
           icon = true;
         };
+
+	"wlr/taskbar" = {
+	  format = "{icon}";
+	  icon-size = 24;
+	  icon-theme = "Papirus-Dark";
+	  tooltip-format = "{title}";
+	  on-click = "activate";
+	  on-click-middle = "close";
+	};
       };
     };
   };
