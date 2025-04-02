@@ -23,6 +23,6 @@
 
     #./kdePlasma.nix
     #./hyprland.nix
-    ./niri.nix
+    #./niri.nix
   ];
 }
