@@ -130,7 +130,7 @@
         {command = ["systemctl" "--user" "reset-failed" "waybar.service"];}
         {command = ["xwayland-satellite"];}
         {command = ["swww-daemon"];}
-        {command = ["swww" "img" "~/Pictures/FlowersWallpaper.jpeg"];}
+        {command = ["swww" "img" "~/Documents/nixos-config/hosts/common/wallpapers/flowers.jpeg"];}
       ];
 
       window-rules = [

@@ -10,7 +10,7 @@
       flavor = "mocha";
       font = "DepartureMono Nerd Font";
       fontSize = "12";
-      background = "${./sddmWallpaper.jpeg}";
+      background = "${../../../common/wallpapers/flowers.jpeg}";
       loginBackground = true;
     })
   ];
