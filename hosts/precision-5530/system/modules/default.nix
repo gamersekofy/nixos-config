@@ -21,8 +21,8 @@
     ./wayland.nix
     ./sddm.nix
 
-    ./kdePlasma.nix
+    #./kdePlasma.nix
     #./hyprland.nix
-    #./niri.nix
+    ./niri.nix
   ];
 }
