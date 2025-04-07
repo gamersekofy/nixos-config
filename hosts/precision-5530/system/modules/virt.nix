@@ -6,14 +6,7 @@
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
 
-  # VMWare
-  environment.systemPackages = with pkgs; [
-    vmware-workstation
-  ];
-
   virtualisation = {
-    vmware.host.enable = true;
-
     # Docker
     docker = {
       enable = true;

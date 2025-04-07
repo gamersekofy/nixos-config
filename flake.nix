@@ -91,7 +91,7 @@
                 ./hosts/precision-5530/home/home.nix
                 nixvim.homeManagerModules.nixvim
 		        spicetify-nix.homeManagerModules.default
-		        inputs.catppuccin.homeManagerModules.catppuccin
+		        inputs.catppuccin.homeModules.catppuccin
               ];
             };
           }
