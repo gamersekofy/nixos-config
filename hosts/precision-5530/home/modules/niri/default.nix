@@ -87,7 +87,7 @@
         touchpad = {
                 accel-profile = "adaptive";
                 accel-speed = 0.1;
-                scroll-factor = 0.2;
+                scroll-factor = 0.4;
                 tap-button-map = "left-right-middle";
         };
 
@@ -142,7 +142,6 @@
                 top-right = 6.0;
             };
             clip-to-geometry = true;
-	    opacity = 0.94;
         }
 
 
