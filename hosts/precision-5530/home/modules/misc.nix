@@ -11,5 +11,7 @@
     galaxy-buds-client
     fastfetch
     lmstudio
+
+    openarena
   ];
 }
