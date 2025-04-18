@@ -5,9 +5,9 @@
 }: {
   home.packages = with pkgs; [
     nicotine-plus
-    gimp
+    gimp3
     kdePackages.kdenlive
-    digikam
+    #digikam
     haruna
     gpu-screen-recorder-gtk
   ];
