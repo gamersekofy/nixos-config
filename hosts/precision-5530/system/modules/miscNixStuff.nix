@@ -1,7 +1,6 @@
 {
   environment.sessionVariables = {
     #  ELECTRON_OZONE_PLATFORM_HINT = "wayland";
-    SHELL = "/etc/profiles/per-user/uzair/bin/fish";
     #  EDITOR = "nvim";
   };
 

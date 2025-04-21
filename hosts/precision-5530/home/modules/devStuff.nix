@@ -4,7 +4,6 @@
   ];
   home.sessionVariables = {
     EDITOR = "nvim";
-    SHELL = "/etc/profiles/per-user/uzair/bin/fish";
     ELECTRON_OZONE_PLATFORM_HINT = "wayland";
     NIXOS_CONFIG = "/home/uzair/Documents/nixos-config";
     #XCURSOR_THEME = "Furina-v2";
@@ -25,8 +24,8 @@
     unzip
 
     # IDE
-    #(jetbrains.plugins.addPlugins jetbrains.idea-ultimate ["github-copilot"])
-    #jetbrains.rider
+    jetbrains.idea-ultimate
+    jetbrains.rider
 
     # nix language server
     nixd

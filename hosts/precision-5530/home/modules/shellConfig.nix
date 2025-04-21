@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  # Enable Fish instead of others
+  # Enable Fish shell
   programs.fish = {
     enable = true;
     functions = {
