@@ -10,7 +10,7 @@
     #XCURSOR_SIZE = 32;
   };
 
-  programs.zed-editor = {
+  programs.helix = {
     enable = true;
   };
 
