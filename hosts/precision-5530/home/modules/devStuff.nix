@@ -10,10 +10,6 @@
     #XCURSOR_SIZE = 32;
   };
 
-  programs.helix = {
-    enable = true;
-  };
-
   home.packages = with pkgs; [
     # GUI code editors
     kdePackages.kate
