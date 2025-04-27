@@ -10,8 +10,6 @@
     #XCURSOR_SIZE = 32;
   };
 
-  programs.zed-editor.enable = true;
-
   home.packages = with pkgs; [
     # GUI code editors
     kdePackages.kate
