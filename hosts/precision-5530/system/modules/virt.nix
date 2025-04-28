@@ -21,6 +21,6 @@
     };
 
     # Run Android apps
-    waydroid.enable = true;
+    #waydroid.enable = true;
   };
 }

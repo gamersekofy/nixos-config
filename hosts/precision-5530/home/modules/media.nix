@@ -7,7 +7,7 @@
     nicotine-plus
     gimp3
     kdePackages.kdenlive
-    #digikam
+    digikam
     haruna
     gpu-screen-recorder-gtk
   ];

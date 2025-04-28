@@ -3,7 +3,7 @@
   inputs,
   ...
 }: {
-  imports = [inputs.nixcord.homeManagerModules.nixcord];
+  imports = [inputs.nixcord.homeModules.nixcord];
 
   home.packages = with pkgs; [
     zoom-us
