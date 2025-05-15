@@ -10,6 +10,7 @@
     digikam
     haruna
     gpu-screen-recorder-gtk
+    qtscrcpy
   ];
 
   programs.obs-studio = {
