@@ -4,13 +4,13 @@
   ...
 }: {
   home.packages = with pkgs; [
-    nicotine-plus
     gimp3
     kdePackages.kdenlive
     digikam
     haruna
     gpu-screen-recorder-gtk
     qtscrcpy
+    soulseekqt
   ];
 
   programs.obs-studio = {
