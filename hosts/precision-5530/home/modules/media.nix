@@ -10,7 +10,7 @@
     haruna
     gpu-screen-recorder-gtk
     qtscrcpy
-    soulseekqt
+    nicotine-plus
   ];
 
   programs.obs-studio = {
