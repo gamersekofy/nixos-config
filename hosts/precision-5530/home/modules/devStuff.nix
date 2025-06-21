@@ -14,13 +14,12 @@
     # GUI code editors
     kdePackages.kate
     vscode.fhs
+    jetbrains.idea-ultimate
+    zed-editor
 
     # Utilities
     wget
     unzip
-
-    # IDE
-    jetbrains.idea-ultimate
 
     # nix language server
     nixd
