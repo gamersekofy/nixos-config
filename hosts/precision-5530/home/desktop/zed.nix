@@ -1,8 +1,8 @@
 {pkgs, ...}: {
-  xdg.desktopEntries.zed = {
+  xdg.desktopEntries."dev.zed.Zed" = {
     name = "Zed";
     genericName = "Text Editor";
-    categories = ["Utility" "TextEditor" "Development" "IDE"];
+    categories = ["Development"];
     comment = "A high-performance, multiplayer code editor.";
     exec = "DRI_PRIME=1 zeditor %U";
     icon = "zed";
@@ -13,8 +13,9 @@
     terminal = false;
     type = "Application";
     actions = {
-      "New Workspace" = {
+      "NewWorkspace" = {
         exec = "DRI_PRIME=1 ${pkgs.zed-editor}/bin/zeditor --new %U";
+	name = "New Workspace";
       };
     };
   };

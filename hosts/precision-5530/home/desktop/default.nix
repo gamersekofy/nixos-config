@@ -1,6 +1,6 @@
 {
   imports = [
     ./spotify.nix
-    ./lmstudio.nix
+    ./zed.nix
   ];
 }
