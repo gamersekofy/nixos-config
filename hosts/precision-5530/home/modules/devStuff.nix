@@ -1,9 +1,9 @@
 {pkgs, ...}: {
   imports = [
-    ./neovim.nix
+    # ./neovim.nix
+    ../../../common/home/editors/helix.nix
   ];
   home.sessionVariables = {
-    EDITOR = "nvim";
     ELECTRON_OZONE_PLATFORM_HINT = "wayland";
     NIXOS_CONFIG = "/home/uzair/Documents/nixos-config";
     #XCURSOR_THEME = "Furina-v2";
@@ -15,14 +15,14 @@
     kdePackages.kate
     vscode.fhs
     jetbrains.idea-ultimate
-    zed-editor
+    # zed-editor
 
     # Utilities
     wget
     unzip
 
     # nix language server
-    nixd
+    # nixd
 
     # nix formatter
     alejandra

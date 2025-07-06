@@ -1,6 +1,6 @@
 {
   imports = [
     ./spotify.nix
-    ./zed.nix
+    #./zed.nix
   ];
 }
