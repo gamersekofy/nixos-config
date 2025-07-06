@@ -1,4 +1,7 @@
-{pkgs, lib, ...}: {
+{
+  pkgs,
+  ...
+}: {
   programs.helix = {
     enable = true;
     defaultEditor = true;
@@ -57,6 +60,24 @@
 
         # Tell file picker to show hidden files and directories
         file-picker.hidden = false;
+
+        # Tweak bottom status bar
+        statusline = {
+          left = ["mode" "spinner" "file-name" "read-only-indicator" "file-modification-indicator" "version-control"];
+          right = ["diagnostics" "selections" "register" "position" "position-percentage" "file-encoding" "file-line-ending" "file-type"];
+        };
+
+        whitespace = {
+          render = "all";
+          characters = {
+            space = " ";
+            npsb = "⍽";
+            nnbsp = "␣";
+            tab = "→";
+            newline = "⏎";
+            tabpad = "·";
+          };
+        };
       };
     };
   };
