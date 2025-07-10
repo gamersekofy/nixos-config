@@ -15,7 +15,7 @@
   programs.nixcord = {
     enable = true;
     config = {
-      themeLinks = ["https://raw.githubusercontent.com/refact0r/midnight-discord/refs/heads/master/themes/flavors/midnight-catppuccin-mocha.theme.css"];
+      themeLinks = ["https://raw.githubusercontent.com/refact0r/system24/refs/heads/main/theme/flavors/system24-rose-pine.theme.css"];
       plugins = {
         spotifyCrack = {
           enable = true;
