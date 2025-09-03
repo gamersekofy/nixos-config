@@ -21,6 +21,9 @@
       obs-studio-plugins.input-overlay
       obs-studio-plugins.obs-vaapi
     ];
+    package = pkgs.obs-studio.override {
+      cudaSupport = true;
+    };
   };
 
   programs.spicetify = let

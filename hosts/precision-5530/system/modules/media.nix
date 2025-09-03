@@ -20,6 +20,9 @@
   boot.kernelModules = [
     "v4l2loopback"
     "nvidia_uvm"
+    "nvidia_drm"
+    "nvidia_modeset"
+    "nvidia"
   ];
 
   boot.extraModprobeConfig = ''
