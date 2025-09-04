@@ -13,5 +13,7 @@
     lmstudio
 
     openarena
+
+    rsibreak
   ];
 }
