@@ -13,6 +13,8 @@
     ../../../common/home/dev/helix.nix
     ../../../common/home/dev/git.nix
 
+    ../../../common/home/social/nixcord.nix
+
     #./niri
     #./hyprland/hyprland.nix
   ];
