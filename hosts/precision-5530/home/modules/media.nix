@@ -6,6 +6,7 @@
 
   imports = [
     ../../../common/home/media/obs.nix
+    ../../../common/home/media/spicetify.nix
   ];
 
   home.packages = with pkgs; [
@@ -22,20 +23,5 @@
     package = pkgs.obs-studio.override {
       cudaSupport = true;
     };
-  };
-
-  programs.spicetify = let
-    spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
-  in {
-    enable = true;
-    enabledExtensions = with spicePkgs.extensions; [
-      adblock
-      beautifulLyrics
-    ];
-    theme = spicePkgs.themes.text;
-    colorScheme = "CatppuccinMocha";
-    enabledCustomApps = with spicePkgs.apps; [
-      lyricsPlus
-    ];
   };
 }
