@@ -3,6 +3,11 @@
   inputs,
   ...
 }: {
+
+  imports = [
+    ../../../common/home/media/obs.nix
+  ];
+
   home.packages = with pkgs; [
     gimp3
     kdePackages.kdenlive
