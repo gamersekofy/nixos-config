@@ -11,4 +11,6 @@
     kdePackages.filelight
     maliit-keyboard
   ];
+
+  programs.partition-manager.enable = true;
 }
