@@ -1,6 +1,5 @@
 {
   imports = [
-    ./git.nix
     ./shellConfig.nix
     ./devStuff.nix
     ./socials.nix
@@ -10,6 +9,9 @@
     ./media.nix
     ./gaming.nix
     ./themes.nix
+
+    ../../../common/home/dev/helix.nix
+    ../../../common/home/dev/git.nix
 
     #./niri
     #./hyprland/hyprland.nix

@@ -1,8 +1,4 @@
 {pkgs, ...}: {
-  imports = [
-    # ./neovim.nix
-    ../../../common/home/editors/helix.nix
-  ];
   home.sessionVariables = {
     ELECTRON_OZONE_PLATFORM_HINT = "wayland";
     NIXOS_CONFIG = "/home/uzair/Documents/nixos-config";
