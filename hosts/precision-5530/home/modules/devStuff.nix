@@ -1,4 +1,9 @@
 {pkgs, ...}: {
+  imports = [
+    ../../../common/home/dev/helix.nix
+    ../../../common/home/dev/git.nix
+    ../../../common/home/dev/zed.nix
+  ];
   home.sessionVariables = {
     ELECTRON_OZONE_PLATFORM_HINT = "wayland";
     NIXOS_CONFIG = "/home/uzair/Documents/nixos-config";
