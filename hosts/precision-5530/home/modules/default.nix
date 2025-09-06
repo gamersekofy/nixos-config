@@ -10,9 +10,6 @@
     ./gaming.nix
     ./themes.nix
 
-    ../../../common/home/dev/helix.nix
-    ../../../common/home/dev/git.nix
-
     #./niri
     #./hyprland/hyprland.nix
   ];
