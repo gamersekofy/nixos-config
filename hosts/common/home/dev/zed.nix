@@ -1,9 +1,11 @@
 {pkgs, ...}:{
   programs.zed-editor = {
-    extensions = ["nix" "catppuccin" "catppuccin-icons"];
+    enable = true;
+    extensions = ["nix" "catppuccin" "catppuccin-icons" "toml" "git-firefly" "latex"];
 
     extraPackages = with pkgs; [
       nixd
+      texlab
     ];
 
     userSettings = {
