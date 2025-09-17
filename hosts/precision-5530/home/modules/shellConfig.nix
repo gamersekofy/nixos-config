@@ -82,7 +82,8 @@
       };
     };
     config = {
-      theme = "CatppuccinMocha";
+      theme-dark = "CatppuccinMocha";
+      theme-light = "CatppuccinLatte";
     };
   };
 
