@@ -10,6 +10,7 @@
     ignores = [
       # Rust's target directory
       "target/"
+      ".direnv/"
     ];
 
     languages = {
@@ -40,7 +41,7 @@
       theme = "catppuccin_mocha";
 
       editor = {
-        end-of-line-diagnostics = "hint";
+        end-of-line-diagnostics = "error";
 
         cursor-shape = {
           insert = "bar";
