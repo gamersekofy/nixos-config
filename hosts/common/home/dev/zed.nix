@@ -9,8 +9,7 @@
     ];
 
     userSettings = {
-      vim_mode = true;
-      helix_mode = true;
+      vim_mode = false;
 
       agent = {
         default_profile = "ask";
