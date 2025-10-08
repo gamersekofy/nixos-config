@@ -17,6 +17,7 @@
     gpu-screen-recorder-gtk
     qtscrcpy
     nicotine-plus
+    clementine
   ];
 
   programs.obs-studio = {
