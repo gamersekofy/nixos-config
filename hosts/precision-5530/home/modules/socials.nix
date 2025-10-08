@@ -7,5 +7,7 @@
     thunderbird
     element-desktop
     telegram-desktop
+
+    teams-for-linux
   ];
 }
