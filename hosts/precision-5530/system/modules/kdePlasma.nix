@@ -10,6 +10,7 @@
     plasmusic-toolbar
     kdePackages.filelight
     maliit-keyboard
+    kdePackages.plasma-thunderbolt
   ];
 
   programs.partition-manager.enable = true;

@@ -17,6 +17,7 @@
     ./printing.nix
     ./yubikey.nix
     ./steam.nix
+    ./thunderbolt.nix
     #./graphics.nix
 
     ./wayland.nix
