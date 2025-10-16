@@ -9,6 +9,7 @@
     ./media.nix
     ./gaming.nix
     ./themes.nix
+    ./gamedev.nix
 
     #./niri
     #./hyprland/hyprland.nix
