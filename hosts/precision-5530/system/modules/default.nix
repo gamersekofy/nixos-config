@@ -5,7 +5,6 @@
     ./wireless.nix
     ./syncthing.nix
     ./media.nix
-    ./suspendThenHibernate.nix
     ./hardware-configuration.nix
     ./tzLocale.nix
     ./users.nix
