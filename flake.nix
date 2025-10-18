@@ -94,7 +94,6 @@
 
           ./hosts/precision-5530/system
           nixos-hardware.nixosModules.dell-precision-5530
-          inputs.catppuccin.nixosModules.catppuccin
         ];
       };
     };
