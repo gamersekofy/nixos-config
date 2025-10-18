@@ -63,8 +63,6 @@
     nixpkgs,
     home-manager,
     nixos-hardware,
-    nixvim,
-    hyprland-qtutils,
     ...
   } @ inputs: let
     lib = nixpkgs.lib;
@@ -86,7 +84,6 @@
             home-manager.users.uzair = {
               imports = [
                 ./hosts/precision-5530/home/home.nix
-                nixvim.homeManagerModules.nixvim
                 inputs.catppuccin.homeModules.catppuccin
               ];
             };
