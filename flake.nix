@@ -62,9 +62,7 @@
     self,
     nixpkgs,
     home-manager,
-    spicetify-nix,
     nixos-hardware,
-    nixos-cli,
     lanzaboote,
     nixvim,
     hyprland-qtutils,
@@ -96,9 +94,7 @@
           }
 
           ./hosts/precision-5530/system
-          #inputs.minegrub-world-sel-theme.nixosModules.default
           nixos-hardware.nixosModules.dell-precision-5530
-          nixos-cli.nixosModules.nixos-cli
           lanzaboote.nixosModules.lanzaboote
           inputs.niri.nixosModules.niri
           inputs.catppuccin.nixosModules.catppuccin
