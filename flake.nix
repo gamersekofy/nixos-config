@@ -63,7 +63,6 @@
     nixpkgs,
     home-manager,
     nixos-hardware,
-    lanzaboote,
     nixvim,
     hyprland-qtutils,
     ...
@@ -95,7 +94,6 @@
 
           ./hosts/precision-5530/system
           nixos-hardware.nixosModules.dell-precision-5530
-          lanzaboote.nixosModules.lanzaboote
           inputs.niri.nixosModules.niri
           inputs.catppuccin.nixosModules.catppuccin
         ];
