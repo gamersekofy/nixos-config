@@ -5,8 +5,8 @@
     shellWrapperName = "y";
 
     flavors = {
-      catppuccin-mocha = ./yaziThemes/catppuccin-mocha.yazi;
-      catppuccin-latte = ./yaziThemes/catppuccin-latte.yazi;
+      catppuccin-mocha = ./yazi-themes/catppuccin-mocha.yazi;
+      catppuccin-latte = ./yazi-themes/catppuccin-latte.yazi;
     };
 
     theme = {

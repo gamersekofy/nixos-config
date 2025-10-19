@@ -1,10 +1,8 @@
 {pkgs, ...}: {
+  imports = [
+    ../../../common/home/misc/firefox.nix
+  ];
   home.packages = with pkgs; [
     microsoft-edge
   ];
-
-  programs.firefox = {
-    enable = true;
-    nativeMessagingHosts = [pkgs.kdePackages.plasma-browser-integration];
-  };
 }

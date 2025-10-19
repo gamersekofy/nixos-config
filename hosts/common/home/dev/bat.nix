@@ -1,29 +1,21 @@
-{pkgs, ...}: {
-  imports = [
-    ../../../common/home/dev/fish.nix
-    ../../../common/home/dev/eza.nix
-    ../../../common/home/dev/starship.nix
-    ../../../common/home/dev/direnv.nix
-    ../../../common/home/dev/yazi.nix
-  ];
-
+{
   programs.bat = {
     enable = true;
     themes = {
       CatppuccinMocha = {
-        src = ./batThemes;
+        src = ./bat-themes;
         file = "CatppuccinMocha.tmTheme";
       };
       CatppuccinFrappe = {
-        src = ./batThemes;
+        src = ./bat-themes;
         file = "CatppuccinFrappe.tmTheme";
       };
       CatppuccinLatte = {
-        src = ./batThemes;
+        src = ./bat-themes;
         file = "CatppuccinLatte.tmTheme";
       };
       CatppuccinMacchiato = {
-        src = ./batThemes;
+        src = ./bat-themes;
         file = "CatppuccinMacchiato.tmTheme";
       };
     };
@@ -31,10 +23,5 @@
       theme-dark = "CatppuccinMocha";
       theme-light = "CatppuccinLatte";
     };
-  };
-
-  programs.nix-index = {
-    enable = true;
-    enableFishIntegration = true;
   };
 }

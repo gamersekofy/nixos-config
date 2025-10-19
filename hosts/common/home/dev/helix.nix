@@ -34,7 +34,7 @@
     };
 
     themes = {
-      catppuccin_mocha = builtins.readFile ./helix_themes/catppuccin_mocha.toml;
+      catppuccin_mocha = builtins.readFile ./helix-themes/catppuccin_mocha.toml;
     };
 
     settings = {
