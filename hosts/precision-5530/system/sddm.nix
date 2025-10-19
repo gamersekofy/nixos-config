@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  imports = [../../../common/system/sddm.nix];
+  imports = [../../common/system/sddm.nix];
   services.displayManager.sddm = {
     theme = "catppuccin-mocha-mauve";
   };
@@ -10,7 +10,7 @@
       accent = "mauve";
       font = "DepartureMono Nerd Font";
       fontSize = "12";
-      background = "${../../../common/wallpapers/flowers.jpeg}";
+      background = "${../../common/wallpapers/flowers.jpeg}";
       loginBackground = true;
     })
   ];
