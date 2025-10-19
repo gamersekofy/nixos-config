@@ -1,10 +1,6 @@
-{
-  pkgs,
-  ...
-}: {
-    services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
+{pkgs, ...}: {
+  imports = [../../../common/system/sddm.nix];
+  services.displayManager.sddm = {
     theme = "catppuccin-mocha-mauve";
   };
 
