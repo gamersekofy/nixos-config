@@ -16,7 +16,7 @@
     ../../common/system/nerdFonts.nix
     ../../common/system/nixos-cli.nix
     ../../common/system/printing.nix
-    .././../common/system/yubikey.nix
+    ../../common/system/yubikey.nix
     ../../common/system/steam.nix
     ../../common/system/thunderbolt.nix
     # ../../common/system/graphics.nix
