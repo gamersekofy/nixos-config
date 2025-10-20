@@ -1,4 +1,9 @@
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   networking.hostName = "macbookpro92"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -14,7 +19,16 @@
   hardware.bluetooth.powerOnBoot = true;
 
   # macbookpro9,2 Wifi config
-  networking.enableB43Firmware = true;
+  # networking.enableB43Firmware = true;
+
+  nixpkgs.config.allowInsecurePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "broadcom-sta" # aka “wl”
+    ];
+
+  boot.kernelModules = ["wl"];
+  boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
+  boot.blacklistedKernelModules = ["b43" "bcma"];
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
