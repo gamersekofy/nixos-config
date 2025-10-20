@@ -93,6 +93,30 @@
           nixos-hardware.nixosModules.dell-precision-5530
         ];
       };
+
+      macbookpro92 = lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs;};
+        modules = [
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+            };
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
+
+            home-manager.users.uzair = {
+              imports = [
+                ./hosts/macbookpro92/home/home.nix
+              ];
+            };
+          }
+
+          ./hosts/macbookpro92/system
+        ];
+      };
     };
   };
 }
