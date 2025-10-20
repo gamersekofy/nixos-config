@@ -19,6 +19,7 @@
     ../../common/system/yubikey.nix
     ../../common/system/steam.nix
     ../../common/system/thunderbolt.nix
+    ../../common/system/pipewire.nix
     # ../../common/system/graphics.nix
 
     ../../common/system/wayland.nix
