@@ -14,6 +14,7 @@
     ../../common/system/yubikey.nix
     ../../common/system/pipewire.nix
     ../../common/system/sddm.nix
+    ../../common/system/mbpfan.nix
 
     ../../common/system/wayland.nix
     ../../common/system/kdePlasma.nix

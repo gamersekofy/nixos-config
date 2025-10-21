@@ -1,0 +1,5 @@
+{
+  services.mbpfan = {
+    enable = true;
+  };
+}
