@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: {
   networking.hostName = "macbookpro92"; # Define your hostname.
@@ -18,9 +17,6 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
-  # macbookpro9,2 Wifi config
-  # networking.enableB43Firmware = true;
-
   nixpkgs.config.allowInsecurePredicate = pkg:
     builtins.elem (lib.getName pkg) [
       "broadcom-sta" # aka “wl”
@@ -30,11 +26,21 @@
   boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
   boot.blacklistedKernelModules = ["b43" "bcma"];
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall = {
+    enable = true;
+    allowedTCPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      } # KDE Connect
+    ];
+    allowedUDPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      } # KDE Connect
+    ];
+  };
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
