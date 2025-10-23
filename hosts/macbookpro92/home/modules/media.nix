@@ -12,5 +12,6 @@
     gpu-screen-recorder-gtk
     nicotine-plus
     # clementine
+    inkscape
   ];
 }
