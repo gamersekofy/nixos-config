@@ -7,10 +7,12 @@
     kdePackages.plasma-nm
     kdePackages.qtwebsockets
     kdePackages.qtmultimedia
-    plasmusic-toolbar
     kdePackages.filelight
-    maliit-keyboard
     kdePackages.plasma-thunderbolt
+    kdePackages.krfb
+
+    plasmusic-toolbar
+    maliit-keyboard
   ];
 
   programs.partition-manager.enable = true;
