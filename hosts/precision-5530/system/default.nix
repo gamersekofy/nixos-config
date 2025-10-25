@@ -20,6 +20,7 @@
     ../../common/system/steam.nix
     ../../common/system/thunderbolt.nix
     ../../common/system/pipewire.nix
+    ../../common/system/gpu-screen-recorder.nix
     # ../../common/system/graphics.nix
 
     ../../common/system/wayland.nix

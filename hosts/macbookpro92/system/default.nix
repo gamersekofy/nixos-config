@@ -18,5 +18,6 @@
 
     ../../common/system/wayland.nix
     ../../common/system/kdePlasma.nix
+    ../../common/system/gpu-screen-recorder.nix
   ];
 }

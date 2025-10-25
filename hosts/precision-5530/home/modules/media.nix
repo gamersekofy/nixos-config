@@ -14,7 +14,6 @@
     kdePackages.kdenlive
     digikam
     haruna
-    gpu-screen-recorder-gtk
     qtscrcpy
     nicotine-plus
     # clementine
