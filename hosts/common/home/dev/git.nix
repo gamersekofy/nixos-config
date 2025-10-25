@@ -2,12 +2,15 @@
   # Enable and configure Git
   programs.git = {
     enable = true;
-    aliases = {
-      s = "status";
-    };
-    userName = "Uzair Mohammed";
-    userEmail = "uzair.hamed@gmail.com";
-    extraConfig = {
+    settings = {
+      aliases = {
+        s = "status";
+      };
+
+      user = {
+        name = "Uzair Mohammed";
+        email = "uzair.hamed@gmail.com";
+      };
       credential.helper = "store";
       init.defaultBranch = "master";
     };
