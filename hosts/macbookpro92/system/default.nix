@@ -4,6 +4,7 @@
     ./wireless.nix
     ./hardware-configuration.nix
     ./miscNixStuff.nix
+    ./graphics.nix
 
     ../../common/system/powerManagement.nix
     ../../common/system/tzLocale.nix
