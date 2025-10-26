@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   programs.helix = {
     enable = true;
     defaultEditor = true;
@@ -20,8 +17,12 @@
         cargo = {features = "all";};
       };
 
-      language-server.nixd = with pkgs; {
-        command = "${nixd}/bin/nixd";
+      language-server.nixd = {
+        command = "${pkgs.nixd}/bin/nixd";
+      };
+
+      language-server.crates-lsp = {
+        command = "${pkgs.crates-lsp}/bin/crates-lsp";
       };
 
       language = [
@@ -29,6 +30,11 @@
           name = "nix";
           formatter.command = "alejandra";
           language-servers = ["nixd"];
+        }
+
+        {
+          name = "toml";
+          language-servers = ["crates-lsp"];
         }
       ];
     };
