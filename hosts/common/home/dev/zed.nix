@@ -19,6 +19,10 @@
         };
       };
 
+      diagnostics = {
+        inline.enabled = true;
+      };
+
       ui_font_size = 16;
       buffer_font_size = 13.5;
       buffer_font_family = "JetBrainsMono Nerd Font";
