@@ -28,6 +28,8 @@
         };
       };
 
+      show_edit_predictions = false;
+
       diagnostics = {
         inline.enabled = true;
       };
