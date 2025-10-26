@@ -16,7 +16,7 @@
     haruna
     qtscrcpy
     nicotine-plus
-    # clementine
+    clementine
   ];
 
   programs.obs-studio = {
