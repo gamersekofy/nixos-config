@@ -9,9 +9,7 @@
 
   home.packages = with pkgs; [
     haruna
-    gpu-screen-recorder-gtk
     nicotine-plus
-    # clementine
     inkscape
   ];
 }
