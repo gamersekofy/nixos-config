@@ -85,6 +85,8 @@
             tabpad = "·";
           };
         };
+
+        lsp.display-inlay-hints = true;
       };
     };
   };
