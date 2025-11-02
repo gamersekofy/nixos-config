@@ -73,10 +73,18 @@
     ...
   } @ inputs: let
     lib = nixpkgs.lib;
+    systemArch = "x86_64-linux";
+
+    pkgsForSystem = import nixpkgs {
+      system = systemArch;
+      config = {
+        allowUnfree = true;
+      };
+    };
   in {
     nixosConfigurations = {
       precision-5530 = lib.nixosSystem {
-        system = "x86_64-linux";
+        pkgs = pkgsForSystem;
         specialArgs = {inherit inputs;};
         modules = [
           home-manager.nixosModules.home-manager
@@ -102,7 +110,7 @@
       };
 
       macbookpro92 = lib.nixosSystem {
-        system = "x86_64-linux";
+        pkgs = pkgsForSystem;
         specialArgs = {inherit inputs;};
         modules = [
           home-manager.nixosModules.home-manager
