@@ -14,7 +14,7 @@
     fasd
 
     pciutils
-    glxinfo
+    mesa-demos
     clinfo
     wayland-utils
     aha
