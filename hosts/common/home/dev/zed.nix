@@ -9,6 +9,7 @@
       "git-firefly"
       "latex"
       "crates-lsp"
+      "csharp"
     ];
 
     extraPackages = with pkgs; [
