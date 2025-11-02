@@ -1,6 +1,6 @@
 {pkgs, ...} :{
   home.packages = with pkgs; [
     unityhub
-    jetbrains.rider
+    (jetbrains.plugins.addPlugins jetbrains.rider ["github-copilot"])
   ];
 }
