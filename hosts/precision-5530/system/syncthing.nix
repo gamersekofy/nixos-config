@@ -22,8 +22,12 @@
           devices = ["macMiniServer"];
         };
         "Secrets" = {
-          path = "/home/uzair/shhSecret";
-          devices = ["macMiniServer"];
+          path = "/home/uzair/Secrets";
+          devices = ["macMiniServer" "uzairPhone"];
+        };
+        "Resumable" = {
+          path = "/home/uzair/Pictures/.snap";
+          devices = ["macMiniServer" "uzairPhone"];
         };
       };
     };
