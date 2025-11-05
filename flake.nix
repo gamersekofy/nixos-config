@@ -79,6 +79,10 @@
       system = systemArch;
       config = {
         allowUnfree = true;
+        allowInsecurePredicate = pkg:
+          builtins.elem (lib.getName pkg) [
+            "broadcom-sta"
+          ];
       };
     };
   in {

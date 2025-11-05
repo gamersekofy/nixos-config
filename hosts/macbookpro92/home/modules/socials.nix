@@ -6,5 +6,6 @@
     zoom-us
     thunderbird
     telegram-desktop
+    slack
   ];
 }
