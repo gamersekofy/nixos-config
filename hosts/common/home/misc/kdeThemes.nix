@@ -2,11 +2,11 @@
   home.packages = [
     (pkgs.catppuccin-kde.override {
       flavour = ["latte" "mocha"];
-      accents = ["mauve"];
+      accents = ["red"];
     })
 
     (pkgs.catppuccin-papirus-folders.override {
-      accent = "mauve";
+      accent = "red";
     })
   ];
 }

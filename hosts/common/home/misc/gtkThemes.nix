@@ -3,14 +3,14 @@
     enable = true;
     theme = {
       package = pkgs.catppuccin-gtk.override {
-        accents = ["mauve"];
+        accents = ["red"];
         variant = "mocha";
       };
-      name = "catppuccin-mocha-mauve-standard";
+      name = "catppuccin-mocha-red-standard";
     };
 
     iconTheme = {
-      package = pkgs.catppuccin-papirus-folders.override {accent = "mauve";};
+      package = pkgs.catppuccin-papirus-folders.override {accent = "red";};
       name = "Papirus-Dark";
     };
 
