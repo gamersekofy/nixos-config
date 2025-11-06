@@ -272,8 +272,8 @@ The configuration allows:
        # Import modules as needed
      ];
      
-     home.username = "your-username";
-     home.homeDirectory = "/home/your-username";
+     home.username = "<username>";
+     home.homeDirectory = "/home/<username>";
      home.stateVersion = "24.05";
      programs.home-manager.enable = true;
    }
@@ -292,7 +292,7 @@ The configuration allows:
          home-manager.useUserPackages = true;
          home-manager.backupFileExtension = "backup";
          
-         home-manager.users.your-username = {
+         home-manager.users.<username> = {
            imports = [
              ./hosts/my-machine/home/home.nix
            ];
