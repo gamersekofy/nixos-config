@@ -15,14 +15,16 @@
 
     ../../../common/home/media/minecraft.nix
 
+    ../../../common/home/misc/gtkThemes.nix
+    ../../../common/home/misc/kdeThemes.nix
+
     ./devStuff.nix
     ./socials.nix
     ./misc.nix
     ./browsers.nix
     ./productivity.nix
     ./media.nix
-    ../../../common/home/misc/gtkThemes.nix
-    ../../../common/home/misc/kdeThemes.nix
+    ./wluma.nix
 
     #./niri
     #./hyprland/hyprland.nix
