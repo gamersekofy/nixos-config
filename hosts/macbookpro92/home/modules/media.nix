@@ -11,5 +11,7 @@
     haruna
     nicotine-plus
     inkscape
+    kdePackages.kolourpaint
+    makemkv
   ];
 }

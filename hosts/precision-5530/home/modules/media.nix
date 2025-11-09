@@ -3,7 +3,6 @@
   inputs,
   ...
 }: {
-
   imports = [
     ../../../common/home/media/obs.nix
     ../../../common/home/media/spicetify.nix
@@ -17,6 +16,7 @@
     qtscrcpy
     nicotine-plus
     clementine
+    kdePackages.kolourpaint
   ];
 
   programs.obs-studio = {
