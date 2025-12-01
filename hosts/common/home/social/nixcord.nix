@@ -16,8 +16,6 @@
         voiceDownload.enable = true;
         silentTyping = {
           enable = true;
-          showIcon = true;
-          isEnabled = true;
         };
         silentMessageToggle = {
           enable = true;
