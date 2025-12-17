@@ -5,9 +5,6 @@
   home.packages = with pkgs; [
     zoom-us
     thunderbird
-    element-desktop
     telegram-desktop
-
-    teams-for-linux
   ];
 }
