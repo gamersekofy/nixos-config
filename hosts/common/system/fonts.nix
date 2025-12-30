@@ -5,5 +5,9 @@
     nerd-fonts._3270
     nerd-fonts.departure-mono
     anakron
+
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
   ];
 }

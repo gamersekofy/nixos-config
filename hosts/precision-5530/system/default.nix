@@ -13,7 +13,7 @@
     ../../common/system/tzLocale.nix
     ../../common/system/users.nix
     ../../common/system/virt.nix
-    ../../common/system/nerdFonts.nix
+    ../../common/system/fonts.nix
     ../../common/system/nixos-cli.nix
     ../../common/system/printing.nix
     ../../common/system/yubikey.nix
