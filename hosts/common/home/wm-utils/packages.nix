@@ -1,18 +1,15 @@
-{pkgs, ... }: {
-    home.packages = with pkgs; [
-        brightnessctl
-        wl-clipboard
-        playerctl
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    brightnessctl
+    wl-clipboard
+    playerctl
 
-        rofi-wayland
-        rofimoji
+    blueman
+    pavucontrol
+    nautilus
 
-        blueman
-        pavucontrol
-        nautilus
-
-	kdePackages.okular
-	kdePackages.gwenview
-	kdePackages.kdeconnect-kde
-    ];
+    kdePackages.okular
+    kdePackages.gwenview
+    kdePackages.kdeconnect-kde
+  ];
 }
