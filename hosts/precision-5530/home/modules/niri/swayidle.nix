@@ -1,12 +1,9 @@
 {pkgs, ...}: {
   services.swayidle = {
     enable = true;
-    events = [
-      {
-        event = "before-sleep";
-        command = "${pkgs.swaylock-effects}/bin/swaylock --clock --screenshot --effect-pixelate 50 --fade-in 3 --grace 5";
-      }
-    ];
+    events = {
+      "before-sleep" = "${pkgs.swaylock-effects}/bin/swaylock --clock --screenshot --effect-pixelate 50 --fade-in 3 --grace 5";
+    };
 
     #systemdTarget = "graphical.target";
 
