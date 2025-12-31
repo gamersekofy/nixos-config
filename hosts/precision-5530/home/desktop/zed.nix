@@ -15,7 +15,7 @@
     actions = {
       "NewWorkspace" = {
         exec = "DRI_PRIME=1 ${pkgs.zed-editor}/bin/zeditor --new %U";
-	name = "New Workspace";
+        name = "New Workspace";
       };
     };
   };

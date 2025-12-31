@@ -6,7 +6,7 @@
     icon = "spotify-client";
     exec = "spotify --enable-features=UseOzonePlatform --ozone-platform=wayland %U";
     terminal = false;
-    mimeType = [ "x-scheme-handler/spotify" ];
-    categories = [ "Audio" "Music" "Player" "AudioVideo" ];
+    mimeType = ["x-scheme-handler/spotify"];
+    categories = ["Audio" "Music" "Player" "AudioVideo"];
   };
 }

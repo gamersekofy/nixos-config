@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ../../../common/home/media/obs.nix
     ../../../common/home/media/spicetify.nix

@@ -1,4 +1,4 @@
-{lib, ...}:{
+{lib, ...}: {
   powerManagement = {
     enable = true;
     powertop.enable = true;

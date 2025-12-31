@@ -1,4 +1,4 @@
-{pkgs, ...}:{
+{pkgs, ...}: {
   users.users.uzair = {
     isNormalUser = true;
     description = "Uzair Mohammed";

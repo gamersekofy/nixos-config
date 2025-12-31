@@ -23,14 +23,14 @@
           icon = true;
         };
 
-	"wlr/taskbar" = {
-	  format = "{icon}";
-	  icon-size = 24;
-	  icon-theme = "Papirus-Dark";
-	  tooltip-format = "{title}";
-	  on-click = "activate";
-	  on-click-middle = "close";
-	};
+        "wlr/taskbar" = {
+          format = "{icon}";
+          icon-size = 24;
+          icon-theme = "Papirus-Dark";
+          tooltip-format = "{title}";
+          on-click = "activate";
+          on-click-middle = "close";
+        };
       };
     };
   };

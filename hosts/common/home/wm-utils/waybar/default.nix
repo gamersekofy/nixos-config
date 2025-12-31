@@ -24,14 +24,14 @@
         # ----------------------------------------------
 
         "mpris" = {
-            format = "{player_icon} {title}";
-            tooltip-format = "{status} {title} {dynamic} on {player}";
-            format-paused = "{player_icon} <s>{title}</s>";
-            player-icons = {
-                default = "󰎅";
-                spotify = "󰓇";
-                firefox = "󰈹";
-            };
+          format = "{player_icon} {title}";
+          tooltip-format = "{status} {title} {dynamic} on {player}";
+          format-paused = "{player_icon} <s>{title}</s>";
+          player-icons = {
+            default = "󰎅";
+            spotify = "󰓇";
+            firefox = "󰈹";
+          };
         };
 
         "clock" = {
@@ -41,9 +41,9 @@
         };
 
         "privacy" = {
-                  icon-spacing = 7;
-                  icon-size = 15;
-                };
+          icon-spacing = 7;
+          icon-size = 15;
+        };
 
         # ----------------------------------------------
 

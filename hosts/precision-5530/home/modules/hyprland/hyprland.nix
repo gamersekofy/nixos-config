@@ -128,7 +128,7 @@
           "$mod SHIFT, Q, killactive,"
 
           #"$mod, V, exec, rofi -modi clipboard:/home/uzair/Documents/nixos-config/hosts/common/home/wm-utils/cliphist-rofi-img -show clipboard -show-icons"
-	  "$mod, V, exec, kitty clipse"
+          "$mod, V, exec, kitty clipse"
 
           # Emoji
           "$mod, PERIOD, exec, rofi -modi \"emoji:rofimoji\" -show emoji"
