@@ -4,7 +4,7 @@
   ...
 }: {
   imports = [
-    inputs.inputs.niri.nixosModules.niri
+    inputs.niri.nixosModules.niri
   ];
   programs.niri = {
     enable = true;
