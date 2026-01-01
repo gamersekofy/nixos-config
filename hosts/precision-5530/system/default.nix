@@ -24,8 +24,8 @@
     # ../../common/system/graphics.nix
 
     ../../common/system/wayland.nix
-    ../../common/system/kdePlasma.nix
+    # ../../common/system/kdePlasma.nix
     #../../common/system/hyprland.nix
-    #../../common/system/niri.nix
+    ../../common/system/niri.nix
   ];
 }

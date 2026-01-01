@@ -23,7 +23,7 @@
     ../../../common/home/misc/gtkThemes.nix
     ../../../common/home/misc/kdeThemes.nix
 
-    #./niri
+    ./niri
     #./hyprland/hyprland.nix
   ];
 }
