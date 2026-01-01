@@ -37,7 +37,7 @@
       environment = {
         QT_QPA_PLATFORM = "wayland";
         QT_QPA_PLATFORMTHEME = "qt6ct";
-        DISPLAY = ":0";
+        # DISPLAY = ":0";
       };
 
       prefer-no-csd = true;
@@ -131,7 +131,7 @@
 
       spawn-at-startup = [
         {command = ["systemctl" "--user" "reset-failed" "waybar.service"];}
-        {command = ["xwayland-satellite"];}
+        {command = ["kdeconnect-indicator"];}
         {command = ["swww-daemon"];}
         {command = ["swww" "img" "~/Documents/nixos-config/hosts/common/wallpapers/tokyoCatppuccin.png"];}
       ];
