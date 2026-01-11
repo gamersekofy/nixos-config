@@ -221,7 +221,9 @@
             action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle";
             allow-when-locked = true;
           };
-          "XF86AudioMicMute" = {
+
+          # KDE-like mic mute toggle
+          "Mod+XF86AudioMute" = {
             action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle";
             allow-when-locked = true;
           };
@@ -233,6 +235,11 @@
 
           "XF86MonBrightnessUp".action = spawn "brightnessctl" "s" "2%+";
           "XF86MonBrightnessDown".action = spawn "brightnessctl" "s" "2%-";
+
+          "XF86KbdBrightnessDown".action = spawn "brightnessctl" "-d" "smc::kbd_backlight" "s" "10%-";
+          "XF86KbdBrightnessUp".action = spawn "brightnessctl" "-d" "smc::kbd_backlight" "s" "10%+";
+
+          "XF86Eject".action = spawn "eject";
 
           "Mod+Q".action = close-window;
 
