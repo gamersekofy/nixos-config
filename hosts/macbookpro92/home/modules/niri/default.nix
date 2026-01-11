@@ -85,13 +85,13 @@
         };
       };
 
-      # cursor = {
-      #   theme = "Furina-v2";
-      #   size = 16;
-      # };
+      cursor = {
+        # theme = "Furina-v2";
+        size = 16;
+      };
 
       layout = {
-        gaps = 5;
+        gaps = 3;
         focus-ring.enable = false;
         border = {
           enable = true;
@@ -119,10 +119,10 @@
       window-rules = [
         {
           geometry-corner-radius = {
-            bottom-left = 6.0;
-            bottom-right = 6.0;
-            top-left = 6.0;
-            top-right = 6.0;
+            bottom-left = 0.0;
+            bottom-right = 0.0;
+            top-left = 0.0;
+            top-right = 0.0;
           };
           clip-to-geometry = true;
         }
