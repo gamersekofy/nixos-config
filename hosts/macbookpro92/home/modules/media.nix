@@ -7,7 +7,6 @@
   home.packages = with pkgs; [
     haruna
     nicotine-plus
-    inkscape
     kdePackages.kolourpaint
     makemkv
   ];

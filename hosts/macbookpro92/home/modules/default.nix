@@ -26,7 +26,7 @@
     ./media.nix
     ./wluma.nix
 
-    #./niri
+    ./niri
     #./hyprland/hyprland.nix
   ];
 }

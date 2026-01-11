@@ -1,6 +1,7 @@
 {
   programs.waybar = {
     enable = true;
+    systemd.enable = true;
     settings = {
       mainBar = {
         layer = "top";
@@ -14,12 +15,33 @@
         ];
         modules-center = ["mpris" "clock" "privacy"];
         modules-right = ["custom/notification" "network" "pulseaudio" "backlight" "battery" "custom/power"];
+        modules-left = ["niri/workspaces" "tray" "wlr/taskbar"];
 
         # ----------------------------------------------
+
+        "niri/workspaces" = {
+          format = "{index}";
+          format-icons = {
+            main = "󱄄";
+            thunderbird = "󰛮";
+            work = "󰑴";
+            active = "";
+            default = "";
+          };
+        };
 
         "tray" = {
           icon-size = 24;
           spacing = 7;
+        };
+
+        "wlr/taskbar" = {
+          format = "{icon}";
+          icon-size = 24;
+          icon-theme = "Papirus-Dark";
+          tooltip-format = "{title}";
+          on-click = "activate";
+          on-click-middle = "close";
         };
 
         # ----------------------------------------------

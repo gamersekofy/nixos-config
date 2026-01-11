@@ -13,7 +13,6 @@
       };
       credential.helper = "store";
       init.defaultBranch = "master";
-      core.autocrlf = true;
     };
   };
 
