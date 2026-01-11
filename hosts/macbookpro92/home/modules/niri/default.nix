@@ -241,6 +241,12 @@
 
           "XF86Eject".action = spawn "eject";
 
+          # Mission control key
+          "XF86LaunchA".action = toggle-overview;
+
+          # Launchpad key
+          "XF86LaunchB".action = spawn "rofi" "-show" "drun" "-show-icons";
+
           "Mod+Q".action = close-window;
 
           "Mod+Left".action = focus-column-left;
@@ -357,7 +363,7 @@
         }
         // # Workaround for issue 1018
         (builtins.listToAttrs (map (n: {
-          name = "Mod+Shift+${builtins.toString n}";
+          name = "Mod+Shift+${toString n}";
           value = {
             action.move-window-to-workspace = n;
             repeat = false;
