@@ -15,7 +15,6 @@
 
     ../../../common/home/media/minecraft.nix
 
-    ../../../common/home/misc/gtkThemes.nix
     ../../../common/home/misc/kdeThemes.nix
 
     ./devStuff.nix
