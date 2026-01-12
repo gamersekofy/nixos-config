@@ -18,6 +18,7 @@
     ./swayidle.nix
     ./kitty.nix
     ./gtkThemes.nix
+    ./helix.nix
     ./waybar
   ];
 

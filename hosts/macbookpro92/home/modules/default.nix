@@ -8,7 +8,7 @@
     ../../../common/home/dev/bat.nix
     ../../../common/home/dev/nix-index.nix
 
-    ../../../common/home/dev/helix.nix
+    # ../../../common/home/dev/helix.nix
     ../../../common/home/dev/git.nix
     ../../../common/home/dev/zed.nix
     ../../../common/home/dev/misc.nix
