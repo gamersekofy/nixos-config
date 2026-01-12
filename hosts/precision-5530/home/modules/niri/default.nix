@@ -179,6 +179,16 @@
             {app-id = "org.kde.polkit-kde-authentication-agent-1";}
             # Thunar file explorer
             {app-id = "org.gnome.Nautilus";}
+            # Kden live start screen
+            {
+              app-id = "org.kde.kdenlive";
+              title = "Kdenlive";
+            }
+            # Kden live splash screen
+            {
+              app-id = "org.kde.kdenlive";
+              title = "Splash Screen - Kdenlive";
+            }
           ];
           open-floating = true;
         }
