@@ -6,32 +6,30 @@
       mainBar = {
         layer = "top";
         position = "top";
-        height = 30;
+        height = 20;
+        spacing = 10;
         output = [
           "eDP-1"
           "HDMI-A-1"
           "DP-1"
           "LVDS-1" #mbp display
         ];
-        modules-center = ["mpris" "clock" "privacy"];
-        modules-right = ["custom/notification" "network" "pulseaudio" "backlight" "battery" "custom/power"];
-        modules-left = ["niri/workspaces" "tray" "wlr/taskbar"];
+        modules-left = ["niri/workspaces"];
+        modules-center = ["mpris" "privacy"];
+        modules-right = ["tray" "custom/notification" "pulseaudio" "backlight" "battery" "clock" "custom/power"];
 
         # ----------------------------------------------
 
         "niri/workspaces" = {
           format = "{index}";
           format-icons = {
-            main = "󱄄";
-            thunderbird = "󰛮";
-            work = "󰑴";
-            active = "";
-            default = "";
+            active = "󰋇 ";
+            default = "";
           };
         };
 
         "tray" = {
-          icon-size = 24;
+          icon-size = 20;
           spacing = 7;
         };
 
@@ -60,19 +58,20 @@
         "clock" = {
           timezone = "America/Los_Angeles";
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-          format = "{:%H:%M - %a, %b %d}";
+          format = "{:%H:%M %a %b %d }";
         };
 
         "privacy" = {
           icon-spacing = 7;
-          icon-size = 15;
+          icon-size = 10;
         };
 
         # ----------------------------------------------
 
         "custom/notification" = {
           tooltip = false;
-          format = "{} {icon}";
+          format = "NOTIF {}";
+          format-dnd-none = "DND {}";
           format-icons = {
             notification = "";
             none = "";
@@ -92,8 +91,8 @@
         };
 
         "pulseaudio" = {
-          format = "{icon} {volume}%";
-          format-muted = " {volume}%";
+          format = "VOL {volume}%";
+          format-muted = "MUTE {volume}%";
           format-icons = {
             default = ["" "" ""];
           };
@@ -101,7 +100,7 @@
         };
 
         "backlight" = {
-          format = "󰃠 {percent}%";
+          format = "BL {percent}%";
         };
 
         "bluetooth" = {
@@ -130,15 +129,15 @@
             critical = 15;
           };
 
-          format = "{icon} {capacity}%";
-          format-charging = " {capacity}%";
+          format = "BAT {capacity}%";
+          format-charging = "BAT +{capacity}%";
           format-icons = ["" "" "" "" ""];
         };
 
         "custom/power" = {
           tooltip = false;
           on-click = "wlogout &";
-          format = "";
+          format = "PWR";
         };
       };
     };
