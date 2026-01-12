@@ -55,9 +55,10 @@
       };
 
       workspaces = {
-        "main" = {};
-        "thunderbird" = {};
-        "work" = {};
+        "WRK1" = {};
+        "WRK2" = {};
+        "WRK3" = {};
+        "WRK4" = {};
       };
 
       switch-events = {
