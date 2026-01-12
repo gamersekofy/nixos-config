@@ -4,7 +4,6 @@
   ...
 }: {
   imports = [
-    ../../../../common/home/wm-utils/kitty.nix
     ../../../../common/home/wm-utils/swaync.nix
     ../../../../common/home/wm-utils/network-manager.nix
     ../../../../common/home/wm-utils/clipse.nix
@@ -17,6 +16,7 @@
 
     ./swaylock.nix
     ./swayidle.nix
+    ./kitty.nix
     ./waybar
   ];
 
@@ -55,10 +55,9 @@
       };
 
       workspaces = {
-        "WRK1" = {};
-        "WRK2" = {};
-        "WRK3" = {};
-        "WRK4" = {};
+        "AAA" = {};
+        "BBB" = {};
+        "CCC" = {};
       };
 
       switch-events = {
@@ -73,6 +72,7 @@
           accel-speed = 0.1;
           scroll-factor = 0.4;
           tap-button-map = "left-right-middle";
+          dwt = true;
         };
 
         mouse = {
