@@ -13,4 +13,5 @@
   services.displayManager.sddm.package = pkgs.kdePackages.sddm;
 
   services.tumbler.enable = true;
+  services.udisks2.enable = true;
 }

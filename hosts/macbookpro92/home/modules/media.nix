@@ -9,5 +9,6 @@
     nicotine-plus
     kdePackages.kolourpaint
     makemkv
+    vlc
   ];
 }
