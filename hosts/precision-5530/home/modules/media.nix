@@ -10,7 +10,7 @@
 
   home.packages = with pkgs; [
     gimp3
-    # kdePackages.kdenlive
+    kdePackages.kdenlive
     digikam
     haruna
     qtscrcpy
