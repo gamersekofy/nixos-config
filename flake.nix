@@ -113,6 +113,33 @@
         ];
       };
 
+     precision-5560 = lib.nixosSystem {
+        pkgs = pkgsForSystem;
+        specialArgs = {inherit inputs;};
+        modules = [
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+            };
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
+
+            home-manager.users.uzair = {
+              imports = [
+                ./hosts/precision-5560/home/home.nix
+              ];
+            };
+          }
+
+          ./hosts/precision-5560/system
+          nixos-hardware.nixosModules.common-pc-laptop
+          nixos-hardware.nixosModules.common-pc-ssd
+          nixos-hardware.nixosModules.common-cpu-intel
+        ];
+      };
+
       macbookpro92 = lib.nixosSystem {
         pkgs = pkgsForSystem;
         specialArgs = {inherit inputs;};
