@@ -7,7 +7,8 @@
     ./hardware-configuration.nix
     ./miscNixStuff.nix
     #./lanzaboote.nix
-    ./sddm.nix
+    # ./sddm.nix
+    ../../common/system/sddm.nix
     ./special-hardware.nix
 
     ../../common/system/powerManagement.nix
