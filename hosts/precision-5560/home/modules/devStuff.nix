@@ -3,7 +3,5 @@
     # GUI code editors
     kdePackages.kate
     jetbrains.idea
-
-    wireshark
   ];
 }
