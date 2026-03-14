@@ -4,7 +4,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Copied from default configuration file
-  boot.initrd.luks.devices."luks-936e258e-37a4-4903-b6d0-d7646b840d74".device = "/dev/disk/by-uuid/936e258e-37a4-4903-b6d0-d7646b840d74";
+  boot.initrd.luks.devices."luks-02460964-8051-4381-aeae-a2b71a2c2f2d".device = "/dev/disk/by-uuid/02460964-8051-4381-aeae-a2b71a2c2f2d";
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 }

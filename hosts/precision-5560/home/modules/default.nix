@@ -20,7 +20,7 @@
     ./productivity.nix
     ./media.nix
     ./gaming.nix
-    ../../../common/home/misc/gtkThemes.nix
+    # ../../../common/home/misc/gtkThemes.nix
     ../../../common/home/misc/kdeThemes.nix
 
     # ./niri
