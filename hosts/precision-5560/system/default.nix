@@ -10,6 +10,7 @@
     # ./sddm.nix
     ../../common/system/sddm.nix
     ./special-hardware.nix
+    ./secondary-ssd.nix
 
     ../../common/system/powerManagement.nix
     ../../common/system/tzLocale.nix
@@ -27,6 +28,7 @@
     # ../../common/system/graphics.nix
 
     ../../common/system/wayland.nix
+    # ./cosmic.nix
     ../../common/system/kdePlasma.nix
     #../../common/system/hyprland.nix
     # ../../common/system/niri.nix

@@ -12,6 +12,7 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  boot.kernelParams = [ "mem_sleep_default=deep" ];
 
   fileSystems."/" =
     { device = "/dev/mapper/luks-f22a8948-fbb6-42a6-b0a0-ccc88d8a07a6";
