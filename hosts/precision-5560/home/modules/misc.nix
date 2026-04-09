@@ -5,6 +5,5 @@
     galaxy-buds-client
     fastfetch
     lmstudio
-    mission-center
   ];
 }

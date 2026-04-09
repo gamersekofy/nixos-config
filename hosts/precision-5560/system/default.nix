@@ -25,6 +25,7 @@
     ../../common/system/pipewire.nix
     ../../common/system/gpu-screen-recorder.nix
     ../../common/system/wireshark.nix
+    ../../common/system/tuxmanager.nix
     # ../../common/system/graphics.nix
 
     ../../common/system/wayland.nix

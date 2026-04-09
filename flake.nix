@@ -63,6 +63,11 @@
     };
 
     catppuccin.url = "github:catppuccin/nix";
+
+    tuxmanager = {
+      url = "github:benapetr/TuxManager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
