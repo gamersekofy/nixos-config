@@ -1,4 +1,8 @@
-{lib, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   programs.ghostty.settings.theme = lib.mkForce "noctalia";
 
   programs.yazi.theme.flavor = {
@@ -12,4 +16,10 @@
     light = lib.mkForce "noctalia";
     dark = lib.mkForce "noctalia";
   };
+
+  programs.firefox.nativeMessagingHosts = [pkgs.pywalfox-native];
+
+  home.packages = [
+    pkgs.pywalfox-native
+  ];
 }
