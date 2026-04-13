@@ -8,6 +8,10 @@
     ./themes.nix
   ];
 
+  home.packages = [
+    pkgs.gradia
+  ];
+
   programs.noctalia-shell = {
     enable = true;
     settings = {
@@ -343,7 +347,7 @@
       };
 
       appLauncher = {
-        enableClipboardHistory = false;
+        enableClipboardHistory = true;
         autoPasteClipboard = false;
         enableClipPreview = true;
         clipboardWrapText = true;
@@ -365,7 +369,7 @@
         enableWindowsSearch = true;
         enableSessionSearch = true;
         ignoreMouseInput = false;
-        screenshotAnnotationTool = "";
+        screenshotAnnotationTool = "gradia";
         overviewLayer = false;
         density = "default";
       };
@@ -619,7 +623,7 @@
         useWallpaperColors = true;
         predefinedScheme = "Noctalia (default)";
         darkMode = true;
-        schedulingMode = "off";
+        schedulingMode = "location";
         manualSunrise = "06:30";
         manualSunset = "18:30";
         generationMethod = "tonal-spot";
