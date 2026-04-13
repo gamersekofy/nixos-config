@@ -137,7 +137,7 @@
               id = "Tray";
               blacklist = [];
               chevronColor = "none";
-              colorizeIcons = true;
+              colorizeIcons = false;
               drawerEnabled = false;
               hidePassive = true;
               pinned = [];
@@ -158,6 +158,12 @@
               hideIfNotDetected = false;
               showNoctaliaPerformance = true;
               showPowerProfiles = true;
+            }
+            {
+              id = "Network";
+              iconColor = "none";
+              textColor = "none";
+              displayMode = "alwaysShow";
             }
             {
               id = "Volume";
@@ -227,7 +233,7 @@
         enableLockScreenCountdown = true;
         lockScreenCountdownDuration = 10000;
         autoStartAuth = true;
-        allowPasswordWithFprintd = false;
+        allowPasswordWithFprintd = true;
         clockStyle = "custom";
         clockFormat = "hh\nmm";
         passwordChars = true;

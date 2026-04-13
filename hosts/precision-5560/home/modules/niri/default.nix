@@ -71,7 +71,7 @@
       };
 
       switch-events = {
-        lid-close.action.spawn = ["noctalia-shell" "ipc" "call" "sessionMenu" "lockAndSuspend"];
+        lid-close.action.spawn = ["noctalia-shell" "ipc" "call" "sessionMenu" "lock"];
       };
 
       screenshot-path = "~/Pictures/Screenshots/Screenshot_%Y%m%d_%H%M%S.png";
