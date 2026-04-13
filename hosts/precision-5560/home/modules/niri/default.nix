@@ -14,6 +14,8 @@
   home.packages = with pkgs; [
     xwayland-satellite
 
+    nwg-look
+
     libsForQt5.qt5.qtwayland
     libsForQt5.qt5ct
 
@@ -26,7 +28,7 @@
     settings = {
       environment = {
         QT_QPA_PLATFORM = "wayland";
-        QT_QPA_PLATFORMTHEME = "qt6ct";
+        QT_QPA_PLATFORMTHEME = "gtk3";
         # DISPLAY = ":0";
       };
 
