@@ -31,8 +31,9 @@
 
     ../../common/system/wayland.nix
     # ./cosmic.nix
-    ../../common/system/kdePlasma.nix
+    # ../../common/system/kdePlasma.nix
     #../../common/system/hyprland.nix
-    # ../../common/system/niri.nix
+    ../../common/system/niri.nix
+    ../../common/system/noctalia.nix
   ];
 }

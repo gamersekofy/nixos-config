@@ -68,6 +68,11 @@
       url = "github:benapetr/TuxManager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -118,7 +123,7 @@
         ];
       };
 
-     precision-5560 = lib.nixosSystem {
+      precision-5560 = lib.nixosSystem {
         pkgs = pkgsForSystem;
         specialArgs = {inherit inputs;};
         modules = [

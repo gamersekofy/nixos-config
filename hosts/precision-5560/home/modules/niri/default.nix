@@ -4,24 +4,14 @@
   ...
 }: {
   imports = [
-    ../../../../common/home/wm-utils/kitty.nix
-    ../../../../common/home/wm-utils/swaync.nix
-    ../../../../common/home/wm-utils/network-manager.nix
-    ../../../../common/home/wm-utils/clipse.nix
-    ../../../../common/home/wm-utils/wlogout.nix
-    ../../../../common/home/wm-utils/wlsunset.nix
     ../../../../common/home/wm-utils/udiskie.nix
     ../../../../common/home/wm-utils/packages.nix
+    ../../../../common/home/wm-utils/cliphist.nix
 
-    ../../../../common/home/wm-utils/rofi/rofi.nix
-
-    ./swaylock.nix
-    ./waybar.nix
-    ./swayidle.nix
+    ./noctalia
   ];
 
   home.packages = with pkgs; [
-    swww
     xwayland-satellite
 
     libsForQt5.qt5.qtwayland
@@ -46,9 +36,9 @@
         # Internal display
         "eDP-1" = {
           enable = true;
-          mode.width = 3840;
-          mode.height = 2160;
-          scale = 2;
+          mode.width = 1920;
+          mode.height = 1200;
+          scale = 1;
           position.x = 0;
           position.y = 0;
         };
@@ -81,7 +71,7 @@
       };
 
       switch-events = {
-        lid-close.action.spawn = ["swaylock" "--clock" "--screenshot" "--effect-pixelate" "50"];
+        lid-close.action.spawn = ["noctalia-shell" "ipc" "call" "sessionMenu" "lockAndSuspend"];
       };
 
       screenshot-path = "~/Pictures/Screenshots/Screenshot_%Y%m%d_%H%M%S.png";
@@ -130,10 +120,8 @@
       };
 
       spawn-at-startup = [
-        {command = ["systemctl" "--user" "reset-failed" "waybar.service"];}
+        {command = ["noctalia-shell"];}
         {command = ["kdeconnect-indicator"];}
-        {command = ["swww-daemon"];}
-        {command = ["swww" "img" "~/Documents/nixos-config/hosts/common/wallpapers/tokyoCatppuccin.png"];}
       ];
 
       window-rules = [
@@ -221,48 +209,57 @@
 
       binds = with config.lib.niri.actions;
         {
-          "Mod+Return".action = spawn "kitty";
-          "Mod+Space".action = spawn "rofi" "-show" "drun" "-show-icons";
-          #"Mod+V".action = spawn "rofi" "-modi" "clipboard:/home/uzair/Documents/nixos-config/hosts/common/home/wm-utils/cliphist-rofi-img" "-show" "clipboard" "-show-icons";
-          "Mod+V".action = spawn "kitty" "clipse";
-          "Mod+Period".action = spawn "rofi" "-modi" "\"emoji:rofimoji\"" "-show" "emoji";
+          "Mod+Return".action = spawn "ghostty";
+          "Mod+Space".action = spawn "noctalia-shell" "ipc" "call" "launcher" "toggle";
+          "Mod+V".action = spawn "noctalia-shell" "ipc" "call" "launcher" "clipboard";
+          "Mod+Period".action = spawn "noctalia-shell" "ipc" "call" "launcher" "emoji";
+          "Mod+Tab".action = spawn "noctalia-shell" "ipc" "call" "launcher" "windows";
 
           "Mod+Shift+Slash".action = show-hotkey-overlay;
 
           # Toggle SwayNC notification panel or toggle DND with shift
-          "Mod+N".action = spawn "swaync-client" "-t" "-sw";
-          "Mod+Shift+N".action = spawn "swaync-client" "-d" "-sw";
+          "Mod+N".action = spawn "noctalia-shell" "ipc" "call" "notifications" "toggleHistory";
+          "Mod+Shift+N".action = spawn "noctalia-shell" "ipc" "call" "notifications" "toggleDND";
 
           # Launch file explorer
           "Mod+E".action = spawn "nautilus";
 
           # Lock screen
-          "Mod+L".action = spawn "swaylock" "--clock" "--screenshot" "--effect-pixelate" "50";
+          "Mod+L".action = spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock";
 
           "XF86AudioRaiseVolume" = {
-            action = spawn "wpctl" "set-volume" "-l" "1" "@DEFAULT_AUDIO_SINK@" "2%+";
+            action = spawn "noctalia-shell" "ipc" "call" "volume" "increase";
             allow-when-locked = true;
           };
           "XF86AudioLowerVolume" = {
-            action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "2%-";
+            action = spawn "noctalia-shell" "ipc" "call" "volume" "decrease";
             allow-when-locked = true;
           };
           "XF86AudioMute" = {
-            action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle";
-            allow-when-locked = true;
-          };
-          "XF86AudioMicMute" = {
-            action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle";
+            action = spawn "noctalia-shell" "ipc" "call" "volume" "muteOutput";
             allow-when-locked = true;
           };
 
-          "XF86AudioNext".action = spawn "playerctl" "next";
-          "XF86AudioPause".action = spawn "playerctl" "play-pause";
-          "XF86AudioPlay".action = spawn "playerctl" "play-pause";
-          "XF86AudioPrev".action = spawn "playerctl" "previous";
+          "Mod+XF86AudioRaiseVolume" = {
+            action = spawn "noctalia-shell" "ipc" "call" "volume" "increaseInput";
+            allow-when-locked = true;
+          };
+          "Mod+XF86AudioLowerVolume" = {
+            action = spawn "noctalia-shell" "ipc" "call" "volume" "decreaseInput";
+            allow-when-locked = true;
+          };
+          "Mod+XF86AudioMute" = {
+            action = spawn "noctalia-shell" "ipc" "call" "volume" "muteInput";
+            allow-when-locked = true;
+          };
 
-          "XF86MonBrightnessUp".action = spawn "brightnessctl" "s" "2%+";
-          "XF86MonBrightnessDown".action = spawn "brightnessctl" "s" "2%-";
+          "XF86AudioNext".action = spawn "noctalia-shell" "ipc" "call" "media" "next";
+          "XF86AudioPause".action = spawn "noctalia-shell" "ipc" "call" "media" "playPause";
+          "XF86AudioPlay".action = spawn "noctalia-shell" "ipc" "call" "media" "playPause";
+          "XF86AudioPrev".action = spawn "noctalia-shell" "ipc" "call" "media" "previous";
+
+          "XF86MonBrightnessUp".action = spawn "noctalia-shell" "ipc" "call" "brightness" "increase";
+          "XF86MonBrightnessDown".action = spawn "noctalia-shell" "ipc" "call" "brightness" "decrease";
 
           "Mod+Q".action = close-window;
 
@@ -319,8 +316,8 @@
           "Mod+Ctrl+Shift+WheelScrollDown".action = move-column-right;
           "Mod+Ctrl+Shift+WheelScrollUp".action = move-column-left;
 
-          "Mod+TouchpadScrollDown".action = spawn "wpctl" "set-volume" "-l" "1" "@DEFAULT_AUDIO_SINK@" "2%+";
-          "Mod+TouchpadScrollUp".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "2%-";
+          "Mod+TouchpadScrollDown".action = spawn "noctalia-shell" "ipc" "call" "volume" "increase";
+          "Mod+TouchpadScrollUp".action = spawn "noctalia-shell" "ipc" "call" "volume" "decrease";
 
           "Mod+1".action = focus-workspace 1;
           "Mod+2".action = focus-workspace 2;
