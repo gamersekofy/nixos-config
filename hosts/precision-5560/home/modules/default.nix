@@ -13,6 +13,7 @@
     ../../../common/home/dev/zed.nix
     ../../../common/home/dev/misc.nix
     ../../../common/home/dev/ghostty.nix
+    ../../../common/home/misc/plasma-appgrid.nix
 
     ./devStuff.nix
     ./socials.nix
