@@ -130,6 +130,15 @@
         honor-xdg-activation-with-invalid-serial = [];
       };
 
+      layer-rules = [
+        {
+          matches = [
+            {namespace = "^noctalia-overview";}
+          ];
+          place-within-backdrop = true;
+        }
+      ];
+
       window-rules = [
         {
           geometry-corner-radius = {

@@ -307,7 +307,7 @@
 
       wallpaper = {
         enabled = true;
-        overviewEnabled = false;
+        overviewEnabled = true;
         directory = "/home/uzair/Pictures/wallpapers";
         monitorDirectories = [];
         enableMultiMonitorDirectories = false;
@@ -329,7 +329,7 @@
         panelPosition = "follow_bar";
         hideWallpaperFilenames = false;
         useOriginalImages = false;
-        overviewBlur = 0.4;
+        overviewBlur = 1.0;
         overviewTint = 0.6;
         useWallhaven = false;
         wallhavenQuery = "";
