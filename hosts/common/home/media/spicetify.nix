@@ -12,7 +12,7 @@
     enable = true;
     enabledExtensions = with spicePkgs.extensions; [
       adblock
-      beautifulLyrics
+      spicyLyrics
     ];
     theme = spicePkgs.themes.text;
     colorScheme = "CatppuccinMocha";
