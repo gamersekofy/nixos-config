@@ -124,13 +124,17 @@
         {command = ["kdeconnect-indicator"];}
       ];
 
+      debug = {
+        honor-xdg-activation-with-invalid-serial = [];
+      };
+
       window-rules = [
         {
           geometry-corner-radius = {
-            bottom-left = 6.0;
-            bottom-right = 6.0;
-            top-left = 6.0;
-            top-right = 6.0;
+            bottom-left = 20.0;
+            bottom-right = 20.0;
+            top-left = 20.0;
+            top-right = 20.0;
           };
           clip-to-geometry = true;
         }
