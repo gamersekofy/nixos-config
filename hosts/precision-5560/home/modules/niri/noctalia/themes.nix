@@ -23,5 +23,6 @@
 
   home.packages = [
     pkgs.pywalfox-native
+    pkgs.adw-gtk3
   ];
 }
