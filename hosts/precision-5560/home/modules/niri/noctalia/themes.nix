@@ -10,6 +10,8 @@
     dark = lib.mkForce "noctalia";
   };
 
+  xdg.configFile."yazi/theme.toml".force = true;
+
   programs.helix.settings.theme = lib.mkForce "noctalia";
 
   programs.zed-editor.userSettings.theme = {
