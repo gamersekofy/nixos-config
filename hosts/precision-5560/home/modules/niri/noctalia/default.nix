@@ -661,6 +661,10 @@
             enabled = true;
             id = "zed";
           }
+          {
+            enabled = true;
+            id= "pywalfox";
+          }
         ];
         enableUserTheming = false;
       };
