@@ -3,8 +3,8 @@
     ../../../common/home/misc/sioyek.nix
   ];
   home.packages = with pkgs; [
-    qalculate-qt
-    # calibre
+    qalculate-gtk
+    calibre
     obsidian
     libreoffice-qt6-fresh
   ];
