@@ -13,8 +13,8 @@
   programs.helix.settings.theme = lib.mkForce "noctalia";
 
   programs.zed-editor.userSettings.theme = {
-    light = lib.mkForce "noctalia";
-    dark = lib.mkForce "noctalia";
+    light = lib.mkForce "Noctalia Light";
+    dark = lib.mkForce "Noctalia Dark";
   };
 
   programs.firefox.nativeMessagingHosts = [pkgs.pywalfox-native];
