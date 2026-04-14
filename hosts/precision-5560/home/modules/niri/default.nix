@@ -230,6 +230,7 @@
           "Mod+V".action = spawn "noctalia-shell" "ipc" "call" "launcher" "clipboard";
           "Mod+Period".action = spawn "noctalia-shell" "ipc" "call" "launcher" "emoji";
           "Mod+Tab".action = spawn "noctalia-shell" "ipc" "call" "launcher" "windows";
+          "Mod+A".action = spawn "noctalia-shell" "ipc" "controlCenter" "toggle";
 
           "Mod+Shift+Slash".action = show-hotkey-overlay;
 
