@@ -670,7 +670,7 @@
       };
 
       nightLight = {
-        enabled = false;
+        enabled = true;
         forced = false;
         autoSchedule = true;
         nightTemp = "4791";
@@ -701,7 +701,7 @@
         enabled = true;
         screenOffTimeout = 300;
         lockTimeout = 310;
-        suspendTimeout = 1800;
+        suspendTimeout = 350;
         fadeDuration = 5;
         screenOffCommand = "";
         lockCommand = "";
