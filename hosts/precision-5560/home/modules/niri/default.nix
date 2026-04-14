@@ -225,7 +225,7 @@
 
       binds = with config.lib.niri.actions;
         {
-          "Mod+Return".action = spawn "ghostty";
+          "Mod+Return".action = spawn "ghostty" "+new-window";
           "Mod+Space".action = spawn "noctalia-shell" "ipc" "call" "launcher" "toggle";
           "Mod+V".action = spawn "noctalia-shell" "ipc" "call" "launcher" "clipboard";
           "Mod+Period".action = spawn "noctalia-shell" "ipc" "call" "launcher" "emoji";
