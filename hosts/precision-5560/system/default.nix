@@ -6,7 +6,7 @@
     ./media.nix
     ./hardware-configuration.nix
     ./miscNixStuff.nix
-    #./lanzaboote.nix
+    ./lanzaboote.nix
     # ./sddm.nix
     ../../common/system/sddm.nix
     ./special-hardware.nix
@@ -26,11 +26,8 @@
     ../../common/system/pipewire.nix
     ../../common/system/gpu-screen-recorder.nix
     ../../common/system/wireshark.nix
-    ../../common/system/tuxmanager.nix
-    # ../../common/system/graphics.nix
 
     ../../common/system/wayland.nix
-    # ./cosmic.nix
     # ../../common/system/kdePlasma.nix
     #../../common/system/hyprland.nix
     ../../common/system/niri.nix
