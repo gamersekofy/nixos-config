@@ -9,6 +9,7 @@
     ../../../../common/home/wm-utils/cliphist.nix
 
     ./noctalia
+    ./wluma.nix
   ];
 
   home.packages = with pkgs; [
