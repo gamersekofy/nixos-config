@@ -1,8 +1,9 @@
 {pkgs, ...}: {
   imports = [
-    ../../../common/home/misc/firefox.nix
+    ./firefox.nix
   ];
   home.packages = with pkgs; [
     microsoft-edge
   ];
 }
+

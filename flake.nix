@@ -12,20 +12,18 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    #minegrub-world-sel-theme = {
-    #  url = "github:Lxtharia/minegrub-world-sel-theme";
-    #};
-
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixos-cli = {
       url = "github:water-sucks/nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     lanzaboote = {
@@ -36,33 +34,14 @@
       };
     };
 
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-    };
-
-    hyprland-qtutils = {
-      url = "github:hyprwm/hyprland-qtutils";
-    };
-
     nixcord = {
       url = "github:kaylorben/nixcord";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     niri = {
       url = "github:sodiboo/niri-flake";
     };
-
-    catppuccin.url = "github:catppuccin/nix";
 
     tuxmanager = {
       url = "github:benapetr/TuxManager";
@@ -113,7 +92,6 @@
             home-manager.users.uzair = {
               imports = [
                 ./hosts/precision-5530/home/home.nix
-                inputs.catppuccin.homeModules.catppuccin
               ];
             };
           }

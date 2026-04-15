@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   imports = [
-    ../../../common/home/media/minecraft.nix
+    ./minecraft.nix
   ];
   home.packages = with pkgs; [
     heroic
