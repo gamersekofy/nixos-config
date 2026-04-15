@@ -8,6 +8,7 @@
   ];
   programs.niri = {
     enable = true;
+    package = pkgs.niri;
   };
 
   services.displayManager.sddm.package = pkgs.kdePackages.sddm;
