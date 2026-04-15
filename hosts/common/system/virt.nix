@@ -3,10 +3,15 @@
     extraGroups = ["libvirtd"];
   };
 
-  virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
 
   virtualisation = {
+    # Libvirt
+    libvirtd = {
+      enable = true;
+      qemu.swtpm.enable = true;
+    };
+
     # Docker
     docker = {
       enable = true;
