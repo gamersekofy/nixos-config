@@ -2,9 +2,9 @@
   imports = [
     inputs.nixos-cli.nixosModules.nixos-cli
   ];
-  services.nixos-cli = {
+  programs.nixos-cli = {
     enable = true;
-    config = {
+    settings = {
       aliases = {
         genlist = ["generation" "list"];
         switch = ["generation" "switch"];

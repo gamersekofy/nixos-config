@@ -14,6 +14,7 @@
       credential.helper = "store";
       init.defaultBranch = "master";
     };
+    signing.format = null;
   };
 
   programs.git-credential-oauth = {
