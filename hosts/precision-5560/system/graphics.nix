@@ -14,5 +14,5 @@
     LIBVA_DRIVER_NAME = "iHD";
   };
 
-  boot.kernelParams = [ "i915.enable_guc=3" ];
+  boot.kernelParams = ["i915.enable_guc=3"];
 }

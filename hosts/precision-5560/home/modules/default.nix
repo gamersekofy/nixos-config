@@ -26,6 +26,5 @@
     ../../../common/home/misc/kdeThemes.nix
 
     ./niri
-    # ./hyprland/hyprland.nix
   ];
 }

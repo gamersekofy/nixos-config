@@ -662,7 +662,7 @@
           }
           {
             enabled = true;
-            id= "pywalfox";
+            id = "pywalfox";
           }
         ];
         enableUserTheming = false;
