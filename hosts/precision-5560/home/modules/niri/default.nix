@@ -85,6 +85,7 @@
           accel-speed = 0.1;
           scroll-factor = 0.4;
           tap-button-map = "left-right-middle";
+          dwt = true;
         };
 
         mouse = {
