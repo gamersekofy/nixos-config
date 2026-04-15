@@ -194,6 +194,10 @@
               app-id = "org.kde.kdenlive";
               title = "Splash Screen - Kdenlive";
             }
+            # Qalculate-Gtk
+            {
+              app-id = "qalculate-gtk";
+            }
           ];
           open-floating = true;
         }
@@ -376,8 +380,7 @@
           "Mod+Shift+Equal".action = set-window-height "+5%";
 
           "Mod+Shift+V".action = toggle-window-floating;
-          "Alt+Tab".action = switch-focus-between-floating-and-tiling;
-
+          
           "Mod+W".action = toggle-column-tabbed-display;
 
           "Mod+Shift+S".action.screenshot = [];
