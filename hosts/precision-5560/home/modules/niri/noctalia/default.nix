@@ -45,16 +45,6 @@
         widgets = {
           left = [
             {
-              id = "Launcher";
-              enableColorization = true;
-              useDistroLogo = true;
-              colorizeSystemIcon = "none";
-              colorizeSystemText = "none";
-              customIconPath = "";
-              icon = "rocket";
-              iconColor = "none";
-            }
-            {
               id = "Clock";
               formatHorizontal = "HH:mm ddd, MMM dd";
               formatVertical = "HH mm - dd MM";
@@ -433,13 +423,13 @@
         diskCriticalThreshold = 90;
         diskAvailWarningThreshold = 20;
         diskAvailCriticalThreshold = 10;
-        batteryWarningThreshold = 20;
-        batteryCriticalThreshold = 5;
+        batteryWarningThreshold = 30;
+        batteryCriticalThreshold = 15;
         enableDgpuMonitoring = false;
         useCustomColors = false;
         warningColor = "";
         criticalColor = "";
-        externalMonitor = "resources || missioncenter || jdsystemmonitor || corestats || system-monitoring-center || gnome-system-monitor || plasma-systemmonitor || mate-system-monitor || ukui-system-monitor || deepin-system-monitor || pantheon-system-monitor";
+        externalMonitor = "missioncenter";
       };
 
       noctaliaPerformance = {
@@ -448,8 +438,8 @@
       };
 
       dock = {
-        enabled = false;
-        position = "bottom";
+        enabled = true;
+        position = "left";
         displayMode = "auto_hide";
         dockType = "floating";
         backgroundOpacity = 1;
@@ -457,11 +447,19 @@
         size = 1;
         onlySameOutput = true;
         monitors = [];
-        pinnedApps = [];
+        pinnedApps = [
+          "org.gnome.Nautilus"
+          "firefox"
+          "spotify"
+          "com.yubico.yubioath"
+          "org.keepassxc.KeePassXC"
+          "com.mitchellh.ghostty"
+          "qalculate-gtk"
+        ];
         colorizeIcons = false;
-        showLauncherIcon = false;
-        launcherPosition = "end";
-        launcherUseDistroLogo = false;
+        showLauncherIcon = true;
+        launcherPosition = "start";
+        launcherUseDistroLogo = true;
         launcherIcon = "";
         launcherIconColor = "none";
         pinnedStatic = false;
@@ -473,7 +471,7 @@
         deadOpacity = 0.6;
         animationSpeed = 1;
         sitOnFrame = false;
-        showDockIndicator = false;
+        showDockIndicator = true;
         indicatorThickness = 3;
         indicatorColor = "primary";
         indicatorOpacity = 0.6;
