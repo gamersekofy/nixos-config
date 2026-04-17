@@ -6,6 +6,7 @@
   imports = [
     inputs.noctalia.homeModules.default
     ./themes.nix
+    ./wallpaper-picker.nix
   ];
 
   home.packages = [
@@ -343,12 +344,12 @@
         clipboardWrapText = true;
         enableClipboardSmartIcons = true;
         enableClipboardChips = true;
-        clipboardWatchTextCommand = "wl-paste --type text --watch cliphist store";
-        clipboardWatchImageCommand = "wl-paste --type image --watch cliphist store";
+        lipboardWatchTextCommand = "${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.cliphist}/bin/cliphist store";
+        clipboardWatchImageCommand = "${pkgs.wl-clipboard}/bin/wl-paste --type image --watch ${pkgs.cliphist}/bin/cliphist store";
         position = "center";
         pinnedApps = [];
         sortByMostUsed = true;
-        terminalCommand = "ghostty -e";
+        terminalCommand = "${pkgs.ghostty}/bin/ghostty -e";
         customLaunchPrefixEnabled = false;
         customLaunchPrefix = "";
         viewMode = "list";
@@ -359,7 +360,7 @@
         enableWindowsSearch = true;
         enableSessionSearch = true;
         ignoreMouseInput = false;
-        screenshotAnnotationTool = "gradia";
+        screenshotAnnotationTool = "${pkgs.gradia}/bin/gradia";
         overviewLayer = false;
         density = "default";
       };
@@ -429,7 +430,7 @@
         useCustomColors = false;
         warningColor = "";
         criticalColor = "";
-        externalMonitor = "missioncenter";
+        externalMonitor = "${pkgs.mission-center}/bin/missioncenter";
       };
 
       noctaliaPerformance = {
