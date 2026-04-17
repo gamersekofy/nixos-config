@@ -463,7 +463,7 @@
         launcherIcon = "";
         launcherIconColor = "none";
         pinnedStatic = false;
-        inactiveIndicators = false;
+        inactiveIndicators = true;
         groupApps = false;
         groupContextMenuMode = "extended";
         groupClickAction = "cycle";
