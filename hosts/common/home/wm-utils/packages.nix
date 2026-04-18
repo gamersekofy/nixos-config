@@ -3,6 +3,7 @@
     blueman
     pavucontrol
     nautilus
+    wl-clipboard
 
     kdePackages.okular
     kdePackages.gwenview
