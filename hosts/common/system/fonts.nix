@@ -9,5 +9,8 @@
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif
+
+    carlito
+    vista-fonts
   ];
 }
