@@ -591,7 +591,7 @@
 
       osd = {
         enabled = true;
-        location = "top_right";
+        location = "bottom_left";
         autoHideMs = 2000;
         overlayLayer = true;
         backgroundOpacity = 1;
