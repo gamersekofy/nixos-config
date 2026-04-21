@@ -20,7 +20,7 @@
 
       bar = {
         barType = "simple";
-        position = "top";
+        position = "left";
         monitors = [];
         density = "comfortable";
         showOutline = false;
@@ -439,7 +439,7 @@
       };
 
       dock = {
-        enabled = true;
+        enabled = false;
         position = "left";
         displayMode = "auto_hide";
         dockType = "floating";
