@@ -52,6 +52,12 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Instant eyedropper reborn
+    ie-r = {
+      url = "github:miaupaw/ie-r";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
