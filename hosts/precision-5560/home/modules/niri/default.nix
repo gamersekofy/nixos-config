@@ -399,6 +399,10 @@ in {
           "Ctrl+Alt+Delete".action = quit;
 
           "Mod+Shift+P".action = power-off-monitors;
+
+          # Instant Eyedropper Reborn bindings
+          "Mod+Alt+C".action = spawn "pkill" "-SIGUSR1" "ie-r";
+          "Mod+Alt+H".action = spawn "pkill" "-SIGUSR2" "ie-r";
         }
         // # Workaround for issue 1018
         (builtins.listToAttrs (map (n: {

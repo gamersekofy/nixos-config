@@ -10,6 +10,7 @@
     ../../../common/home/misc/browsers.nix
     ../../../common/home/media/gaming.nix
     ../../../common/home/misc/easyeffects.nix
+    ../../../common/home/wm-utils/ier.nix
 
     ../../../common/home/dev/helix.nix
     ../../../common/home/dev/git.nix
