@@ -15,4 +15,5 @@
 
   services.tumbler.enable = true;
   services.udisks2.enable = true;
+  systemd.user.services.niri-flake-polkit.enable = false;
 }

@@ -15,6 +15,103 @@
 
   programs.noctalia-shell = {
     enable = true;
+
+    plugins = {
+      version = "2";
+      sources = [
+        {
+          enabled = true;
+          name = "Official Noctalia Plugins";
+          url = "https://github.com/noctalia-dev/noctalia-plugins";
+        }
+      ];
+      states = {
+        timer.enabled = true;
+        pomodoro.enabled = true;
+        kde-connect.enabled = true;
+        polkit-agent.enabled = true;
+        kaomoji-provider.enabled = true;
+        screen-recorder.enabled = true;
+        mawaqit.enabled = true;
+        privacy-indicator.enabled = true;
+      };
+    };
+
+    pluginSettings = {
+      timer = {
+        defaultDuration = 0;
+        compactMode = false;
+        iconColor = "primary";
+        textColor = "primary";
+      };
+
+      kde-connect = {
+        hideIfNoDeviceConnected = true;
+      };
+
+      screen-recorder = {
+        hideInactive = false;
+        iconColor = "none";
+        directory = "/home/uzair/Videos/Screencasts";
+        filenamePattern = "Video_yyyyMMdd_HHmmss";
+        frameRate = "60";
+        audioCodec = "opus";
+        videoCodec = "h264";
+        quality = "very_high";
+        colorRange = "limited";
+        showCursor = true;
+        copyToClipboard = false;
+        audioSource = "default_output";
+        videoSource = "portal";
+        resolution = "original";
+        replayEnabled = false;
+        replayDuration = "30";
+        customReplayDuration = "30";
+        replayStorage = "ram";
+        restorePortalSession = false;
+        customFrameRate = "60";
+      };
+
+      mawaqit = {
+        city = "Redwood City";
+        country = "US";
+        method = 2;
+        school = 0;
+        showCountdown = true;
+        showElapsed = false;
+        hidePrayerName = false;
+        showNotifications = true;
+        playAzan = false;
+        azanFile = "azan1.mp3";
+        hijriDayOffset = 0;
+        tune = false;
+        tuneFajr = 0;
+        tuneDhuhr = 0;
+        tuneAsr = 0;
+        tuneMaghrib = 0;
+        tuneIsha = 0;
+        widgetIcon = "building-mosque";
+        dynamicIcon = false;
+        textColor = "none";
+        iconColor = "none";
+        activeColor = "primary";
+        weekStartDay = 0;
+        fajrAngle = null;
+        ishaAngle = null;
+      };
+
+      privacy-indicator = {
+        hideInactive = true;
+        enableToast = true;
+        removeMargins = false;
+        iconSpacing = 4;
+        activeColor = "primary";
+        inactiveColor = "none";
+        micFilterRegex = "effect_input.rnnoise|easyeffects";
+        camFilterRegex = "";
+      };
+    };
+
     settings = {
       settingsVersion = 59;
 
@@ -48,7 +145,7 @@
             {
               id = "Clock";
               formatHorizontal = "HH:mm ddd, MMM dd";
-              formatVertical = "HH mm - dd MM";
+              formatVertical = "HH mm - ddd MMM dd";
               tooltipFormat = "HH:mm ddd, MMM dd";
               useCustomFont = false;
               customFont = "";
@@ -138,12 +235,24 @@
               pinned = [];
             }
             {
+              id = "plugin:pomodoro";
+            }
+            {
+              id = "plugin:mawaqit";
+            }
+            {
+              id = "plugin:privacy-indicator";
+            }
+            {
               id = "NotificationHistory";
               hideWhenZero = false;
               hideWhenZeroUnread = false;
               iconColor = "none";
               showUnreadBadge = true;
               unreadBadgeColor = "primary";
+            }
+            {
+              id = "plugin:kde-connect";
             }
             {
               id = "Battery";
@@ -379,6 +488,39 @@
             {id = "DarkMode";}
             {id = "KeepAwake";}
             {id = "NightLight";}
+            {
+              defaultSettings = {
+                compactMode = false;
+                defaultDuration = 0;
+                iconColor = "none";
+                textColor = "none";
+              };
+              id = "plugin:timer";
+            }
+            {
+              defaultSettings = {
+                audioCodec = "opus";
+                audioSource = "default_output";
+                colorRange = "limited";
+                copyToClipboard = false;
+                customReplayDuration = "30";
+                directory = "";
+                filenamePattern = "Video_yyyyMMdd_HHmmss";
+                frameRate = "60";
+                hideInactive = false;
+                iconColor = "none";
+                quality = "very_high";
+                replayDuration = "30";
+                replayEnabled = false;
+                replayStorage = "ram";
+                resolution = "original";
+                restorePortalSession = false;
+                showCursor = true;
+                videoCodec = "h264";
+                videoSource = "portal";
+              };
+              id = "plugin:screen-recorder";
+            }
           ];
         };
         cards = [
