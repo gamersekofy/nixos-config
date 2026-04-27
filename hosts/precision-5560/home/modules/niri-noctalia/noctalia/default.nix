@@ -34,6 +34,7 @@
         screen-recorder.enabled = true;
         mawaqit.enabled = true;
         privacy-indicator.enabled = true;
+        weekly-calendar.enabled = true;
       };
     };
 
@@ -397,10 +398,6 @@
           {
             enabled = true;
             id = "calendar-month-card";
-          }
-          {
-            enabled = true;
-            id = "weather-card";
           }
         ];
       };
