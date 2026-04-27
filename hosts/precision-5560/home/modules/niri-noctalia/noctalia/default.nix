@@ -287,7 +287,7 @@
               id = "ControlCenter";
               enableColorization = true;
               icon = "noctalia";
-              useDistroLogo = false;
+              useDistroLogo = true;
               colorizeDistroLogo = false;
               colorizeSystemIcon = "none";
               colorizeSystemText = "none";
@@ -338,8 +338,8 @@
         lockScreenCountdownDuration = 10000;
         autoStartAuth = true;
         allowPasswordWithFprintd = true;
-        clockStyle = "custom";
-        clockFormat = "hh\nmm";
+        clockStyle = "digital";
+        clockFormat = "";
         passwordChars = true;
         lockScreenMonitors = [];
         lockScreenBlur = 0;
