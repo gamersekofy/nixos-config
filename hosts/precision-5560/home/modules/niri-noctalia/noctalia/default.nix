@@ -101,7 +101,7 @@
       };
 
       privacy-indicator = {
-        hideInactive = true;
+        hideInactive = false;
         enableToast = true;
         removeMargins = false;
         iconSpacing = 4;
@@ -117,13 +117,13 @@
 
       bar = {
         barType = "simple";
-        position = "left";
+        position = "bottom";
         monitors = [];
         density = "comfortable";
         showOutline = false;
         showCapsule = true;
-        capsuleOpacity = 1;
-        capsuleColorKey = "none";
+        capsuleOpacity = 0.25;
+        capsuleColorKey = "primary";
         widgetSpacing = 6;
         contentPadding = 2;
         fontScale = 1.2000000000000002;
@@ -152,41 +152,6 @@
               clockColor = "none";
             }
             {
-              id = "SystemMonitor";
-              compactMode = false;
-              diskPath = "/";
-              iconColor = "none";
-              showCpuCores = false;
-              showCpuFreq = false;
-              showCpuTemp = false;
-              showCpuUsage = true;
-              showDiskAvailable = true;
-              showDiskUsage = false;
-              showDiskUsageAsPercent = false;
-              showGpuTemp = false;
-              showLoadAverage = false;
-              showMemoryAsPercent = false;
-              showMemoryUsage = true;
-              showNetworkStats = true;
-              showSwapUsage = false;
-              textColor = "none";
-              useMonospaceFont = true;
-              usePadding = false;
-            }
-            {
-              id = "ActiveWindow";
-              colorizeIcons = false;
-              hideMode = "hidden";
-              maxWidth = 200;
-              scrollingMode = "hover";
-              showIcon = true;
-              showText = true;
-              textColor = "none";
-              useFixedWidth = false;
-            }
-          ];
-          center = [
-            {
               id = "Workspace";
               characterCount = 2;
               colorizeIcons = false;
@@ -207,6 +172,44 @@
               showLabelsOnlyWhenOccupied = true;
               unfocusedIconsOpacity = 1;
             }
+            {
+              id = "SystemMonitor";
+              compactMode = false;
+              diskPath = "/";
+              iconColor = "none";
+              showCpuCores = false;
+              showCpuFreq = false;
+              showCpuTemp = false;
+              showCpuUsage = true;
+              showDiskAvailable = true;
+              showDiskUsage = false;
+              showDiskUsageAsPercent = false;
+              showGpuTemp = false;
+              showLoadAverage = false;
+              showMemoryAsPercent = false;
+              showMemoryUsage = true;
+              showNetworkStats = false;
+              showSwapUsage = false;
+              textColor = "none";
+              useMonospaceFont = true;
+              usePadding = false;
+            }
+            {
+              id = "ActiveWindow";
+              colorizeIcons = false;
+              hideMode = "hidden";
+              maxWidth = 200;
+              scrollingMode = "hover";
+              showIcon = true;
+              showText = true;
+              textColor = "none";
+              useFixedWidth = false;
+            }
+            {
+              id = "plugin:privacy-indicator";
+            }
+          ];
+          center = [
           ];
           right = [
             {
@@ -239,9 +242,6 @@
             }
             {
               id = "plugin:mawaqit";
-            }
-            {
-              id = "plugin:privacy-indicator";
             }
             {
               id = "NotificationHistory";
@@ -700,7 +700,7 @@
         enableMarkdown = false;
         density = "default";
         monitors = [];
-        location = "top_right";
+        location = "bottom_right";
         overlayLayer = true;
         backgroundOpacity = 1;
         respectExpireTimeout = false;
@@ -729,7 +729,7 @@
 
       osd = {
         enabled = true;
-        location = "bottom_left";
+        location = "bottom_center";
         autoHideMs = 2000;
         overlayLayer = true;
         backgroundOpacity = 1;
