@@ -358,7 +358,7 @@
       };
 
       ui = {
-        fontDefault = "CaskaydiaCove Nerd Font";
+        fontDefault = "Google Sans";
         fontFixed = "CaskaydiaCove Nerd Font";
         fontDefaultScale = 1;
         fontFixedScale = 1;
