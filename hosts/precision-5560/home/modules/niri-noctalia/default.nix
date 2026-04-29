@@ -242,6 +242,8 @@ in {
 
           "Mod+Shift+Slash".action = show-hotkey-overlay;
 
+          "Mod+Alt+Space".action = spawn "${inputs.hexecute.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/hexecute";
+
           # Toggle SwayNC notification panel or toggle DND with shift
           "Mod+N".action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "notifications" "toggleHistory";
           "Mod+Shift+N".action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "notifications" "toggleDND";

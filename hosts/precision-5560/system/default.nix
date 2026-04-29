@@ -5,7 +5,7 @@
     ./syncthing.nix
     ./media.nix
     ./hardware-configuration.nix
-    ./miscNixStuff.nix
+    ./misc.nix
     ./lanzaboote.nix
     # ./sddm.nix
     ../../common/system/sddm.nix
