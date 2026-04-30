@@ -6,6 +6,7 @@
 }: let
   system = pkgs.stdenv.hostPlatform.system;
   noctalia-pkg = inputs.noctalia.packages.${system}.default;
+  wl-freeze = pkgs.wl-freeze.overrideAttrs {nativeBuildInputs = [pkgs.makeWrapper pkgs.installShellFiles];};
 in {
   imports = [
     ../../../../common/home/wm-utils/udiskie.nix
@@ -241,6 +242,8 @@ in {
           "Mod+A".action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "controlCenter" "toggle";
 
           "Mod+Shift+Slash".action = show-hotkey-overlay;
+
+          "Mod+XF86AudioPlay".action = spawn "${wl-freeze}/bin/wl-freeze" "-a";
 
           "Mod+Alt+Space".action = spawn "${inputs.hexecute.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/hexecute";
 
