@@ -13,7 +13,7 @@
     ];
 
     extraPackages = with pkgs; [
-      nixd
+      nil
       texlab
       crates-lsp
     ];
@@ -25,7 +25,6 @@
         default_profile = "ask";
         default_model = {
           provider = "copilot_chat";
-          model = "gemini-2.5-pro";
         };
       };
 
