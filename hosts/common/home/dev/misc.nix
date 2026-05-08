@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   home.sessionVariables = {
     ELECTRON_OZONE_PLATFORM_HINT = "wayland";
-    NIXOS_CONFIG = "/home/uzair/Documents/nixos-config";
+    NIXOS_CONFIG = "/home/uzair/Projects/nixos-config";
     #XCURSOR_THEME = "Furina-v2";
     #XCURSOR_SIZE = 32;
   };

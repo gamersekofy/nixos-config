@@ -3,5 +3,6 @@
     # GUI code editors
     kdePackages.kate
     jetbrains.idea
+    vscode-fhs
   ];
 }
