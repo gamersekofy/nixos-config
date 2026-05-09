@@ -7,8 +7,6 @@
     ./hardware-configuration.nix
     ./misc.nix
     ./lanzaboote.nix
-    # ./sddm.nix
-    ../../common/system/sddm.nix
     ./special-hardware.nix
     ./secondary-ssd.nix
     ./graphics.nix
@@ -25,12 +23,15 @@
     ../../common/system/thunderbolt.nix
     ../../common/system/pipewire.nix
     ../../common/system/gpu-screen-recorder.nix
+    ../../common/system/tuxmanager.nix
+    ../../common/system/merkuro.nix
     # ../../common/system/wireshark.nix
 
     ../../common/system/wayland.nix
-    # ../../common/system/kdePlasma.nix
-    ../../common/system/niri.nix
-    ../../common/system/noctalia.nix
+    ../../common/system/plasma-login-manager.nix
+    ../../common/system/kdePlasma.nix
+    # ../../common/system/niri.nix
+    # ../../common/system/noctalia.nix
     # ../../common/system/dms.nix
   ];
 }

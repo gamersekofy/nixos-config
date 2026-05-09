@@ -26,6 +26,6 @@
     # ../../../common/home/misc/gtkThemes.nix
     ../../../common/home/misc/kdeThemes.nix
 
-    ./niri-noctalia
+    # ./niri-noctalia
   ];
 }
