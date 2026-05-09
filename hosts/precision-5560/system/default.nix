@@ -24,7 +24,6 @@
     ../../common/system/pipewire.nix
     ../../common/system/gpu-screen-recorder.nix
     ../../common/system/tuxmanager.nix
-    ../../common/system/merkuro.nix
     # ../../common/system/wireshark.nix
 
     ../../common/system/wayland.nix
