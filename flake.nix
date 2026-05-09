@@ -60,7 +60,7 @@
     };
 
     hexecute = {
-      url = "github:gamersekofy/Hexecute";
+      url = "github:ThatOtherAndrew/Hexecute";
     };
   };
 
