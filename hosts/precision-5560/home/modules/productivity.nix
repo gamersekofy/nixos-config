@@ -9,5 +9,6 @@
     libreoffice-qt6-fresh
     texstudio
     qownnotes
+    drawy
   ];
 }
