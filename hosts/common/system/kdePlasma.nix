@@ -29,6 +29,8 @@
 
     plasmusic-toolbar
     maliit-keyboard
+
+    kdePackages.plasma-bigscreen
   ];
 
   programs.partition-manager.enable = true;
