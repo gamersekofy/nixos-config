@@ -3,6 +3,7 @@
 
   programs.nixcord = {
     enable = true;
+    discord.vencord.enable = true;
     config = {
       themeLinks = ["https://raw.githubusercontent.com/refact0r/system24/refs/heads/main/theme/flavors/system24-rose-pine.theme.css"];
       plugins = {
