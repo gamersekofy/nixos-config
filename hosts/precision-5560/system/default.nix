@@ -10,6 +10,7 @@
     ./special-hardware.nix
     ./secondary-ssd.nix
     ./graphics.nix
+    ./howdy.nix
 
     ../../common/system/powerManagement.nix
     ../../common/system/tzLocale.nix
