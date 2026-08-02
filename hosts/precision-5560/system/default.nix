@@ -20,7 +20,6 @@
     ../../common/system/nixos-cli.nix
     ../../common/system/printing.nix
     ../../common/system/yubikey.nix
-    ../../common/system/steam.nix
     ../../common/system/thunderbolt.nix
     ../../common/system/pipewire.nix
     ../../common/system/gpu-screen-recorder.nix
