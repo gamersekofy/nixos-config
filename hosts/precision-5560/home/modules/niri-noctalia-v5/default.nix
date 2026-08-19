@@ -79,7 +79,7 @@ in {
       };
 
       switch-events = {
-        lid-close.action.spawn = ["${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "sessionMenu" "lock"];
+        lid-close.action.spawn = ["${noctalia-pkg}/bin/noctalia" "session" "lock"];
       };
 
       screenshot-path = "~/Pictures/Screenshots/Screenshot_%Y%m%d_%H%M%S.png";
@@ -129,7 +129,7 @@ in {
       };
 
       spawn-at-startup = [
-        {command = ["${noctalia-pkg}/bin/noctalia-shell"];}
+        {command = ["${noctalia-pkg}/bin/noctalia"];}
       ];
 
       debug = {
@@ -139,7 +139,7 @@ in {
       layer-rules = [
         {
           matches = [
-            {namespace = "^noctalia-overview";}
+            {namespace = "^noctalia-backdrop";}
           ];
           place-within-backdrop = true;
         }
@@ -235,11 +235,11 @@ in {
       binds = with config.lib.niri.actions;
         {
           "Mod+Return".action = spawn "${pkgs.ghostty}/bin/ghostty" "+new-window";
-          "Mod+Space".action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "launcher" "toggle";
-          "Mod+V".action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "launcher" "clipboard";
-          "Mod+Period".action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "launcher" "emoji";
-          "Mod+Tab".action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "launcher" "windows";
-          "Mod+A".action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "controlCenter" "toggle";
+          "Mod+Space".action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "panel-toggle" "launcher";
+          "Mod+V".action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "panel-toggle" "clipboard";
+          "Mod+Period".action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "panel-toggle" "launcher" "/emo ";
+          "Mod+Tab".action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "panel-toggle" "launcher" "/win ";
+          "Mod+A".action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "panel-toggle" "control-center";
 
           "Mod+Shift+Slash".action = show-hotkey-overlay;
 
@@ -248,48 +248,63 @@ in {
           "Mod+Alt+Space".action = spawn "${inputs.hexecute.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/hexecute";
 
           # Toggle SwayNC notification panel or toggle DND with shift
-          "Mod+N".action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "notifications" "toggleHistory";
-          "Mod+Shift+N".action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "notifications" "toggleDND";
+          "Mod+N".action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "panel-toggle" "control-center" "notifications";
+          "Mod+Shift+N".action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "notification-dnd-toggle";
 
           # Launch file explorer
           "Mod+E".action = spawn "nautilus";
 
           # Lock screen
-          "Mod+L".action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "lockScreen" "lock";
+          "Mod+L".action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "session" "lock";
 
           "XF86AudioRaiseVolume" = {
-            action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "volume" "increase";
+            action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "volume-up";
             allow-when-locked = true;
           };
           "XF86AudioLowerVolume" = {
-            action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "volume" "decrease";
+            action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "volume-down";
             allow-when-locked = true;
           };
+
+          # Incremental volume changes
+          "Shift+XF86AudioRaiseVolume" = {
+            action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "volume-up" "1";
+            allow-when-locked = true;
+          };
+          "Shift+XF86AudioLowerVolume" = {
+            action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "volume-down" "1";
+            allow-when-locked = true;
+          };
+
           "XF86AudioMute" = {
-            action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "volume" "muteOutput";
+            action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "volume-mute";
             allow-when-locked = true;
           };
 
           "Mod+XF86AudioRaiseVolume" = {
-            action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "volume" "increaseInput";
+            action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "mic-volume-up";
             allow-when-locked = true;
           };
           "Mod+XF86AudioLowerVolume" = {
-            action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "volume" "decreaseInput";
+            action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "mic-volume-down";
             allow-when-locked = true;
           };
           "Mod+XF86AudioMute" = {
-            action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "volume" "muteInput";
+            action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "mic-mute";
             allow-when-locked = true;
           };
 
-          "XF86AudioNext".action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "media" "next";
-          "XF86AudioPause".action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "media" "playPause";
-          "XF86AudioPlay".action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "media" "playPause";
-          "XF86AudioPrev".action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "media" "previous";
+          "XF86AudioNext".action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "media" "next";
+          "XF86AudioPause".action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "media" "previous";
+          "XF86AudioPlay".action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "media" "toggle";
+          "XF86AudioPrev".action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "media" "toggle";
 
-          "XF86MonBrightnessUp".action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "brightness" "increase";
-          "XF86MonBrightnessDown".action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "brightness" "decrease";
+          "XF86MonBrightnessUp".action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "brightness-up";
+          "XF86MonBrightnessDown".action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "brightness-down";
+
+          # Incremental brightness changes
+          "Shift+XF86MonBrightnessUp".action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "brightness-up" "1";
+          "Shift+XF86MonBrightnessDown".action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "brightness-down" "1";
 
           "Mod+Q".action = close-window;
 
@@ -346,8 +361,8 @@ in {
           "Mod+Ctrl+Shift+WheelScrollDown".action = move-column-right;
           "Mod+Ctrl+Shift+WheelScrollUp".action = move-column-left;
 
-          "Mod+TouchpadScrollDown".action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "volume" "increase";
-          "Mod+TouchpadScrollUp".action = spawn "${noctalia-pkg}/bin/noctalia-shell" "ipc" "call" "volume" "decrease";
+          "Mod+TouchpadScrollDown".action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "volume-up";
+          "Mod+TouchpadScrollUp".action = spawn "${noctalia-pkg}/bin/noctalia" "msg" "volume-down";
 
           "Mod+1".action = focus-workspace 1;
           "Mod+2".action = focus-workspace 2;
@@ -410,7 +425,7 @@ in {
         }
         // # Workaround for issue 1018
         (builtins.listToAttrs (map (n: {
-          name = "Mod+Shift+${builtins.toString n}";
+          name = "Mod+Shift+${toString n}";
           value = {
             action.move-window-to-workspace = n;
             repeat = false;

@@ -13,104 +13,104 @@
     pkgs.gradia
   ];
 
-  programs.noctalia-shell = {
+  programs.noctalia = {
     enable = true;
 
-    plugins = {
-      version = "2";
-      sources = [
-        {
-          enabled = true;
-          name = "Official Noctalia Plugins";
-          url = "https://github.com/noctalia-dev/noctalia-plugins";
-        }
-      ];
-      states = {
-        timer.enabled = true;
-        pomodoro.enabled = true;
-        kde-connect.enabled = true;
-        polkit-agent.enabled = true;
-        kaomoji-provider.enabled = true;
-        screen-recorder.enabled = true;
-        mawaqit.enabled = true;
-        privacy-indicator.enabled = true;
-      };
-    };
+    # plugins = {
+    #   version = "2";
+    #   sources = [
+    #     {
+    #       enabled = true;
+    #       name = "Official Noctalia Plugins";
+    #       url = "https://github.com/noctalia-dev/noctalia-plugins";
+    #     }
+    #   ];
+    #   states = {
+    #     timer.enabled = true;
+    #     pomodoro.enabled = true;
+    #     kde-connect.enabled = true;
+    #     polkit-agent.enabled = true;
+    #     kaomoji-provider.enabled = true;
+    #     screen-recorder.enabled = true;
+    #     mawaqit.enabled = true;
+    #     privacy-indicator.enabled = true;
+    #   };
+    # };
 
-    pluginSettings = {
-      timer = {
-        defaultDuration = 0;
-        compactMode = false;
-        iconColor = "primary";
-        textColor = "primary";
-      };
+    # pluginSettings = {
+    #   timer = {
+    #     defaultDuration = 0;
+    #     compactMode = false;
+    #     iconColor = "primary";
+    #     textColor = "primary";
+    #   };
 
-      kde-connect = {
-        hideIfNoDeviceConnected = true;
-      };
+    #   kde-connect = {
+    #     hideIfNoDeviceConnected = true;
+    #   };
 
-      screen-recorder = {
-        hideInactive = false;
-        iconColor = "none";
-        directory = "/home/uzair/Videos/Screencasts";
-        filenamePattern = "Video_yyyyMMdd_HHmmss";
-        frameRate = "60";
-        audioCodec = "opus";
-        videoCodec = "h264";
-        quality = "very_high";
-        colorRange = "limited";
-        showCursor = true;
-        copyToClipboard = false;
-        audioSource = "default_output";
-        videoSource = "portal";
-        resolution = "original";
-        replayEnabled = false;
-        replayDuration = "30";
-        customReplayDuration = "30";
-        replayStorage = "ram";
-        restorePortalSession = false;
-        customFrameRate = "60";
-      };
+    #   screen-recorder = {
+    #     hideInactive = false;
+    #     iconColor = "none";
+    #     directory = "/home/uzair/Videos/Screencasts";
+    #     filenamePattern = "Video_yyyyMMdd_HHmmss";
+    #     frameRate = "60";
+    #     audioCodec = "opus";
+    #     videoCodec = "h264";
+    #     quality = "very_high";
+    #     colorRange = "limited";
+    #     showCursor = true;
+    #     copyToClipboard = false;
+    #     audioSource = "default_output";
+    #     videoSource = "portal";
+    #     resolution = "original";
+    #     replayEnabled = false;
+    #     replayDuration = "30";
+    #     customReplayDuration = "30";
+    #     replayStorage = "ram";
+    #     restorePortalSession = false;
+    #     customFrameRate = "60";
+    #   };
 
-      mawaqit = {
-        city = "Redwood City";
-        country = "US";
-        method = 2;
-        school = 0;
-        showCountdown = true;
-        showElapsed = false;
-        hidePrayerName = false;
-        showNotifications = true;
-        playAzan = false;
-        azanFile = "azan1.mp3";
-        hijriDayOffset = 0;
-        tune = false;
-        tuneFajr = 0;
-        tuneDhuhr = 0;
-        tuneAsr = 0;
-        tuneMaghrib = 0;
-        tuneIsha = 0;
-        widgetIcon = "building-mosque";
-        dynamicIcon = false;
-        textColor = "none";
-        iconColor = "none";
-        activeColor = "primary";
-        weekStartDay = 0;
-        fajrAngle = null;
-        ishaAngle = null;
-      };
+    #   mawaqit = {
+    #     city = "Redwood City";
+    #     country = "US";
+    #     method = 2;
+    #     school = 0;
+    #     showCountdown = true;
+    #     showElapsed = false;
+    #     hidePrayerName = false;
+    #     showNotifications = true;
+    #     playAzan = false;
+    #     azanFile = "azan1.mp3";
+    #     hijriDayOffset = 0;
+    #     tune = false;
+    #     tuneFajr = 0;
+    #     tuneDhuhr = 0;
+    #     tuneAsr = 0;
+    #     tuneMaghrib = 0;
+    #     tuneIsha = 0;
+    #     widgetIcon = "building-mosque";
+    #     dynamicIcon = false;
+    #     textColor = "none";
+    #     iconColor = "none";
+    #     activeColor = "primary";
+    #     weekStartDay = 0;
+    #     fajrAngle = null;
+    #     ishaAngle = null;
+    #   };
 
-      privacy-indicator = {
-        hideInactive = false;
-        enableToast = true;
-        removeMargins = false;
-        iconSpacing = 4;
-        activeColor = "primary";
-        inactiveColor = "none";
-        micFilterRegex = "effect_input.rnnoise|easyeffects";
-        camFilterRegex = "";
-      };
-    };
+    #   privacy-indicator = {
+    #     hideInactive = false;
+    #     enableToast = true;
+    #     removeMargins = false;
+    #     iconSpacing = 4;
+    #     activeColor = "primary";
+    #     inactiveColor = "none";
+    #     micFilterRegex = "effect_input.rnnoise|easyeffects";
+    #     camFilterRegex = "";
+    #   };
+    # };
 
     settings = {
       settingsVersion = 59;

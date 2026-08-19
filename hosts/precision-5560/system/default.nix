@@ -28,9 +28,9 @@
 
     ../../common/system/wayland.nix
     ../../common/system/plasma-login-manager.nix
-    ../../common/system/kdePlasma.nix
-    # ../../common/system/niri.nix
-    # ../../common/system/noctalia.nix
+    # ../../common/system/kdePlasma.nix
+    ../../common/system/niri.nix
+    ../../common/system/noctalia.nix
     # ../../common/system/dms.nix
   ];
 }

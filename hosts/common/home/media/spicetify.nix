@@ -14,8 +14,19 @@
       adblock
       spicyLyrics
     ];
-    theme = spicePkgs.themes.text;
-    colorScheme = "CatppuccinMocha";
+
+    theme = {
+      name = "Comfy";
+      src = spicePkgs.themes.comfy.src; # Uses the package's fetched GitHub source path
+
+      overwriteAssets = true;
+      injectCss = true;
+      injectThemeJs = true;
+      replaceColors = true;
+      homeConfig = true;
+    };
+
+    colorScheme = "Comfy";
     enabledCustomApps = with spicePkgs.apps; [
       lyricsPlus
     ];
