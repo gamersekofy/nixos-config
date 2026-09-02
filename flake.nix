@@ -63,6 +63,11 @@
     hexecute = {
       url = "github:ThatOtherAndrew/Hexecute";
     };
+
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -160,6 +165,31 @@
           }
 
           ./hosts/macbookpro92/system
+        ];
+      };
+
+      wsl-sl7 = lib.nixosSystem {
+        system = "aarch64-linux";
+        specialArgs = {inherit inputs;};
+        modules = [
+          inputs.nixos-wsl.nixosModules.default
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+            };
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
+
+            home-manager.users.uzair = {
+              imports = [
+                ./hosts/wsl-sl7/home/home.nix
+              ];
+            };
+          }
+
+          ./hosts/wsl-sl7/system
         ];
       };
     };
