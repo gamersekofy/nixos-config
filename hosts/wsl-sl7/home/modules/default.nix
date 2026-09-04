@@ -10,6 +10,7 @@
     ../../../common/home/dev/nix-index.nix
     ../../../common/home/dev/helix.nix
     ../../../common/home/dev/git.nix
+    ../../../common/home/dev/zellij.nix
 
     ./misc.nix
     ./zed.nix
