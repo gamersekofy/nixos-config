@@ -12,6 +12,7 @@
 
     ./wireless.nix
     ./misc-packages.nix
+    ./nixld.nix
   ];
 
   wsl.enable = true;
