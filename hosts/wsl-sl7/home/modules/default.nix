@@ -12,5 +12,6 @@
     ../../../common/home/dev/git.nix
 
     ./misc.nix
+    ./zed.nix
   ];
 }
