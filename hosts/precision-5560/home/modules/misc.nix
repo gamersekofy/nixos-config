@@ -1,10 +1,12 @@
 {pkgs, ...}: {
+  imports = [
+    ../../../common/home/misc/fastfetch.nix
+    ../../../common/home/misc/keepassxc.nix
+  ];
+
   home.packages = with pkgs; [
-    keepassxc
     yubioath-flutter
     galaxy-buds-client
-    fastfetch
     lmstudio
-    
   ];
 }
