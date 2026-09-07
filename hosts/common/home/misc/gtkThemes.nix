@@ -1,6 +1,17 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   gtk = {
     enable = true;
+    gtk2.enable = true;
+    gtk3.enable = true;
+    gtk4 = {
+      enable = true;
+      theme = config.gtk.theme;
+    };
+
     theme = {
       package = pkgs.catppuccin-gtk.override {
         accents = ["red"];

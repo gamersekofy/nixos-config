@@ -23,7 +23,7 @@
     ./misc.nix
     ./productivity.nix
     ./media.nix
-    # ../../../common/home/misc/gtkThemes.nix
+    ../../../common/home/misc/gtkThemes.nix
     ../../../common/home/misc/kdeThemes.nix
 
     # ./niri-noctalia-v5
