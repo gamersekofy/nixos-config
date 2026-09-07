@@ -11,7 +11,6 @@
     unzip
     alejandra
     nixd
-    fasd
 
     pciutils
     mesa-demos

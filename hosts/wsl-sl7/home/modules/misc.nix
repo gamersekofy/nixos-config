@@ -9,7 +9,6 @@
     unzip
     alejandra
     nixd
-    fasd
     aha
   ];
 }
