@@ -48,6 +48,8 @@
 
       editor = {
         end-of-line-diagnostics = "error";
+        bufferline = "multiple";
+        popup-border = "all";
 
         cursor-shape = {
           insert = "bar";
@@ -83,6 +85,14 @@
             tab = "→";
             newline = "⏎";
             tabpad = "·";
+          };
+        };
+
+        auto-save = {
+          focus-lost = true;
+          after-delay = {
+            enable = true;
+            timeout = 3600;
           };
         };
 
