@@ -23,7 +23,7 @@
     shellAbbrs = {
       gs = "git status";
       ga = "git add";
-      gc = "git commit -m";
+      gc = "git commit -S -m";
     };
 
     shellInit = "set -g fish_greeting";
