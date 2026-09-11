@@ -1,0 +1,5 @@
+{
+  wsl.usbip = {
+    enable = true;
+  };
+}

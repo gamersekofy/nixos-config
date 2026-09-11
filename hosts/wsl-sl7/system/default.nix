@@ -1,9 +1,4 @@
 {
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
   imports = [
     ../../common/system/tzLocale.nix
     ../../common/system/users.nix
@@ -11,8 +6,9 @@
     ../../common/system/yubikey.nix
 
     ./wireless.nix
-    ./misc-packages.nix
     ./nixld.nix
+    ./ssh.nix
+    ./usbip.nix
   ];
 
   wsl.enable = true;
