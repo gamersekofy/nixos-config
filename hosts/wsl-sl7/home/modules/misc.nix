@@ -10,5 +10,7 @@
     alejandra
     nixd
     aha
+
+    flow-control
   ];
 }
