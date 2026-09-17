@@ -4,6 +4,7 @@
     ../../../common/home/dev/eza.nix
     ../../../common/home/dev/starship.nix
     ../../../common/home/dev/direnv.nix
+    ../../../common/home/dev/atuin.nix
     ../../../common/home/dev/yazi.nix
     ../../../common/home/dev/bat.nix
     ../../../common/home/dev/nix-index.nix
