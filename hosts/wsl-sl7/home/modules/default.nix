@@ -11,6 +11,7 @@
     ../../../common/home/dev/helix.nix
     ../../../common/home/dev/git.nix
     ../../../common/home/dev/zellij.nix
+    ../../../common/home/dev/atuin.nix
 
     ./misc.nix
     ./zed.nix
