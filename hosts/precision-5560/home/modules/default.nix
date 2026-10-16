@@ -18,6 +18,7 @@
     ../../../common/home/dev/zed.nix
     ../../../common/home/dev/misc.nix
     ../../../common/home/dev/ghostty.nix
+    ../../../common/home/dev/opencode.nix
 
     ./devStuff.nix
     ./socials.nix
