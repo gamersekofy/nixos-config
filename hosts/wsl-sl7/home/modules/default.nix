@@ -12,6 +12,7 @@
     ../../../common/home/dev/git.nix
     ../../../common/home/dev/zellij.nix
     ../../../common/home/dev/atuin.nix
+    ../../../common/home/dev/opencode.nix
 
     ./misc.nix
     ./zed.nix
