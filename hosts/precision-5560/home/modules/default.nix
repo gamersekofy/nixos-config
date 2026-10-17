@@ -20,12 +20,14 @@
     ../../../common/home/dev/misc.nix
     ../../../common/home/dev/ghostty.nix
     ../../../common/home/dev/opencode.nix
+    ../../../common/home/dev/openclaw-node.nix
 
     ./devStuff.nix
     ./socials.nix
     ./misc.nix
     ./productivity.nix
     ./media.nix
+    ./openclaw-node.nix
     ../../../common/home/misc/gtkThemes.nix
     ../../../common/home/misc/kdeThemes.nix
 
