@@ -73,6 +73,12 @@
       url = "github:nix-community/NixOS-WSL/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-openclaw = {
+      url = "github:openclaw/nix-openclaw";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs = {
@@ -87,6 +93,11 @@
 
     pkgsForSystem = import nixpkgs {
       system = systemArch;
+
+      overlays = [
+        inputs.nix-openclaw.overlays.default
+      ];
+
       config = {
         allowUnfree = true;
         allowInsecurePredicate = pkg:
