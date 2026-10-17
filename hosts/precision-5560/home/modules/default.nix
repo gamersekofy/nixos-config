@@ -8,8 +8,9 @@
     ../../../common/home/dev/yazi.nix
     ../../../common/home/dev/bat.nix
     ../../../common/home/dev/nix-index.nix
-    ../../../common/home/misc/browsers.nix
     ../../../common/home/media/gaming.nix
+    ../../../common/home/misc/browsers.nix
+    ../../../common/home/misc/tailscale-systray.nix
     ../../../common/home/misc/easyeffects.nix
     ../../../common/home/wm-utils/ier.nix
 

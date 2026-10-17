@@ -25,6 +25,7 @@
     ../../common/system/gpu-screen-recorder.nix
     ../../common/system/tuxmanager.nix
     ../../common/system/wireshark.nix
+    ../../common/system/tailscale.nix
 
     ../../common/system/wayland.nix
     ../../common/system/plasma-login-manager.nix
