@@ -21,6 +21,7 @@
     ../../../common/home/dev/ghostty.nix
     ../../../common/home/dev/opencode.nix
     ../../../common/home/dev/openclaw-node.nix
+    ../../../common/home/dev/herdr.nix
 
     ./devStuff.nix
     ./socials.nix
