@@ -18,4 +18,9 @@
 
   # Keep this exactly from your current setup
   system.stateVersion = "26.05";
+
+  security.pki.caCertificateBlacklist = [
+    "Comodo AAA Services root"
+    "emSign ECC Root CA - G3"
+  ];
 }
