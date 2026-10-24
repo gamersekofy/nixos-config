@@ -1,4 +1,8 @@
-{lib, pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     ./openclaw.nix
 
@@ -14,7 +18,7 @@
 
   home.username = "uzair";
   home.homeDirectory = "/home/uzair";
-  home.stateVersion = "23.11";
+  home.stateVersion = "26.11";
 
   programs.home-manager.enable = true;
 

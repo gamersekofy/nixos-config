@@ -214,7 +214,7 @@
         ];
       };
 
-      macmini = lib.nixosSystem {
+      macmini62 = lib.nixosSystem {
         pkgs = pkgsForSystem;
         specialArgs = {inherit inputs;};
         modules = [
@@ -227,14 +227,14 @@
 
             home-manager.users.uzair = {
               imports = [
-                ./hosts/macmini/home/home.nix
+                ./hosts/macmini62/home/home.nix
                 inputs.nix-openclaw.homeManagerModules.openclaw
               ];
             };
           }
 
           inputs.agenix.nixosModules.default
-          ./hosts/macmini/system
+          ./hosts/macmini62/system
         ];
       };
     };

@@ -1,5 +1,5 @@
 {
-  networking.hostName = "macmini";
+  networking.hostName = "macmini62";
   networking.networkmanager.enable = true;
 
   # Home Assistant discovery and printer browsing.

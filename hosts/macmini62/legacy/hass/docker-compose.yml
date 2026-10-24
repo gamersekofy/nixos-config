@@ -1,0 +1,51 @@
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:latest"
+    volumes:
+      - ./config:/config
+      - /etc/localtime:/etc/localtime:ro
+      - /home/uzair/Documents/Syncthing/synced_data/Music:/media
+      - /home/uzair/Documents/slink/slink/images:/images_lol
+      - /run/dbus:/run/dbus:ro
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+
+  matter-server:
+    container_name: matter-server
+    image: ghcr.io/home-assistant-libs/python-matter-server:stable
+    restart: unless-stopped
+    security_opt:
+      - apparmor=unconfined
+    volumes:
+      - ./opt/matter-server:/data
+      - /run/dbus:/run/dbus:ro
+    network_mode: host
+
+  ## wyoming
+#  whisper:
+#    container_name: whisper
+#    image: rhasspy/wyoming-whisper
+#    command: --model base --language en
+#    volumes:
+#      - ./whisper-data:/data
+#    environment:
+#      - TZ=America/Los_Angeles
+#    restart: unless-stopped
+#    ports:
+#      - 10300:10300
+
+#  piper:
+#    container_name: piper
+#    image: rhasspy/wyoming-piper
+#    command: --voice en_US-amy-low
+#    volumes:
+#      - ./piper-data:/data
+#    environment:
+#      - TZ=America/Los_Angeles
+#    restart: unless-stopped
+#    ports:
+#      - 10200:10200

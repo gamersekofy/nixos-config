@@ -27,6 +27,8 @@
         HTTP_ADDR = "127.0.0.1";
         HTTP_PORT = 3000;
         START_SSH_SERVER = true;
+        SSH_USER = "gitea";
+        SSH_DOMAIN = "git.uzair.page";
         SSH_PORT = 2222;
         SSH_LISTEN_PORT = 2222;
       };

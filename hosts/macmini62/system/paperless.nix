@@ -10,12 +10,19 @@
     consumptionDirIsPublic = true;
     passwordFile = config.age.secrets.paperless-admin-password.path;
 
+    # The legacy instance used PostgreSQL 13 and Tika/Gotenberg. Without
+    # createLocally the module defaults to SQLite, and the documented psql
+    # restore would target a database that does not exist.
+    database.createLocally = true;
+    configureTika = true;
+
     settings = {
       PAPERLESS_TIME_ZONE = "America/Los_Angeles";
       PAPERLESS_OCR_LANGUAGE = "eng";
       PAPERLESS_FILENAME_FORMAT = "{created_year}/{correspondent}/{title}";
       PAPERLESS_URL = "https://docs.uzair.page";
       PAPERLESS_TRUSTED_PROXIES = "127.0.0.1";
+      PAPERLESS_CSRF_TRUSTED_ORIGINS = "https://docs.uzair.page";
     };
   };
 
@@ -26,7 +33,7 @@
     settings = {
       global = {
         workgroup = "WORKGROUP";
-        "server string" = "macmini";
+        "server string" = "macmini62";
         "map to guest" = "Bad User";
         "server min protocol" = "SMB2";
       };
