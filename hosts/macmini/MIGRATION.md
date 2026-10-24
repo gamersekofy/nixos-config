@@ -105,3 +105,131 @@ Skip cache, tmp, browser, npm.
 - Samba: printer must speak SMB2; share is guest-writable, forced to paperless.
 - Syncthing: openDefaultPorts = false (tailnet only).
 - nix-openclaw sets OPENCLAW_NIX_MODE=1: openclaw plugins install fails by design.
+
+---
+
+# Addendum: headless host, tunnel, secrets
+
+## 9. Headless is fine
+
+No desktop is needed. Nothing in this config pulls X or Wayland:
+
+- OpenClaw drives headless Chromium through Playwright. No X server involved.
+- Typst, ffmpeg, poppler-utils, ripgrep, yazi, bat, atuin, eza are all CLI.
+- services.xserver.xkb (from the shared tzLocale module) only sets a keymap.
+  It does not enable a display server.
+
+The one workflow that expects a browser is gog auth. On a tty use
+"gog auth --manual" and paste the code, or forward a port over SSH.
+
+### Keyring / wallet
+
+There is no KDE Wallet or GNOME Keyring, so anything that calls libsecret
+fails. That is acceptable here because nothing on the box needs it:
+
+- git: SSH keys, not a credential helper.
+- restic: password file from agenix.
+- gog: its own file keyring (needs GOG_KEYRING_PASSWORD as an env secret).
+- OpenClaw: provider auth lives in its own config.
+
+If you later want libsecret, gnome-keyring can run under a tty, but a keyring
+unlocked by a login password is useless over pubkey-only SSH. Prefer files.
+
+### Shell over SSH
+
+users.users.uzair.shell = pkgs.fish, so an SSH session lands in fish directly.
+The shared fish, starship, eza, atuin, yazi, bat, direnv and nix-index modules
+are imported, so yazi, ctrl-r history search and the z plugin behave like the
+5560. One deliberate difference: the shared fish module aliases gc to
+"git commit -S", which needs a YubiKey. This host forces "git commit -m".
+
+## 10. Secrets (agenix)
+
+Three secret files live under hosts/macmini/secrets/. They are empty
+placeholders, so the build works but paperless, cloudflared and restic will
+fail to start until they are encrypted. That failure is intentional.
+
+Order matters, because agenix encrypts to the host's SSH key, which does not
+exist until the host has booted once.
+
+1. Install and boot NixOS. sshd generates /etc/ssh/ssh_host_ed25519_key.
+   Paperless, cloudflared and restic will be red. Expected.
+2. On the macmini:  ssh-to-age < /etc/ssh/ssh_host_ed25519_key.pub
+   Put that age1... value into hosts/macmini/secrets/secrets.nix as macmini.
+3. From a workstation with the repo checked out and agenix available:
+
+       agenix -e hosts/macmini/secrets/paperless-admin-password.age
+       agenix -e hosts/macmini/secrets/restic-password.age
+       agenix -e hosts/macmini/secrets/cloudflared-credentials.age
+
+   paperless: one line, the admin password.
+   restic: one line, a long random password. Save it in a password manager.
+           Without it the repository cannot be restored.
+   cloudflared: the tunnel credentials JSON verbatim.
+4. Commit and run nixos-rebuild switch.
+
+Agenix decrypts to /run/agenix/<name> with the owner and mode set in
+hosts/macmini/system/secrets.nix, so no service reads a root-owned file as
+its own user.
+
+## 11. Restic to the precision-5560
+
+backup.nix backs up to sftp:uzair@precision-5560:/home/uzair/backups/macmini
+(the directory already exists on the 5560). Restic runs as root, so root needs
+a key that the 5560 accepts:
+
+    sudo ssh-keygen -t ed25519 -N "" -C macmini-restic -f /root/.ssh/id_ed25519
+    sudo cat /root/.ssh/id_ed25519.pub
+
+Append that line to uzair@precision-5560:~/.ssh/authorized_keys, then:
+
+    sudo systemctl start restic-backups-macmini.service
+    sudo journalctl -u restic-backups-macmini -n 40
+
+The restic password is the agenix secret from section 10.
+
+## 12. Cloudflare Tunnel (chosen over nginx)
+
+nginx is gone. There are no inbound web ports, no certificates to renew, and
+no port forwarding. cloudflared dials out to Cloudflare and proxies each
+hostname to loopback:
+
+    casa.uzair.page      -> 127.0.0.1:8123   (Home Assistant)
+    docs.uzair.page      -> 127.0.0.1:28981  (Paperless)
+    git.uzair.page       -> 127.0.0.1:3000   (Gitea)
+    syncthing.uzair.page -> 127.0.0.1:8384   (Syncthing)
+
+Setup, in the Cloudflare dashboard (zone uzair.page):
+
+1. Zero Trust -> Networks -> Tunnels -> Create a tunnel -> Cloudflared.
+   Name it macmini. Copy the connector token if asked, but use the
+   credentials JSON instead: the tunnel's "Download credentials" file.
+2. Public hostnames: add the four above, each with service
+   http://127.0.0.1:<port>. Cloudflare creates the proxied CNAMEs itself.
+3. Put the credentials JSON into the cloudflared-credentials agenix secret.
+4. Rebuild. Check with: systemctl status cloudflared-tunnel-macmini
+   and: journalctl -u cloudflared-tunnel-macmini -n 50
+5. Confirm each hostname resolves through Cloudflare and not to your WAN IP.
+
+Old hostnames and their DNS records: leave the A/AAAA records in place until
+the tunnel works, then delete them so nothing points at the router.
+
+### Paperless behind a proxy
+
+PAPERLESS_URL is https://docs.uzair.page and PAPERLESS_TRUSTED_PROXIES is
+127.0.0.1. If Django rejects the admin login with a CSRF error, add the origin:
+
+    PAPERLESS_CSRF_TRUSTED_ORIGINS = "https://docs.uzair.page";
+
+### Things that still need a port
+
+Only these stay open in the firewall: 22 (ssh), 2222 (Gitea ssh),
+8123 (Home Assistant, used on the LAN by phones), 25565 (Minecraft).
+Web UIs are loopback-only and reachable through the tunnel or over Tailscale.
+
+## 13. systemd-boot on the Mac mini
+
+Use systemd-boot, not GRUB. Keep canTouchEfiVariables = false; bootctl writes
+the removable fallback to EFI/BOOT/BOOTX64.EFI, which Apple firmware boots
+without NVRAM entries. If the mini shows a blank screen, that fallback path is
+the first thing to check.
