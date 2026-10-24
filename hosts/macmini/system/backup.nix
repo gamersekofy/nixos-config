@@ -1,6 +1,6 @@
 {config, ...}: {
   services.restic.backups.macmini = {
-    repository = "sftp:uzair@precision-5560:/home/uzair/backups/macmini";
+    repository = "sftp:uzair@100.117.32.104:/home/uzair/backups/macmini";
     passwordFile = config.age.secrets.restic-password.path;
     initialize = true;
     paths = [

@@ -514,8 +514,11 @@ sudo systemctl list-timers | grep restic
 13.3 Prove a restore, do not assume it:
 
 ~~~bash
-sudo restic snapshots
-sudo restic restore latest --target /tmp/restore --include /var/lib/gitea
+sudo restic -r sftp:uzair@100.117.32.104:/home/uzair/backups/macmini \\
+  --password-file /run/agenix/restic-password snapshots
+sudo restic -r sftp:uzair@100.117.32.104:/home/uzair/backups/macmini \\
+  --password-file /run/agenix/restic-password restore latest \\
+  --target /tmp/restore --include /var/lib/gitea
 ls /tmp/restore/var/lib/gitea
 ~~~
 
