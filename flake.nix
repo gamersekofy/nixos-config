@@ -208,6 +208,29 @@
           ./hosts/wsl-sl7/system
         ];
       };
+
+      macmini = lib.nixosSystem {
+        pkgs = pkgsForSystem;
+        specialArgs = {inherit inputs;};
+        modules = [
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.extraSpecialArgs = {inherit inputs;};
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
+
+            home-manager.users.uzair = {
+              imports = [
+                ./hosts/macmini/home/home.nix
+                inputs.nix-openclaw.homeManagerModules.openclaw
+              ];
+            };
+          }
+
+          ./hosts/macmini/system
+        ];
+      };
     };
   };
 }
