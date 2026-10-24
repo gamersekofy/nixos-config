@@ -1,235 +1,657 @@
-# macmini -> NixOS: backup and restore guide
+# macmini: Ubuntu to NixOS, start to finish
 
-Generated 2026-10-23 for the Late 2012 Mac mini (i5-3210M, 16 GB, 1 TB SSD).
-Only five services survive: Home Assistant, Gitea, Paperless, Syncthing,
-Minecraft. Pingvin, Slash and Passbolt are retired.
+This is the offline runbook. It begins the moment the NixOS installer has
+finished writing the system and asks you to reboot. Everything before that
+point is Appendix A.
 
-Data that must survive: **Gitea, Minecraft, Paperless.**
-Syncthing and Home Assistant data are disposable.
+Current hardware facts, verified on the running Ubuntu system:
+
+- The Ubuntu install lives entirely on the old HDD: /dev/sda, 465.8 GB,
+  sda1 = /boot/efi (512 MB vfat), sda2 = / (ext4, 110 GB used). No LUKS.
+- The target is the 1 TB Samsung EVO SSD. It is not currently visible to
+  Ubuntu, so it is either not connected or not detected yet.
+- Hostname today: uzair-Macmini. Tailscale name: uzair-macmini, 100.95.56.35.
+- RAM 16 GB. No swap configured on Ubuntu.
+
+STOP, READ THIS FIRST
+
+Do not let the installer touch /dev/sda. The old HDD is your rollback: it
+still has a working Ubuntu with all services. The safest sequence is to
+unplug the HDD's SATA cable, install onto the SSD alone, then reconnect the
+HDD afterwards. If you leave both connected, verify the target disk by size
+(1 TB vs 465 GB) before you accept the partition plan.
+
+Everything below assumes the installer has completed and the machine has
+rebooted into the new NixOS system.
 
 ---
 
-## 1. Gitea
+## 1. First boot
+
+Log in on the console as uzair. The installer copies the config you gave it,
+so if you installed with a minimal configuration you land in a bare shell.
+
+1.1 Set a password (needed for sudo and for console recovery):
 
 ~~~bash
+sudo passwd uzair
+~~~
+
+1.2 Confirm the network. Ethernet on a 2012 Mac mini is enp1s0f0 or similar:
+
+~~~bash
+ip -brief addr
+nmcli device status
+ping -c 2 1.1.1.1
+~~~
+
+If the link is down:
+
+~~~bash
+sudo nmcli device connect <ifname>
+sudo nmcli connection show
+~~~
+
+1.3 Enable flakes for this session. The repo's nix-settings.nix turns them on
+permanently, but the first switch happens before that file is active:
+
+~~~bash
+export NIX_CONFIG='experimental-features = nix-command flakes'
+~~~
+
+1.4 Get the repository. Gitea is not running yet, so pull from the
+precision-5560. LAN address of the 5560 is 192.168.86.142.
+
+From the 5560, make a branch bundle once (it survives without git access):
+
+~~~bash
+cd ~/Projects/nixos-config
+git bundle create /tmp/nixos-config.bundle --all
+~~~
+
+Then on the macmini, either over the LAN or from a USB stick:
+
+~~~bash
+scp uzair@192.168.86.142:/tmp/nixos-config.bundle ~/
+git clone -b macmini-nixos ~/nixos-config.bundle ~/nixos-config
+cd ~/nixos-config && git log --oneline -1
+~~~
+
+If scp is refused, copy the bundle on a USB stick and clone from that path.
+Do not clone from GitHub: the branch is local only.
+
+---
+
+## 2. hardware-configuration.nix
+
+This file is generated, never hand-written.
+
+~~~bash
+sudo nixos-generate-config --show-hardware-config > \
+  ~/nixos-config/hosts/macmini/system/hardware-configuration.nix
+~~~
+
+Then check three things:
+
+~~~bash
+grep -n 'fileSystems\|swapDevices\|boot.loader' \
+  ~/nixos-config/hosts/macmini/system/hardware-configuration.nix
+~~~
+
+- fileSystems."/" must point at the SSD by UUID, not at /dev/sda2.
+- fileSystems."/boot" (or /boot/efi) must be the SSD's ESP.
+- Any boot.loader.grub line should be deleted; you use systemd-boot.
+
+The import line for this file is already present but commented in
+hosts/macmini/system/default.nix. Uncomment it.
+
+Optional but sensible on 16 GB: add 8 GB of swap. Add to the same file:
+
+~~~nix
+  swapDevices = [ { device = "/var/swapfile"; size = 8192; }; ];
+~~~
+
+---
+
+## 3. bootloader.nix
+
+You are writing this yourself. A working template for this machine:
+
+~~~nix
+{pkgs, ...}: {
+  boot.loader.systemd-boot.enable = true;
+
+  # Apple firmware: do not write EFI variables. bootctl installs the
+  # removable fallback at EFI/BOOT/BOOTX64.EFI, which the Mac boots on its
+  # own. If you ever get a blank screen, that fallback is the first suspect.
+  boot.loader.efi.canTouchEfiVariables = false;
+
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  # The 2012 mini has no T2 and no LUKS in this build. If you add LUKS later,
+  # boot.initrd.luks.devices goes here.
+}
+~~~
+
+Then uncomment the ./bootloader.nix import in default.nix.
+
+---
+
+## 4. First switch
+
+~~~bash
+cd ~/nixos-config
+sudo nixos-rebuild switch --flake .#macmini
+~~~
+
+Expected failures on this first run, all intentional:
+
+- paperless: passwordFile points at an agenix secret that is not encrypted yet.
+- cloudflared: credentials secret is empty.
+- restic: password secret is empty.
+
+Everything else (postgresql, gitea, syncthing, home-assistant, minecraft,
+docker, sshd) should come up.
+
+Verify:
+
+~~~bash
+systemctl --failed
+systemctl status gitea syncthing docker
+ss -tlnp | grep -E '22|3000|8123|8384|25565|28981'
+~~~
+
+If the build fails, the error is almost always one of: a path in
+hardware-configuration.nix pointing at the wrong disk, a missing semicolon in
+bootloader.nix, or an option renamed by a nixpkgs update. Read the first
+error line, not the stack trace.
+
+---
+
+## 5. Secrets (agenix)
+
+Three encrypted files live in hosts/macmini/secrets/. They are empty
+placeholders, which is why paperless, cloudflared and restic are red.
+
+5.1 Get the host's age public key:
+
+~~~bash
+ssh-to-age < /etc/ssh/ssh_host_ed25519_key.pub
+~~~
+
+5.2 Put it in hosts/macmini/secrets/secrets.nix as the macmini recipient:
+
+~~~nix
+let
+  macmini = "age1...";
+in {
+  "paperless-admin-password.age".publicKeys = [macmini];
+  "restic-password.age".publicKeys = [macmini];
+  "cloudflared-credentials.age".publicKeys = [macmini];
+}
+~~~
+
+5.3 On a workstation that has an age identity (default
+~/.config/age/keys.txt), from the repo root:
+
+~~~bash
+nix shell nixpkgs#agenix -c agenix -e hosts/macmini/secrets/paperless-admin-password.age
+nix shell nixpkgs#agenix -c agenix -e hosts/macmini/secrets/restic-password.age
+nix shell nixpkgs#agenix -c agenix -e hosts/macmini/secrets/cloudflared-credentials.age
+~~~
+
+Contents:
+
+- paperless-admin-password: one line, the admin password.
+- restic-password: one line, long random. Save it in a password manager.
+  Without it the backup repository cannot be opened, ever.
+- cloudflared-credentials: the tunnel credentials JSON, verbatim, from the
+  Cloudflare dashboard (section 12). You can leave this one for later.
+
+5.4 Commit and switch again:
+
+~~~bash
+git add hosts/macmini/secrets && git commit -m "secrets: encrypt macmini"
+sudo nixos-rebuild switch --flake .#macmini
+systemctl status paperless
+journalctl -u paperless -n 40
+~~~
+
+If agenix fails at activation with a decryption error, the recipient in
+secrets.nix does not match the host key. Re-run 5.1 and re-encrypt.
+
+---
+
+## 6. SSH access
+
+6.1 From the precision-5560, create a normal key for this server:
+
+~~~bash
+ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_macmini -C uzair@precision-5560
+cat ~/.ssh/id_ed25519_macmini.pub
+~~~
+
+6.2 Paste the .pub line into users.users.uzair.openssh.authorizedKeys.keys in
+hosts/macmini/system/ssh.nix, then switch.
+
+6.3 Test from the 5560 before touching password auth:
+
+~~~bash
+ssh -i ~/.ssh/id_ed25519_macmini uzair@100.95.56.35
+~~~
+
+The macmini's Tailscale address changes after reinstall until you re-auth
+(section 14). Until then use the LAN address.
+
+6.4 Only after a successful key login, set PasswordAuthentication = false in
+ssh.nix and switch again. The box is headless: a mistake here costs you a
+monitor and keyboard.
+
+A note on YubiKey keys: your FIDO2 resident credentials are scoped to the
+applications ssh:github-auth and ssh:git-signing. OpenSSH only offers a
+credential for host authentication when its application is the default
+"ssh:", so those two will not get you a shell. If you want YubiKey login,
+create one with -O application=ssh: as shown in ssh.nix.
+
+---
+
+## 7. Restore Gitea
+
+Source data on the 5560 (backed up per Appendix A):
+
+- gitea.sql (single-database dump, from postgres:14)
+- gitea-data.tar.gz (the container's /data: repositories, avatars, LFS)
+- gitea-compose.yaml (reference only)
+
+7.1 Stop the service so nothing writes during the restore:
+
+~~~bash
+sudo systemctl stop gitea
+~~~
+
+7.2 Restore the database. The NixOS module has already created the gitea
+role and database and uses peer auth over the socket:
+
+~~~bash
+sudo -u gitea psql -d gitea -f ~/backup/gitea.sql
+~~~
+
+If that fails with a permissions error, drop and recreate first:
+
+~~~bash
+sudo -u postgres psql -c 'DROP DATABASE gitea;'
+sudo -u postgres psql -c 'CREATE DATABASE gitea OWNER gitea;'
+sudo -u gitea psql -d gitea -f ~/backup/gitea.sql
+~~~
+
+7.3 Restore the data. This is where ownership goes wrong: the container used
+uid 1000, NixOS uses the git user.
+
+~~~bash
+sudo tar xzf ~/backup/gitea-data.tar.gz -C /var/lib/gitea --strip-components=1
+sudo chown -R git:git /var/lib/gitea
+sudo systemctl start gitea
+~~~
+
+7.4 Verify:
+
+~~~bash
+curl -sI http://127.0.0.1:3000 | head -3
+sudo journalctl -u gitea -n 30
+git clone ssh://git@127.0.0.1:2222/uzair/nixos-config /tmp/gitea-test
+~~~
+
+Clone URLs change: the old container exposed SSH on 2112 and HTTP on 3112,
+NixOS uses 2222 and 3000 (3000 is loopback-only).
+
+---
+
+## 8. Restore Paperless
+
+Source data: paperless.sql (from postgres:13), paperless-files.tar.gz
+(data, media, consume, export).
+
+The database engine changed 13 to 16. Never copy the old data directory;
+dump and restore as below.
+
+8.1 Stop the service:
+
+~~~bash
+sudo systemctl stop paperless
+~~~
+
+8.2 Restore files:
+
+~~~bash
+sudo tar xzf ~/backup/paperless-files.tar.gz -C /var/lib/paperless
+sudo chown -R paperless:paperless /var/lib/paperless
+~~~
+
+The tar contains data/, media/, consume/, export/. They land directly under
+/var/lib/paperless, which is exactly what paperless.nix expects.
+
+8.3 Restore the database:
+
+~~~bash
+sudo -u postgres psql -c 'DROP DATABASE IF EXISTS paperless;'
+sudo -u postgres psql -c 'CREATE DATABASE paperless OWNER paperless;'
+sudo -u paperless psql -d paperless -f ~/backup/paperless.sql
+~~~
+
+8.4 Start and verify:
+
+~~~bash
+sudo systemctl start paperless
+curl -sI http://127.0.0.1:28981 | head -3
+journalctl -u paperless -n 50
+~~~
+
+8.5 Admin login. The password comes from the agenix secret
+paperless-admin-password. If the web UI rejects the login with a CSRF error,
+add to paperless.nix:
+
+~~~nix
+PAPERLESS_CSRF_TRUSTED_ORIGINS = "https://docs.uzair.page";
+~~~
+
+8.6 Scanner. The Samba share "scans" points at /var/lib/paperless/consume,
+guest-writable, forced to the paperless user, SMB2 minimum. From the printer,
+browse to the macmini and scan to that share. A file appearing in consume/
+should be picked up within a minute.
+
+~~~bash
+smbclient -L //localhost -N
+~~~
+
+---
+
+## 9. Restore Minecraft
+
+Source: ~/Documents/minecraft-server from the old system, layout data/, mods/,
+plugins/, config/. It was 4.2 GB.
+
+~~~bash
+sudo mkdir -p /srv/minecraft
+sudo tar xzf ~/backup/minecraft.tar.gz -C /srv/minecraft
+sudo chown -R root:root /srv/minecraft
+sudo systemctl start docker-homeassistant  # sanity: docker is up
+sudo systemctl start docker-minecraft
+journalctl -u docker-minecraft -f
+~~~
+
+Wait for "Done" in the log, then verify the world, not just the port:
+
+~~~bash
+ss -tlnp | grep 25565
+~~~
+
+The container has ENABLE_AUTOPAUSE on: it stops when empty and starts on a
+connection. A refused connection after idling is normal, the first connect
+wakes it.
+
+The old install ran under ~/Documents/minecraft-server with its own compose
+file; the compose file itself is not needed, minecraft.nix reproduces it.
+
+---
+
+## 10. Syncthing
+
+Data is disposable, so this is a re-pair, not a restore.
+
+- NixOS runs Syncthing natively as uzair, data at
+  /home/uzair/Documents/syncthing, config in .../config.
+- GUI is 127.0.0.1:8384 only. Reach it via SSH tunnel:
+  ssh -L 8384:127.0.0.1:8384 uzair@<macmini>
+  or through the Cloudflare Tunnel at syncthing.uzair.page.
+- The device ID changes. On each laptop and phone, remove the old macmini
+  device and add the new ID.
+- Recreate the folders you actually use. The old config had Music, Secrets and
+  Resumable; only recreate what you still want, since the data was disposable.
+
+~~~bash
+systemctl status syncthing
+sudo -u uzair syncthing --device-id
+~~~
+
+---
+
+## 11. Home Assistant
+
+Config volume: /var/lib/hass (host networking, privileged, so mDNS discovery
+works).
+
+~~~bash
+sudo mkdir -p /var/lib/hass
+sudo systemctl start docker-homeassistant
+journalctl -u docker-homeassistant -f
+curl -sI http://127.0.0.1:8123 | head -3
+~~~
+
+Known gap: the old Ubuntu system ran a second container, matter-server
+(ghcr.io/home-assistant-libs/python-matter-server). The NixOS config does not
+have it. If you use Matter devices, either re-pair them (they lose their
+commissioning data when the server disappears) or add a second oci-container
+with a persistent volume before you start Home Assistant.
+
+Home Assistant history and config are expendable per your own priorities, so a
+fresh start is acceptable. If you do want the old config, copy
+~/Documents/Hass/config into /var/lib/hass before first start.
+
+---
+
+## 12. Cloudflare Tunnel
+
+This replaces nginx and certbot entirely. No inbound ports, nothing to renew,
+no port forwarding on the router.
+
+Ingress, as configured in tunnel.nix:
+
+~~~text
+casa.uzair.page       -> http://127.0.0.1:8123    Home Assistant
+docs.uzair.page       -> http://127.0.0.1:28981   Paperless
+git.uzair.page        -> http://127.0.0.1:3000    Gitea
+syncthing.uzair.page  -> http://127.0.0.1:8384    Syncthing
+~~~
+
+12.1 In the Cloudflare dashboard for uzair.page:
+Zero Trust -> Networks -> Tunnels -> Create a tunnel -> Cloudflared.
+Name it macmini.
+
+12.2 Add the four public hostnames above, each with the matching
+http://127.0.0.1:PORT service. Cloudflare creates the proxied CNAMEs itself.
+
+12.3 Download the tunnel credentials JSON. Encrypt it into the
+cloudflared-credentials secret (section 5), then:
+
+~~~bash
+sudo nixos-rebuild switch --flake .#macmini
+systemctl status cloudflared-tunnel-macmini
+journalctl -u cloudflared-tunnel-macmini -n 50
+curl -sI https://docs.uzair.page | head -3
+~~~
+
+12.4 Only once every hostname answers through the tunnel, delete the old
+A/AAAA records that point at the WAN IP, and stop certbot on the old HDD. The
+nginx vhosts and /etc/letsencrypt are now reference material, not a fallback.
+
+12.5 Tailscale keeps working independently. The tunnel is only for public
+hostnames; everything else stays tailnet-only.
+
+---
+
+## 13. Restic backups
+
+Direction: macmini to precision-5560 over SFTP. The repository directory
+already exists on the 5560 at /home/uzair/backups/macmini.
+
+What is backed up, from backup.nix:
+
+- /var/lib/gitea and /var/lib/paperless (the two that matter)
+- /srv/minecraft
+- /var/lib/hass
+- /home/uzair/.openclaw
+- /etc/nixos
+
+Excluded: /var/lib/docker (recreatable), and OpenClaw cache, tmp, browser, npm.
+
+13.1 Restic runs as root, so root needs a key the 5560 accepts:
+
+~~~bash
+sudo ssh-keygen -t ed25519 -N "" -C macmini-restic -f /root/.ssh/id_ed25519
+sudo cat /root/.ssh/id_ed25519.pub
+~~~
+
+Append that line to uzair@precision-5560:~/.ssh/authorized_keys.
+
+13.2 First run and check:
+
+~~~bash
+sudo systemctl start restic-backups-macmini
+sudo journalctl -u restic-backups-macmini -n 60
+sudo systemctl list-timers | grep restic
+~~~
+
+13.3 Prove a restore, do not assume it:
+
+~~~bash
+sudo restic snapshots
+sudo restic restore latest --target /tmp/restore --include /var/lib/gitea
+ls /tmp/restore/var/lib/gitea
+~~~
+
+Restic never exposes the password in the unit file; it reads the agenix
+secret. If the repository password is lost, the backups are unreadable, which
+is why section 5 tells you to store it twice.
+
+---
+
+## 14. OpenClaw on the new system
+
+This is the machine that was running the gateway. Its state is in the
+Appendix A backup.
+
+14.1 nix-openclaw runs the gateway as a home-manager user service,
+bind = tailnet, port 18789. In Nix mode the configuration comes from
+hosts/macmini/home/openclaw.nix; openclaw.json is not the source of truth.
+
+Restore only what Nix does not own:
+
+~~~bash
+systemctl --user stop openclaw-gateway 2>/dev/null || true
+mkdir -p ~/.openclaw/state
+cp ~/backup/openclaw/openclaw.sqlite ~/.openclaw/state/openclaw.sqlite
+cp -a ~/backup/openclaw/media ~/.openclaw/media
+cp -a ~/backup/openclaw/workspace* ~/.openclaw/
+~~~
+
+Do not restore openclaw.json over the Nix-managed config. Re-add provider
+credentials through the config/secrets path the flake expects instead.
+
+14.2 Re-auth Tailscale (the device is new after a reinstall):
+
+~~~bash
+sudo tailscale up
+tailscale status
+~~~
+
+The tailnet name should come back as macmini.tail9b9448.ts.net, which is what
+the device-pair publicUrl in openclaw.nix expects.
+
+14.3 If device pairing needs TLS, serve the gateway over Tailscale:
+
+~~~bash
+sudo tailscale serve --bg --https=8443 http://127.0.0.1:18789
+tailscale serve status
+~~~
+
+14.4 Start and check:
+
+~~~bash
+systemctl --user status openclaw-gateway
+openclaw status
+~~~
+
+14.5 gog on a tty: authenticate with the manual or remote flow. The file
+keyring needs GOG_KEYRING_PASSWORD as an env-kind secret, not a secret-kind
+one, or the keyring cannot be unlocked headlessly.
+
+14.6 Todoist: it is a hosted MCP server at https://ai.todoist.net/mcp with
+OAuth. On the first use, openclaw prints a URL; approve it from your phone.
+No plugin install is involved.
+
+---
+
+## 15. Final checks
+
+~~~bash
+systemctl --failed
+ss -tlnp | grep -v 127.0.0.1
+sudo nixos-rebuild boot --flake .#macmini   # only after everything works
+sudo nix-collect-garbage --delete-older-than 14d
+df -h /
+tailscale status
+~~~
+
+Expected listening state:
+
+- 22 sshd (LAN and tailnet)
+- 2222 gitea ssh
+- 8123 Home Assistant
+- 25565 Minecraft
+- everything else on 127.0.0.1 only
+
+Rollback: power off, reconnect the old HDD, hold Option at boot, pick the HDD.
+Do not run the NixOS installer again with both disks attached until you have
+confirmed the SSD boot works.
+
+---
+
+## Appendix A: before you wipe (while Ubuntu still runs)
+
+Do this while everything still works. All of it lands on the 5560.
+
+~~~bash
+mkdir -p ~/backup
 cd ~/Documents/Gitea
-docker compose stop gitea
-docker exec gitea-db-1 pg_dumpall -U gitea > ~/backup/gitea.sql
+docker compose stop
+docker exec gitea-db-1 pg_dump -U gitea gitea > ~/backup/gitea.sql
 sudo tar czf ~/backup/gitea-data.tar.gz -C ~/Documents/Gitea gitea
 cp docker-compose.yaml ~/backup/gitea-compose.yaml
-docker compose start gitea
-~~~
+docker compose start
 
-Restore: create the database/role (the NixOS module does it), load gitea.sql,
-untar into /var/lib/gitea, then
-
-~~~bash
-sudo chown -R git:git /var/lib/gitea
-~~~
-
-The container used uid 1000; NixOS uses the git user. Ownership is the usual
-failure here.
-
-## 2. Paperless
-
-~~~bash
 cd ~/Documents/paperless-ngx
 docker compose stop
 docker exec paperless-db-1 pg_dump -U paperless paperless > ~/backup/paperless.sql
 sudo tar czf ~/backup/paperless-files.tar.gz data media consume export
 cp docker-compose.yml ~/backup/paperless-compose.yml
 docker compose start
-~~~
 
-Do not copy the PostgreSQL 13 data directory: the new module is PostgreSQL 16.
-Dump and restore.
+sudo tar czf ~/backup/minecraft.tar.gz -C ~/Documents minecraft-server
+cp ~/Documents/Hass/config -r ~/backup/hass-config        # optional
+cp -a /etc/nginx ~/backup/nginx
+sudo cp -a /etc/letsencrypt ~/backup/letsencrypt
+cp /etc/hosts /etc/fstab /etc/docker/daemon.json ~/backup/
 
-New paths: /var/lib/paperless/{data,media,consume}. The Samba share named
-"scans" points at consume.
-
-## 3. Minecraft — already copied
-
-Restore ~/Documents/minecraft-server to /srv/minecraft with the same layout
-(data, mods, plugins, config).
-
-## 4. Nginx and certificates (reference)
-
-- /etc/nginx (especially sites-available/uzair.page)
-- /etc/letsencrypt (certs, keys, renewal/*.conf)
-- The renewal files reveal HTTP-01 vs DNS-01 and, if DNS-01, where the
-  Cloudflare API token lives — that is the Cloudflare config you forgot.
-- Note DNS proxy status per hostname: casa/git/docs/syncthing are orange-cloud.
-
-nginx.nix ships port 80 vhosts only. Pick Cloudflare Tunnel (recommended) or
-security.acme with DNS-01.
-
-## 5. OpenClaw
-
-~~~bash
 systemctl --user stop openclaw-gateway
 mkdir -p ~/backup/openclaw
 sqlite3 ~/.openclaw/state/openclaw.sqlite ".backup $HOME/backup/openclaw/openclaw.sqlite"
-cp ~/.openclaw/openclaw.json ~/backup/openclaw/
 cp -a ~/.openclaw/media ~/backup/openclaw/media
+cp -a ~/.openclaw/workspace ~/.openclaw/workspace-linnea \
+      ~/.openclaw/workspace-alhaitham ~/backup/openclaw/
+cp ~/.openclaw/openclaw.json ~/backup/openclaw/     # reference only
 systemctl --user start openclaw-gateway
+
+rsync -avh --progress ~/backup/ uzair@100.117.32.104:/home/uzair/macmini-backup/
 ~~~
 
-Workspaces and learned skills are already committed in the three git repos.
-Skip cache, tmp, browser, npm.
+Then verify the copy on the 5560 before formatting anything:
 
-## 6. System odds and ends
+~~~bash
+ssh uzair@100.117.32.104 'ls -lh ~/macmini-backup; du -sh ~/macmini-backup'
+~~~
 
-- /etc/docker/daemon.json
-- /etc/hosts, /etc/fstab
-- /etc/ssh/ssh_host_* (optional)
-- /var/lib/tailscale (optional; otherwise re-auth)
-- dpkg --get-selections > ~/backup/packages.txt
-- Router port-forward table and Cloudflare DNS records
+Sizes to expect: gitea ~1.4 GB, paperless ~174 MB, minecraft ~4.2 GB,
+OpenClaw state ~98 MB plus workspaces.
 
-## 7. Restore order
-
-1. Base system, tailscale, ssh.
-2. nixos-rebuild switch --flake .#macmini, fix hardware-configuration.nix.
-3. Gitea (DB, then data), verify a clone.
-4. Paperless (DB, then files), verify a scan.
-5. Minecraft, verify the world before opening the port.
-6. Syncthing, re-pair laptops (server device ID changes).
-7. Home Assistant.
-8. OpenClaw, then gog + Todoist auth, then devices.
-
-## 8. Gotchas
-
-- Apple EFI: GRUB removable, no EFI variable writes.
-- Gitea ownership: chown -R git:git.
-- Paperless: PG13 -> PG16 means dump/restore.
-- Samba: printer must speak SMB2; share is guest-writable, forced to paperless.
-- Syncthing: openDefaultPorts = false (tailnet only).
-- nix-openclaw sets OPENCLAW_NIX_MODE=1: openclaw plugins install fails by design.
-
----
-
-# Addendum: headless host, tunnel, secrets
-
-## 9. Headless is fine
-
-No desktop is needed. Nothing in this config pulls X or Wayland:
-
-- OpenClaw drives headless Chromium through Playwright. No X server involved.
-- Typst, ffmpeg, poppler-utils, ripgrep, yazi, bat, atuin, eza are all CLI.
-- services.xserver.xkb (from the shared tzLocale module) only sets a keymap.
-  It does not enable a display server.
-
-The one workflow that expects a browser is gog auth. On a tty use
-"gog auth --manual" and paste the code, or forward a port over SSH.
-
-### Keyring / wallet
-
-There is no KDE Wallet or GNOME Keyring, so anything that calls libsecret
-fails. That is acceptable here because nothing on the box needs it:
-
-- git: SSH keys, not a credential helper.
-- restic: password file from agenix.
-- gog: its own file keyring (needs GOG_KEYRING_PASSWORD as an env secret).
-- OpenClaw: provider auth lives in its own config.
-
-If you later want libsecret, gnome-keyring can run under a tty, but a keyring
-unlocked by a login password is useless over pubkey-only SSH. Prefer files.
-
-### Shell over SSH
-
-users.users.uzair.shell = pkgs.fish, so an SSH session lands in fish directly.
-The shared fish, starship, eza, atuin, yazi, bat, direnv and nix-index modules
-are imported, so yazi, ctrl-r history search and the z plugin behave like the
-5560. One deliberate difference: the shared fish module aliases gc to
-"git commit -S", which needs a YubiKey. This host forces "git commit -m".
-
-## 10. Secrets (agenix)
-
-Three secret files live under hosts/macmini/secrets/. They are empty
-placeholders, so the build works but paperless, cloudflared and restic will
-fail to start until they are encrypted. That failure is intentional.
-
-Order matters, because agenix encrypts to the host's SSH key, which does not
-exist until the host has booted once.
-
-1. Install and boot NixOS. sshd generates /etc/ssh/ssh_host_ed25519_key.
-   Paperless, cloudflared and restic will be red. Expected.
-2. On the macmini:  ssh-to-age < /etc/ssh/ssh_host_ed25519_key.pub
-   Put that age1... value into hosts/macmini/secrets/secrets.nix as macmini.
-3. From a workstation with the repo checked out and agenix available:
-
-       agenix -e hosts/macmini/secrets/paperless-admin-password.age
-       agenix -e hosts/macmini/secrets/restic-password.age
-       agenix -e hosts/macmini/secrets/cloudflared-credentials.age
-
-   paperless: one line, the admin password.
-   restic: one line, a long random password. Save it in a password manager.
-           Without it the repository cannot be restored.
-   cloudflared: the tunnel credentials JSON verbatim.
-4. Commit and run nixos-rebuild switch.
-
-Agenix decrypts to /run/agenix/<name> with the owner and mode set in
-hosts/macmini/system/secrets.nix, so no service reads a root-owned file as
-its own user.
-
-## 11. Restic to the precision-5560
-
-backup.nix backs up to sftp:uzair@precision-5560:/home/uzair/backups/macmini
-(the directory already exists on the 5560). Restic runs as root, so root needs
-a key that the 5560 accepts:
-
-    sudo ssh-keygen -t ed25519 -N "" -C macmini-restic -f /root/.ssh/id_ed25519
-    sudo cat /root/.ssh/id_ed25519.pub
-
-Append that line to uzair@precision-5560:~/.ssh/authorized_keys, then:
-
-    sudo systemctl start restic-backups-macmini.service
-    sudo journalctl -u restic-backups-macmini -n 40
-
-The restic password is the agenix secret from section 10.
-
-## 12. Cloudflare Tunnel (chosen over nginx)
-
-nginx is gone. There are no inbound web ports, no certificates to renew, and
-no port forwarding. cloudflared dials out to Cloudflare and proxies each
-hostname to loopback:
-
-    casa.uzair.page      -> 127.0.0.1:8123   (Home Assistant)
-    docs.uzair.page      -> 127.0.0.1:28981  (Paperless)
-    git.uzair.page       -> 127.0.0.1:3000   (Gitea)
-    syncthing.uzair.page -> 127.0.0.1:8384   (Syncthing)
-
-Setup, in the Cloudflare dashboard (zone uzair.page):
-
-1. Zero Trust -> Networks -> Tunnels -> Create a tunnel -> Cloudflared.
-   Name it macmini. Copy the connector token if asked, but use the
-   credentials JSON instead: the tunnel's "Download credentials" file.
-2. Public hostnames: add the four above, each with service
-   http://127.0.0.1:<port>. Cloudflare creates the proxied CNAMEs itself.
-3. Put the credentials JSON into the cloudflared-credentials agenix secret.
-4. Rebuild. Check with: systemctl status cloudflared-tunnel-macmini
-   and: journalctl -u cloudflared-tunnel-macmini -n 50
-5. Confirm each hostname resolves through Cloudflare and not to your WAN IP.
-
-Old hostnames and their DNS records: leave the A/AAAA records in place until
-the tunnel works, then delete them so nothing points at the router.
-
-### Paperless behind a proxy
-
-PAPERLESS_URL is https://docs.uzair.page and PAPERLESS_TRUSTED_PROXIES is
-127.0.0.1. If Django rejects the admin login with a CSRF error, add the origin:
-
-    PAPERLESS_CSRF_TRUSTED_ORIGINS = "https://docs.uzair.page";
-
-### Things that still need a port
-
-Only these stay open in the firewall: 22 (ssh), 2222 (Gitea ssh),
-8123 (Home Assistant, used on the LAN by phones), 25565 (Minecraft).
-Web UIs are loopback-only and reachable through the tunnel or over Tailscale.
-
-## 13. systemd-boot on the Mac mini
-
-Use systemd-boot, not GRUB. Keep canTouchEfiVariables = false; bootctl writes
-the removable fallback to EFI/BOOT/BOOTX64.EFI, which Apple firmware boots
-without NVRAM entries. If the mini shows a blank screen, that fallback path is
-the first thing to check.
+Skip API keys; regenerate them. Keep the restic password and the paperless
+admin password out of the backup directory and in your password manager.
