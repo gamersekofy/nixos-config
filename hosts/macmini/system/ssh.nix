@@ -3,8 +3,8 @@
     enable = true;
     openFirewall = true;
     settings = {
-      # Flip this to false only after you have confirmed key login works.
-      # The box is headless; a key mistake means physical console recovery.
+      # Leave this true until key login is proven on the console.
+      # The box is headless; a key mistake means physical recovery.
       PasswordAuthentication = true;
       PermitRootLogin = "no";
       KbdInteractiveAuthentication = false;
@@ -12,11 +12,16 @@
   };
 
   users.users.uzair.openssh.authorizedKeys.keys = [
-    # YubiKey, github-auth slot (resident credential, requires touch)
-    "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIHSWKFa37dMtV7XyDw//ntlTEUgmZnkay3hm+hXDSpApAAAAD3NzaDpnaXRodWItYXV0aA== ssh:github-auth"
-    # YubiKey, git-signing slot (resident credential, requires touch)
-    "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAICV8xaw0idrjzIb/SjSWTdND6IHbyfL0uMS1lb0BdBXCAAAAD3NzaDpnaXQtc2lnbmluZw== YubiKey Git Signing Key"
-    # Ineffa (OpenClaw) on the gateway. Remove if you do not want agent access.
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIARuYOZsrpd6cKqgjUZMijCn4XrMU3q8b6ohybvy8s/6 openclaw@macmini"
+    # Public keys only. The private half (or the YubiKey) stays on the client.
+    #
+    # From the precision-5560, create a normal key for server login:
+    #   ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_macmini -C uzair@precision-5560
+    # and paste ~/.ssh/id_ed25519_macmini.pub below.
+    #
+    # For YubiKey login, the resident credential must use the default
+    # application "ssh:". Keys scoped to ssh:github-auth or ssh:git-signing
+    # are not offered by the client for host authentication:
+    #   ssh-keygen -t ed25519-sk -O resident -O application=ssh: \
+    #     -f ~/.ssh/id_ed25519_sk_macmini
   ];
 }
