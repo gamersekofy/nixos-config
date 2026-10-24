@@ -21,6 +21,7 @@
     kdePackages.kdepim-addons
     kdePackages.akonadi-calendar
     kdePackages.libkdepim
+    kdePackages.koko
 
     kdePackages.signond
     kdePackages.signon-kwallet-extension
