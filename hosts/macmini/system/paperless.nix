@@ -1,4 +1,4 @@
-{
+{config, ...}: {
   # Paperless + the scanner share + firewall, together on purpose.
   services.paperless = {
     enable = true;
@@ -8,7 +8,7 @@
     mediaDir = "/var/lib/paperless/media";
     consumptionDir = "/var/lib/paperless/consume";
     consumptionDirIsPublic = true;
-    passwordFile = "/run/secrets/paperless-admin-password";
+    passwordFile = config.age.secrets.paperless-admin-password.path;
 
     settings = {
       PAPERLESS_TIME_ZONE = "America/Los_Angeles";

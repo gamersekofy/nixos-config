@@ -1,5 +1,16 @@
-{pkgs, ...}: {
-  imports = [./openclaw.nix];
+{lib, pkgs, ...}: {
+  imports = [
+    ./openclaw.nix
+
+    ../../common/home/dev/fish.nix
+    ../../common/home/dev/starship.nix
+    ../../common/home/dev/eza.nix
+    ../../common/home/dev/atuin.nix
+    ../../common/home/dev/yazi.nix
+    ../../common/home/dev/bat.nix
+    ../../common/home/dev/direnv.nix
+    ../../common/home/dev/nix-index.nix
+  ];
 
   home.username = "uzair";
   home.homeDirectory = "/home/uzair";
@@ -9,15 +20,21 @@
 
   programs.git = {
     enable = true;
-    userName = "Uzair Mohammed";
-    userEmail = "uzair.hamed@gmail.com";
+    settings.user.name = "Uzair Mohammed";
+    settings.user.email = "uzair.hamed@gmail.com";
+    settings.init.defaultBranch = "main";
   };
+
+  # The shared fish module signs commits; this host has no YubiKey, so don't.
+  programs.fish.shellAbbrs.gc = lib.mkForce "git commit -m";
 
   home.packages = with pkgs; [
     gogcli
     ripgrep
     jq
     ffmpeg
-    poppler_utils
+    poppler-utils
+    btop
+    tmux
   ];
 }

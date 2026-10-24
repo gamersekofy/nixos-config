@@ -1,7 +1,7 @@
-{
+{config, ...}: {
   services.restic.backups.macmini = {
     repository = "sftp:uzair@precision-5560:/home/uzair/backups/macmini";
-    passwordFile = "/run/secrets/restic-password";
+    passwordFile = config.age.secrets.restic-password.path;
     initialize = true;
     paths = [
       "/var/lib/gitea"

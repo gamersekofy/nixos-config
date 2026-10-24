@@ -11,6 +11,7 @@
         trustedProxies = ["127.0.0.1"];
       };
 
+      # Todoist is a hosted MCP server, not a runtime plugin: no plugin entry.
       mcp.servers.todoist = {
         url = "https://ai.todoist.net/mcp";
         auth = "oauth";
@@ -18,15 +19,8 @@
       };
 
       plugins.entries = {
-        todoist.enabled = true;
         "device-pair".config.publicUrl = "wss://macmini.tail9b9448.ts.net:8443";
       };
     };
-
-    # Confirm the plugin id first:
-    #   jq -r '.supported[].id' nix/generated/openclaw-runtime-plugins/report.json
-    # If absent, use runtimePluginSources instead:
-    # runtimePluginSources = [{ id = "todoist"; spec = "npm:@openclaw/todoist@<version>"; }];
-    # runtimePlugins = ["todoist"];
   };
 }

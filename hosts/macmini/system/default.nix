@@ -6,7 +6,8 @@
     ./networking.nix
     ./ssh.nix
     ./docker.nix
-    ./nginx.nix
+    ./tunnel.nix
+    ./secrets.nix
     ./syncthing.nix
     ./paperless.nix
     ./gitea.nix
