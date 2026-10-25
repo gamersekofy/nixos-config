@@ -407,7 +407,10 @@
         "allow": [
           "file.fetch",
           "dir.list",
-          "dir.fetch"
+          "dir.fetch",
+          "system.run",
+          "system.run.prepare",
+          "system.which"
         ],
         "deny": [
           "ollama.chat",

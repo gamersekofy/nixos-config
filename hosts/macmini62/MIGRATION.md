@@ -874,14 +874,45 @@ On macmini62:
 openclaw nodes list
 ~~~
 
-The gateway's current `gateway.nodes.commands.allow` permits only
-`file.fetch`, `dir.list` and `dir.fetch`. Add `system.run`, `system.which` and
-the other commands the agent needs if it must execute shell commands on the
-node.
+The gateway's `gateway.nodes.commands.allow` permits `file.fetch`, `dir.list`,
+`dir.fetch`, `system.run`, `system.run.prepare` and `system.which`. After the
+node reconnects, approve its expanded command surface:
+
+~~~bash
+openclaw nodes pending
+openclaw nodes approve <nodeRequestId>
+~~~
+
+That approval is separate from device pairing. To make node exec the default,
+set `tools.exec.host` to `node`; otherwise request it per session with
+`/exec host=node`.
 
 If the node logs `device token mismatch`, the saved token is from the old
 gateway. Mint a fresh join code and repeat the `openclaw connect` step; the old
 token is replaced in place.
+
+### External plugins and model credentials
+
+`programs.openclaw.runtimePlugins` installs the official external plugins
+through nix-openclaw. Do not use `openclaw plugins install` or
+`openclaw doctor --fix` against a Nix-managed config; both try to write
+`openclaw.json`. Rebuild the host after changing the plugin list.
+
+The `zai`, `deepseek` and `typesafe` credentials are resolved from
+`/run/agenix/openclaw-secrets` (JSON keys `zai`, `deepseek`, `typesafe`).
+Changing a key means editing the `.age` file and switching again; restarting the
+gateway alone does not re-decrypt it.
+
+OpenAI Codex/ChatGPT OAuth is different: the account token lives in the SQLite
+state, not `openclaw.json`, so it can be connected from Control UI → Settings →
+Models → Connect provider, or with
+`openclaw models auth login --provider openai`. Add `--agent alhaitham` if the
+credential should be local to that agent. Model selection still lives in Nix.
+
+Thinking defaults live in Nix (`agents.defaults.thinkingDefault`). The chat
+picker's available levels come from the selected model's reasoning profile; use
+a reasoning model for the full set. The global "set for all agents" control
+will fail in Nix mode by design.
 
 Only then continue to Phase 5. Everything after this point can be fixed by
 asking the agent you have just brought up.
