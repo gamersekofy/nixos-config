@@ -63,4 +63,6 @@ in {
     environment.GOG_KEYRING_PASSWORD = "/run/agenix/gog-keyring-password";
     inherit config;
   };
+
+  systemd.user.services.openclaw-gateway.Install.WantedBy = ["default.target"];
 }

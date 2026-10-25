@@ -842,6 +842,47 @@ curl -sS -o /dev/null -w '%{http_code}\n' https://macmini62.tail9b9448.ts.net:84
 connection refused means `tailscale serve` is not running; a timeout means the
 tailnet name is wrong.
 
+### Pairing the precision node
+
+The node service is Nix-managed (`openclaw-node.service`), so do not use
+`openclaw connect --service`, which would write its own unit. After precision
+has been rebuilt with the updated `gatewayHost`, mint a single-use join code on
+macmini62:
+
+~~~bash
+openclaw devices join-code
+~~~
+
+On precision-5560, pair and save the device token:
+
+~~~bash
+systemctl --user stop openclaw-node
+openclaw connect '<join-url>' --display-name precision-5560
+~~~
+
+Wait for `node host gateway connected`, then Ctrl-C. Start the Nix-managed
+service and confirm the gateway sees it:
+
+~~~bash
+systemctl --user start openclaw-node
+openclaw node status
+~~~
+
+On macmini62:
+
+~~~bash
+openclaw nodes list
+~~~
+
+The gateway's current `gateway.nodes.commands.allow` permits only
+`file.fetch`, `dir.list` and `dir.fetch`. Add `system.run`, `system.which` and
+the other commands the agent needs if it must execute shell commands on the
+node.
+
+If the node logs `device token mismatch`, the saved token is from the old
+gateway. Mint a fresh join code and repeat the `openclaw connect` step; the old
+token is replaced in place.
+
 Only then continue to Phase 5. Everything after this point can be fixed by
 asking the agent you have just brought up.
 
