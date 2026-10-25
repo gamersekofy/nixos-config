@@ -1,12 +1,15 @@
-# agenix recipients. Fill macmini62 from:
-#   ssh-to-age < /etc/ssh/ssh_host_ed25519_key.pub   (on the macmini62)
+# agenix recipients. Use the host's SSH public key directly, not its
+# ssh-to-age conversion: agenix decrypts with the SSH private key, and age's
+# SSH identity is not the same as the X25519 identity derived by ssh-to-age.
+# On macmini62:
+#   cat /etc/ssh/ssh_host_ed25519_key.pub
 # Add your personal age public key so you can create and edit these files from
 # the precision-5560. Generate one there with:
 #   age-keygen -o ~/.config/age/keys.txt
 # then put its public key here:
 #   personal = "age1...";
 let
-  macmini62 = "age1wmkvx8vj9wu4qn082d49wsf56dd99qa05f78hehvje6uukkeqa7qpjxqxw";
+  macmini62 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDthGkwOPsegmpAemOx9txY/O49tcTYQHcv1WvZ6r4iO root@nixos";
   personal = "age100xcjd8xmjmxawmkjqju64u63wn376hr7kytaa5s6exch48tadqsvk2trv";
 in {
   "paperless-admin-password.age".publicKeys = [

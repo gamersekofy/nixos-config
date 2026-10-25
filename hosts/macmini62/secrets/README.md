@@ -28,15 +28,15 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/age/keys.txt
 Host key, on macmini62:
 
 ~~~bash
-nix run nixpkgs#ssh-to-age -- < /etc/ssh/ssh_host_ed25519_key.pub
+cat /etc/ssh/ssh_host_ed25519_key.pub
 ~~~
 
 Put both in `secrets.nix`:
 
 ~~~nix
 let
-  macmini62 = "age1...";  # ssh-to-age output
-  personal = "age1...";   # age-keygen -y output
+  macmini62 = "ssh-ed25519 AAAA...";  # host public key, verbatim
+  personal = "age1...";               # age-keygen -y output
 in {
   "paperless-admin-password.age".publicKeys = [macmini62 personal];
   # ...one line per file
@@ -45,6 +45,10 @@ in {
 
 Without the personal key as a recipient you cannot create or edit secrets from
 the laptop. Without the host key the macmini62 cannot decrypt them.
+
+Use the host's SSH public key, **not** its `ssh-to-age` output. agenix decrypts
+with the SSH private key, and age's SSH identity is not the same as the X25519
+identity derived by `ssh-to-age`.
 
 ## Encrypt or edit a file
 
@@ -82,8 +86,7 @@ nix run github:ryantm/agenix -- -d paperless-admin-password.age \
 ~~~
 
 Do not use `agenix -c` as the gate: it only validates SSH-form recipients and
-reports "cannot check non-SSH recipient" for `age1...` keys derived by
-`ssh-to-age`.
+reports "cannot check non-SSH recipient" for the personal `age1...` key.
 
 ## What each file must contain
 

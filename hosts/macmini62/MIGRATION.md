@@ -63,7 +63,6 @@ from the nix store on demand:
 command -v rsync git
 nix shell nixpkgs#jq -c jq --version
 nix shell nixpkgs#restic -c restic version
-nix run nixpkgs#ssh-to-age -- --help >/dev/null && echo ssh-to-age ok
 nix shell nixpkgs#age -c age-keygen --help >/dev/null && echo age ok
 ~~~
 
@@ -647,10 +646,12 @@ files), or a typo in `bootloader.nix`.
 On macmini62:
 
 ~~~bash
-nix run nixpkgs#ssh-to-age -- < /etc/ssh/ssh_host_ed25519_key.pub
+cat /etc/ssh/ssh_host_ed25519_key.pub
 ~~~
 
-That `age1...` string is the host recipient.
+That SSH public key line is the host recipient. Use it verbatim, **not** its
+`ssh-to-age` output: agenix decrypts with the SSH private key, and age's SSH
+identity is not the same as the X25519 identity derived by `ssh-to-age`.
 
 ## 4.2 Fill the recipients
 
@@ -658,8 +659,8 @@ On the 5560, edit `hosts/macmini62/secrets/secrets.nix`:
 
 ~~~nix
 let
-  macmini62 = "age1...";   # from 4.1
-  personal = "age1...";    # from Phase 0.2
+  macmini62 = "ssh-ed25519 AAAA...";  # from 4.1, verbatim
+  personal = "age1...";               # from Phase 0.2
 in {
   "paperless-admin-password.age".publicKeys = [macmini62 personal];
   "restic-password.age".publicKeys = [macmini62 personal];
@@ -717,7 +718,7 @@ nix run github:ryantm/agenix -- -d restic-password.age -i ~/.config/age/keys.txt
 ~~~
 
 `agenix -c` is not a gate here: it only validates SSH-form recipients and says
-"cannot check non-SSH recipient" for `ssh-to-age` output.
+"cannot check non-SSH recipient" for the personal `age1...` key.
 
 ## 4.4 Commit, rebundle, pull, switch
 
