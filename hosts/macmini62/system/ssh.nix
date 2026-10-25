@@ -14,14 +14,20 @@
   users.users.uzair.openssh.authorizedKeys.keys = [
     # Public keys only. The private half (or the YubiKey) stays on the client.
     #
-    # From the precision-5560, create a normal key for server login:
-    #   ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_macmini -C uzair@precision-5560
-    # and paste ~/.ssh/id_ed25519_macmini.pub below.
+    # Login key, created on the precision-5560:
+    #   ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_macmini62 -C uzair@precision-5560
     #
-    # For YubiKey login, the resident credential must use the default
-    # application "ssh:". Keys scoped to ssh:github-auth or ssh:git-signing
-    # are not offered by the client for host authentication:
+    # A YubiKey credential belongs here as a second entry, for daily use. It
+    # must be a resident credential using the default application: OpenSSH
+    # discovers resident credentials under "ssh:", so the existing
+    # ssh:github-auth and ssh:git-signing credentials are not offered for host
+    # authentication.
     #   ssh-keygen -t ed25519-sk -O resident -O application=ssh: \
-    #     -f ~/.ssh/id_ed25519_sk_macmini
+    #     -f ~/.ssh/id_ed25519_sk_macmini62
+    #
+    # Keep a file key as the break-glass entry. A resident credential cannot be
+    # exported, so a lost YubiKey would otherwise lock you out of a headless
+    # host.
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBYjy9VSC+zu3PzaRAEPZ9eCVOfmlsOrhEZHwKNxBRJf uzair@precision-5560"
   ];
 }

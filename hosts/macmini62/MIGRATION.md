@@ -56,13 +56,19 @@ mkdir -p ~/backups/macmini62/staging
 ~~~
 
 You need about 10 GB free: roughly 6 GB of data plus room for the restic
-repository later. Check the tools you will use:
+repository later. Only rsync and git need to be on PATH; everything else comes
+from the nix store on demand:
 
 ~~~bash
-command -v rsync git jq restic age ssh-to-age
+command -v rsync git
+nix shell nixpkgs#jq -c jq --version
+nix shell nixpkgs#restic -c restic version
 nix run nixpkgs#ssh-to-age -- --help >/dev/null && echo ssh-to-age ok
 nix shell nixpkgs#age -c age-keygen --help >/dev/null && echo age ok
 ~~~
+
+A local restic matters only on macmini62; here you need it to inspect the
+repository from the 5560.
 
 ## 0.2 Personal age key
 
@@ -70,14 +76,20 @@ This is the key you will use to create and edit secrets from the laptop. The
 host has its own key; this one is yours.
 
 ~~~bash
-ls ~/.config/age/keys.txt 2>/dev/null || \
+mkdir -p ~/.config/age && chmod 700 ~/.config/age
+[ -f ~/.config/age/keys.txt ] || \
   nix shell nixpkgs#age -c age-keygen -o ~/.config/age/keys.txt
+chmod 600 ~/.config/age/keys.txt
 nix shell nixpkgs#age -c age-keygen -y ~/.config/age/keys.txt
 ~~~
 
-Record the public key. It goes into `hosts/macmini62/secrets/secrets.nix` as
-`personal`. Back up `keys.txt` somewhere safe; without it you cannot re-encrypt
-anything.
+When generating, age-keygen prints the public key to stderr and refuses to
+overwrite an existing file. If keys.txt already exists, do not regenerate it:
+the -y line prints the public key you need.
+
+Record the public key. It goes into `hosts/macmini62/secrets/secrets.nix`
+as `personal`. Back up `keys.txt` somewhere safe; without it you
+cannot re-encrypt anything.
 
 ## 0.3 SSH key for the new host
 
@@ -109,26 +121,89 @@ Also collect the provider API keys while the old OpenClaw instance still runs
 (the current deepseek and zai keys). They go into the `openclaw-secrets` JSON,
 not into git.
 
-## 0.5 Cloudflare Tunnel
+### The two JSON secrets, and where their contents come from
 
-In the Cloudflare dashboard for uzair.page:
+`openclaw-secrets.age` and `openclaw-gateway-token.age` are JSON documents.
+There is no separate .json file in the repo because the .age files are 0-byte
+placeholders until Phase 4; the JSON is what you encrypt into them.
 
-1. Zero Trust -> Networks -> Tunnels -> Create a tunnel -> Cloudflared.
-2. Name it `macmini62`.
-3. Add these public hostnames, each pointing at the local service:
-
-~~~text
-casa.uzair.page  -> http://127.0.0.1:8123     Home Assistant
-docs.uzair.page  -> http://127.0.0.1:28981    Paperless
-git.uzair.page   -> http://127.0.0.1:3000     Gitea
-~~~
-
-4. Download the credentials JSON and put it in the staging directory:
+Write both now, in the staging directory, so Phase 4 has something to encrypt:
 
 ~~~bash
-mv ~/Downloads/<tunnel-id>.json ~/backups/macmini62/staging/cloudflared-credentials.json
-chmod 600 ~/backups/macmini62/staging/cloudflared-credentials.json
+umask 077
+printf '{"deepseek":"","zai":""}\n' \
+  > ~/backups/macmini62/staging/openclaw-secrets.json
+printf '{"gatewayToken":"%s"}\n' "$(openssl rand -hex 32)" \
+  > ~/backups/macmini62/staging/openclaw-gateway-token.json
+chmod 600 ~/backups/macmini62/staging/openclaw-*.json
+ls -l ~/backups/macmini62/staging/openclaw-*.json
 ~~~
+
+Paste the provider keys into the empty strings. The member names must match the
+SecretRef ids in `hosts/macmini62/home/openclaw.nix`: `/deepseek` and
+`/zai`. The gateway token is wrapped in an object because the gateway reads
+it with `id = "/gatewayToken"`.
+
+OpenClaw cannot hand the old API keys back. `openclaw models auth list` shows
+the saved profiles (deepseek and zai, both api_key mode), but there is no
+export command, and secret-kind store entries are write-only by design. Take the
+keys from the provider dashboards instead, and keep a copy in KeePass:
+
+- https://platform.deepseek.com  -> API keys
+- https://z.ai/manage-apikey    -> API keys
+
+That matches the rule for this migration: keys are regenerated, not backed up.
+The OpenAI profile is an OAuth login and does not migrate; re-authenticate on
+the new host with `openclaw models auth login` once the gateway is up.
+
+Delete both plaintext JSON files after Phase 4 encrypts them.
+
+## 0.5 Cloudflare Tunnel
+
+Cloudflare moved tunnels out of the Zero Trust section. Use the top-level
+Networking entry, not Zero Trust -> Networks:
+
+1. Networking -> Tunnels -> Create a tunnel -> Cloudflared.
+2. Name it `macmini62`.
+3. Skip the public hostname step. Leave the tunnel with no public hostnames for
+   now; 5.7 binds them.
+
+**Do not add the hostnames here.** Adding a public hostname creates a proxied
+CNAME and replaces the existing record for that name, so casa/docs/git would
+point at a tunnel with no connector (error 1033) while the Ubuntu box is still
+serving them. Binding the hostnames is the cutover, not the preparation.
+
+4. The setup screen now offers only an install command containing the tunnel
+   token, per operating system. Ignore the install instructions -- especially
+   the MSI, which the page defaults to. Nothing is installed from that page; the
+   connector comes from NixOS. There is no JSON download any more.
+
+This nixpkgs revision has only `credentialsFile` for a tunnel
+(`nixos/modules/services/networking/cloudflared.nix`, the option at line 205),
+loaded through systemd `LoadCredential`. There is no token option. So convert
+the token into the credentials JSON once.
+
+The token is base64url of `{"a":"<account>","t":"<tunnel>","s":"<secret>"}`, which is
+why it starts with `eyJhIjoi`. Copy the long `eyJ...` string out of the install
+command, then:
+
+~~~bash
+read -rs TOKEN; echo            # paste the token, press Enter; it will not echo
+nix shell nixpkgs#nodejs -c node -e '
+  const j = JSON.parse(Buffer.from(process.argv[1], "base64url"));
+  process.stdout.write(JSON.stringify({
+    AccountTag: j.a, TunnelID: j.t, TunnelSecret: j.s
+  }) + "\n");
+' "$TOKEN" \
+  > ~/backups/macmini62/staging/cloudflared-credentials.json
+unset TOKEN
+chmod 600 ~/backups/macmini62/staging/cloudflared-credentials.json
+head -c 40 ~/backups/macmini62/staging/cloudflared-credentials.json; echo
+~~~
+
+Expect `{"AccountTag":"...`, and `TunnelID` must equal the Tunnel ID shown on
+the same dashboard page. A JSON parse error means the token was copied
+partially; re-copy the whole string.
 
 Do not delete the old DNS records yet. They stay until Phase 6.
 
@@ -204,8 +279,33 @@ cp docker-compose.yml docker-compose.env ~/backup/ 2>/dev/null || true
 ls -lh ~/backup/paperless*
 ~~~
 
-The tar root entries are `data/`, `media/`, `consume/` and `export/`. Phase 5
-extracts them straight into `/var/lib/paperless`.
+The tar root entries are data/, media/, consume/ and export/.
+
+Skipped in this run. The restore path re-ingests the originals (5.2), and a
+2.12.1 dump cannot be loaded into 3.1.3 anyway, so there is nothing here worth
+falling back to. What matters from this step is extracting the PDFs with
+readable names; see 1.4.
+
+Extract the originals under their real titles, so a drag-and-drop later does not
+produce 30 files called 0000094.pdf:
+
+~~~bash
+OUT=$HOME/backup/paperless-originals
+mkdir -p "$OUT"
+docker compose exec -T db psql -U paperless -d paperless -At -F '|' -c \
+  "select id, regexp_replace(coalesce(nullif(title,''),'untitled'),
+   '[^A-Za-z0-9 ._-]', '_', 'g') from documents_document order by id" \
+| while IFS='|' read -r id title; do
+    src=$(printf 'media/documents/originals/%07d.pdf' "$id")
+    [ -f "$src" ] || continue
+    cp -p "$src" "$(printf '%s/%04d - %s.pdf' "$OUT" "$id" "$title")"
+  done
+ls -1 "$OUT" | wc -l
+du -sh "$OUT"
+~~~
+
+Thirty files, about 40 MB. The numeric prefix keeps duplicates distinct: eleven
+documents are literally titled "scan".
 
 ## 1.4 Minecraft
 
@@ -224,6 +324,22 @@ Root entry is `minecraft-server/` with `data/`, `mods/`, `plugins/`,
 `config/` inside. If your layout differs, run
 `tar tzf ~/backup/minecraft.tar.gz | head -20` and adjust `--strip-components`
 in Phase 5.
+
+Verify the archive is not only intact but loadable. A jar truncated to 0, 16K or
+32K bytes still lists and extracts fine; it only fails at mod discovery with
+"zip END header not found", which the server reports as a start failure.
+
+~~~bash
+gzip -t ~/backup/minecraft.tar.gz
+cd ~/Documents/minecraft-server/data/mods
+for f in *.jar; do unzip -tqq "$f" >/dev/null 2>&1 || echo "BAD $f"; done
+~~~
+
+This is not hypothetical: eleven jars on this instance were truncated long
+before the backup, and the container had been crash-looping (34 restarts)
+without anyone noticing. The pinned MODS list in minecraft.nix re-fetched all
+eleven and the server reached "Done (11.773s)!".
+
 
 ## 1.5 Home Assistant and Matter
 
@@ -244,16 +360,48 @@ container. Those mounts are not reproduced in `hass.nix`; see Appendix D.
 
 ## 1.6 OpenClaw
 
+The old gateway runs on this same machine. If you are talking to it, stopping it
+kills the session mid-conversation, so do not use `systemctl --user stop` here.
+A live SQLite snapshot is consistent without a stop.
+
+What is worth keeping, and what is not:
+
+~~~text
+openclaw.json                 reference config, already ported to openclaw.nix
+workspace/                    SOUL.md, USER.md, MEMORY.md, memory/, skills
+state/openclaw.sqlite         session index, config history, secret store
+cache/ tmp/ browser/ npm/     rebuildable, 2.4 GB of the 2.4 GB total
+agents/*/agent/*.sqlite       chat transcripts and stale .bak files, 673 MB
+~~~
+
 ~~~bash
-systemctl --user stop openclaw-gateway
-sudo tar czf ~/backup/openclaw.tar.gz -C ~/.openclaw \
-  --exclude=cache --exclude=tmp --exclude=browser --exclude=npm .
-cp ~/.openclaw/openclaw.json ~/backup/openclaw.json
-systemctl --user start openclaw-gateway
+mkdir -p ~/backup/openclaw
+cp ~/.openclaw/openclaw.json ~/backup/openclaw/
+tar czf ~/backup/openclaw/workspace.tar.gz -C ~/.openclaw workspace
+
+node -e '
+  const {DatabaseSync} = require("node:sqlite");
+  new DatabaseSync(process.argv[1], {readOnly: true})
+    .exec("VACUUM INTO \x27" + process.argv[2] + "\x27");
+' ~/.openclaw/state/openclaw.sqlite ~/backup/openclaw/state-openclaw.sqlite
+
+ls -lh ~/backup/openclaw/
+~~~
+
+About 35 MB. `VACUUM INTO` matters: the gateway keeps its database in WAL mode,
+and a plain `cp` of a live database can capture a file whose pages are still
+only in the -wal, which opens as a truncated database.
+
+Chat history is not in this set. If you want it, snapshot the agent database
+the same way (it is 673 MB, most of it old pre-migration backups):
+
+~~~bash
+ls -lh ~/.openclaw/agents/main/agent/*.sqlite*
 ~~~
 
 `openclaw.json` is a reference only. Never restore it over the Nix-managed
-config; the ported version is `hosts/macmini62/home/openclaw.nix`.
+config; the ported version is `hosts/macmini62/home/openclaw.nix`. Provider API
+keys are not in any of this -- regenerated in 0.4, encrypted in 4.3.
 
 ## 1.7 Reference copies
 
@@ -268,8 +416,10 @@ docker ps --format '{{.Names}}' > ~/backup/containers.txt
 
 ~~~bash
 cd ~/backup
-sha256sum * > SHA256SUMS
-rsync -avh --progress ~/backup/ \
+find . -type f ! -name SHA256SUMS -print0 | sort -z \
+  | xargs -0 sha256sum > SHA256SUMS
+wc -l SHA256SUMS
+rsync -a --info=progress2 ~/backup/ \
   uzair@192.168.86.142:/home/uzair/backups/macmini62/staging/
 ~~~
 
@@ -277,18 +427,21 @@ Then on the 5560, verify before you touch the hardware:
 
 ~~~bash
 cd ~/backups/macmini62/staging
-sha256sum -c SHA256SUMS
-du -sh .
+sha256sum -c SHA256SUMS        # every line must end in OK
+du -sh .                       # about 5.3 GB
 tar tzf gitea-data.tar.gz | head -5
-tar tzf paperless-files.tar.gz | head -5
 tar tzf minecraft.tar.gz | head -5
 grep -c 'CREATE TABLE' gitea.sql
-grep -c 'CREATE TABLE' paperless.sql
+find matter-server -name '*.json' -size +0 | head -3
 ~~~
 
-Expected sizes: gitea about 1.4 GB, paperless about 174 MB, minecraft about
-4.2 GB, Home Assistant a few hundred MB, OpenClaw about 100 MB. If a count is
-zero, the dump failed; do not proceed.
+Use `find`, not `sha256sum *`. The glob skips directories, so
+hass-config, matter-server, openclaw and paperless-originals would be left out
+of the manifest with no error.
+
+Expected sizes: gitea about 1.5 GB, minecraft about 3.4 GB, hass-config about
+180 MB, matter-server about 2 MB, openclaw about 320 MB, paperless-originals
+about 40 MB. If a count is zero, the dump failed; do not proceed.
 
 ## 1.9 Open the machine
 
@@ -614,12 +767,64 @@ host key is already pinned in `backup.nix`.
 
 ---
 
+## 4.7 OpenClaw first light, before any data restore
+
+OpenClaw is the service that helps with the rest of this migration, so bring it
+up before touching Gitea, Paperless or Minecraft. By now 4.3 has decrypted the
+secrets and the first switch has created the gateway unit.
+
+Restore the workspace only. The config is Nix-managed and must not be replaced
+(see the note in 5.6):
+
+~~~bash
+systemctl --user stop openclaw-gateway 2>/dev/null || true
+tar xzf ~/backup/openclaw/workspace.tar.gz -C ~/.openclaw
+chown -R uzair:users ~/.openclaw/workspace
+~~~
+
+That brings back SOUL.md, USER.md, MEMORY.md, memory/ and skills.
+
+Tailscale is a new device after the reinstall:
+
+~~~bash
+sudo tailscale up
+sudo tailscale serve --bg --https=8443 http://127.0.0.1:18789
+tailscale status --json | jq -r .Self.DNSName
+~~~
+
+The DNS name must be exactly `macmini62.tail9b9448.ts.net`: the device-pair
+URL in openclaw.nix is built from it, and a `macmini62-1` suffix breaks that
+URL. Delete the old `uzair-macmini` node from the tailnet.
+
+~~~bash
+systemctl --user start openclaw-gateway
+systemctl --user status openclaw-gateway --no-pager
+openclaw status
+~~~
+
+From the precision, confirm the gateway answers through Tailscale TLS:
+
+~~~bash
+curl -sS -o /dev/null -w '%{http_code}\n' https://macmini62.tail9b9448.ts.net:8443/
+~~~
+
+200 or 401 means reachable; 401 is the expected answer without a token. A
+connection refused means `tailscale serve` is not running; a timeout means the
+tailnet name is wrong.
+
+Only then continue to Phase 5. Everything after this point can be fixed by
+asking the agent you have just brought up.
+
+
 # Phase 5 — put the data back
 
 Copy the staging directory to macmini62 first:
 
 ~~~bash
-rsync -avh uzair@192.168.86.142:/home/uzair/backups/macmini62/staging/ ~/backup/
+rsync -a --info=progress2 \
+  uzair@192.168.86.142:/home/uzair/backups/macmini62/staging/ ~/backup/
+cd ~/backup
+sha256sum -c SHA256SUMS | grep -v ': OK$'
 ls -lh ~/backup
 ~~~
 
@@ -632,12 +837,26 @@ sudo -u postgres psql -lqt | cut -d'|' -f1 | grep -E 'gitea|paperless'
 
 ## 5.1 Gitea
 
-Target layout on NixOS:
+Target layout on NixOS, checked against the container's own app.ini
+(WORK_PATH = /data/gitea, ROOT = /data/git/repositories,
+APP_DATA_PATH = /data/gitea):
 
 ~~~text
-/var/lib/gitea/repositories   <- container /data/git/repositories
-/var/lib/gitea/data           <- container /data/gitea
+/var/lib/gitea/repositories  <- gitea/git/repositories       (ROOT)
+/var/lib/gitea/data          <- gitea/gitea/{avatars,repo-archive,
+                                repo-avatars,packages,lfs,jwt,home}
+/var/lib/gitea/custom        <- gitea/gitea/custom           (CUSTOM is
+                                stateDir/custom, not stateDir/data)
+drop                         <- gitea/gitea/conf/app.ini     (SECRET_KEY,
+                                INTERNAL_TOKEN, JWT_SECRET, DB password)
 ~~~
+
+Skip `gitea/ssh/` and `gitea/git/.ssh/`. They hold the container's built-in
+SSH host keys and a delegated-mode authorized_keys, and the old instance had
+`DISABLE_SSH = true` in its app.ini -- checked, not assumed -- so nothing ever
+used them. The NixOS host enables Gitea SSH for the first time, on 2222, and
+generates fresh host keys. Existing clones are https; ssh:// remotes start
+working after the migration but need port 2222 in the URL.
 
 The service must be stopped while you write:
 
@@ -665,22 +884,23 @@ Files. Extract to a staging directory, never straight into place:
 ~~~bash
 sudo install -d -o gitea -g gitea -m 0750 /var/lib/gitea/restore
 sudo tar xzf ~/backup/gitea-data.tar.gz -C /var/lib/gitea/restore
-sudo find /var/lib/gitea/restore -maxdepth 3 -type d | sort
-~~~
-
-With the archive root `gitea/`:
-
-~~~bash
 OLD=/var/lib/gitea/restore/gitea
 sudo install -d -o gitea -g gitea -m 0750 \
-  /var/lib/gitea/repositories /var/lib/gitea/data
+  /var/lib/gitea/repositories /var/lib/gitea/data /var/lib/gitea/custom
 sudo cp -a "$OLD/git/repositories/." /var/lib/gitea/repositories/
-sudo cp -a "$OLD/gitea/." /var/lib/gitea/data/
-# The container's app.ini would override NixOS settings. Drop it.
-sudo rm -f /var/lib/gitea/data/conf/app.ini
-sudo chown -R gitea:gitea /var/lib/gitea/repositories /var/lib/gitea/data
+for d in avatars repo-archive repo-avatars packages lfs jwt home; do
+  [ -d "$OLD/gitea/$d" ] && sudo cp -a "$OLD/gitea/$d" /var/lib/gitea/data/
+done
+[ -d "$OLD/gitea/custom" ] && \
+  sudo cp -a "$OLD/gitea/custom/." /var/lib/gitea/custom/
+sudo chown -R gitea:gitea \
+  /var/lib/gitea/repositories /var/lib/gitea/data /var/lib/gitea/custom
 sudo rm -rf /var/lib/gitea/restore
 ~~~
+
+Deliberately not copied: `conf/` (app.ini would override NixOS settings),
+`sessions/`, `queues/`, `indexers/`, `tmp/`, `log/` -- runtime state that
+is rebuilt on start.
 
 Start and verify:
 
@@ -696,57 +916,70 @@ The count should match the number of repositories you had. NixOS runs Gitea as
 
 ## 5.2 Paperless
 
-Target layout:
+Decision: no database restore. The old instance is paperless-ngx 2.12.1 and the
+NixOS package is 3.1.3; rather than migrate across that major release, the 30
+documents are re-ingested into a clean 3.1.3 instance. Tags, correspondents,
+document types and titles beyond the filename do not carry over.
+
+Kept from the old box, before the disk came out:
 
 ~~~text
-/var/lib/paperless/data     <- container ./data
-/var/lib/paperless/media    <- container ./media
-/var/lib/paperless/consume  <- container ./consume
+~/backup/paperless-originals/   30 PDFs, renamed from the old id and title,
+                                e.g. "0094 - CSC 656 Quiz 1.pdf"
 ~~~
 
-~~~bash
-sudo systemctl stop paperless
-sudo tar xzf ~/backup/paperless-files.tar.gz -C /var/lib/paperless
-sudo rm -rf /var/lib/paperless/data/index
-sudo chown -R paperless:paperless /var/lib/paperless
+Target layout, already created by the module:
+
+~~~text
+/var/lib/paperless/media     documents, written by Paperless
+/var/lib/paperless/data      index and runtime state, written by Paperless
+/var/lib/paperless/consume   drop zone, also the Samba "scans" share
 ~~~
 
-The index is version-specific; Paperless rebuilds it. Everything else is
-documents and thumbnails and must be kept.
+The 2.12.1 media tree and SQL dump were not kept: neither can be loaded into
+3.1.3, so the PDFs are the source of truth. If a document is missing after
+re-ingest, compare against paperless-originals/, not against a dump.
 
-Database, dumped from PostgreSQL 13 and restored into 16. Never copy the old
-data directory:
+The first switch starts an empty database, and `passwordFile` seeds the admin
+account from the `paperless-admin-password` secret, so the login is already
+the value in KeePass. There is no `changepassword` step.
+
+Load the documents either over the network or through the share:
 
 ~~~bash
-sudo -u postgres psql -c 'DROP DATABASE IF EXISTS paperless;'
-sudo -u postgres psql -c 'CREATE DATABASE paperless OWNER paperless;'
-sudo cat ~/backup/paperless.sql | sudo -u paperless psql -d paperless
+scp ~/backup/paperless-originals/*.pdf uzair@macmini62:/tmp/paperless-in/
 ~~~
 
-Start:
+or mount `smb://macmini62/scans` (guest, forced to paperless) and drag the
+folder in. Then move them into consume:
 
 ~~~bash
-sudo systemctl start paperless
+sudo install -d -o paperless -g paperless -m 0775 /var/lib/paperless/consume
+sudo mv /tmp/paperless-in/*.pdf /var/lib/paperless/consume/
+sudo journalctl -u paperless -f | grep -i consume
+~~~
+
+Paperless polls consume, OCRs each file, and files it under
+`{created_year}/{correspondent}/{title}` as set by
+`PAPERLESS_FILENAME_FORMAT`. Thirty files is a few minutes on this hardware.
+Watch the journal, not the UI, which lags behind.
+
+Verify:
+
+~~~bash
+sudo -u paperless psql -d paperless -At -c 'select count(*) from documents_document;'
 curl -sI http://127.0.0.1:28981 | head -3
-sudo journalctl -u paperless -n 50 --no-pager
 ~~~
 
-Admin password. The agenix password only seeds an empty database; the restored
-one still carries the old hash. Reset it explicitly:
+30 documents. If one is missing, look for leftovers in
+`/var/lib/paperless/consume/` and for a duplicate-checksum warning in the
+journal: Paperless refuses a file whose hash it already has.
 
-~~~bash
-sudo -u paperless paperless-manage changepassword admin
-~~~
+Tags and correspondents start empty. The old instance had 6 tags, 4
+correspondents and 7 document types; recreate the ones still wanted.
 
-Use the value stored for the `paperless-admin-password` secret so the secret
-and the login stay consistent.
-
-Scanner share: `scans` points at `/var/lib/paperless/consume`, guest-writable,
-forced to `paperless`, SMB2 minimum.
-
-~~~bash
-smbclient -L //localhost -N
-~~~
+Keep the tar and dump for 30 days. They are the only route back to the 2.12.1
+metadata if the drag-drop turns out to have dropped something that mattered.
 
 ## 5.3 Minecraft
 
@@ -769,6 +1002,33 @@ ls -l /srv/minecraft/data/level.dat
 Expected: `config`, `data`, `mods`, `plugins`. If the archive has a different
 root, list it first with `tar tzf ~/backup/minecraft.tar.gz | head` and adjust
 the strip count.
+
+**Mods.** minecraft.nix declares all 28 mods the world uses, by URL, at the same
+versions as the jars in the archive: the two lists match name for name
+(architectury, BiomesOPlenty, BuildingWands, cherry-monastery, cloth-config,
+comforts, fabric-api, fabric-language-kotlin, FallingTree, ForgeConfigAPIPort,
+GlitchCore, Jade, the nine mcw-* mods, PuzzlesLib, silk-all, TerraBlender,
+travelersbackpack, veinminer, VisualWorkbench). data/mods is therefore
+redundant; the image reinstalls the same set on start. Keeping it is harmless
+and means a start with no network still has mods. Change the MODS list in
+minecraft.nix rather than adding jars by hand.
+
+The itzg image does not delete unlisted jars by default (REMOVE_OLD_MODS is
+false), so the restored set and the declared set coexist. Both lists are the
+same 28 mods at the same versions.
+
+
+Check the jars before starting. A corrupt jar fails at mod discovery, not at
+extract time:
+
+~~~bash
+sudo find /srv/minecraft/data/mods -name '*.jar' | while read -r f; do
+  unzip -tqq "$f" >/dev/null 2>&1 || echo "BAD $f"
+done
+~~~
+
+Delete any that report BAD; the image re-downloads them from the MODS list.
+
 
 Ownership stays `root:root`; the itzg image runs as root and no PUID is set.
 
@@ -837,55 +1097,79 @@ edit there is reverted on the next switch.
 Recreate only the folders you still use. The old config had Music, Secrets and
 Resumable.
 
-## 5.6 OpenClaw
+## 5.6 OpenClaw conversation history
 
-Restore state, never the JSON:
+The gateway has been up since 4.7 and has been helping with the rest of this
+phase. Conversation history is a separate, later restore, because it replaces a
+live database.
+
+Check the versions match first. The snapshot was taken on 2026.10.5; a different
+schema on the new host is a one-way door.
 
 ~~~bash
-systemctl --user stop openclaw-gateway 2>/dev/null || true
-mkdir -p ~/.openclaw
-tar xzf ~/backup/openclaw.tar.gz -C ~/.openclaw --exclude=openclaw.json
-systemctl --user daemon-reload
+openclaw --version
 ~~~
 
-Tailscale is a new device after the reinstall:
+If they differ, stop here and keep the snapshot as an archive. Do not feed an
+older agent database to a newer gateway.
 
 ~~~bash
-sudo tailscale up
-tailscale status
-~~~
-
-Confirm the DNS name is exactly `macmini62.tail9b9448.ts.net`. The device-pair
-URL in `openclaw.nix` is built from it:
-
-~~~bash
-tailscale status --json | jq -r .Self.DNSName
-~~~
-
-If Tailscale assigned a suffix (`macmini62-1`), fix the name in the admin
-console or update `publicUrl` in `openclaw.nix`. Delete the old
-`uzair-macmini` node.
-
-Serve the gateway over Tailscale TLS. This is required: the gateway binds
-loopback and the device-pair URL is `wss://` on 8443.
-
-~~~bash
-sudo tailscale serve --bg --https=8443 http://127.0.0.1:18789
-tailscale serve status
+systemctl --user stop openclaw-gateway
+cd ~/.openclaw/agents/main/agent
+cp openclaw-agent.sqlite openclaw-agent.sqlite.pre-restore
+cp ~/backup/openclaw/agent-main.sqlite openclaw-agent.sqlite
+chown uzair:users openclaw-agent.sqlite
 systemctl --user start openclaw-gateway
-systemctl --user status openclaw-gateway
+sleep 20
 openclaw status
 ~~~
 
-Then, in order: gog authentication (file keyring password from agenix),
-Todoist OAuth on first use, and confirm the deepseek and zai keys resolve from
-`openclaw-secrets`. If a provider plugin still wants its own credentials, add
-it to that JSON.
+Then look for the old sessions:
+
+~~~bash
+openclaw sessions list 2>/dev/null | head
+~~~
+
+The pre-restore file is the way back if the gateway refuses the database; delete
+the restored one and rename it back.
+
+Do not restore `state-openclaw.sqlite`. It carries gateway state, config
+history and the old secret store, all of which the Nix config and agenix now
+own; restoring it re-introduces values the declarative setup is replacing.
+
+### Why openclaw.json is never restored
+
+`hosts/macmini62/legacy/openclaw/openclaw.json` is imported at build time by
+`openclaw.nix` (`lib.importJSON`), so its contents are baked into the Nix
+store. The live `~/.openclaw/openclaw.json` is a different thing: the file the
+old gateway wrote at runtime. Copying that onto the new host would put a stale,
+host-specific config next to the module's, and the two disagree about the
+gateway port, the secret sources and the auth profiles.
+
+The committed snapshot was diffed against the live config before the migration:
+they are identical except `gateway.auth.token`, which is deliberately replaced
+by a SecretRef. If you change OpenClaw settings after cutover, change the JSON
+in the repo and rebuild; runtime edits do not survive.
 
 ## 5.7 Cloudflare Tunnel
 
-The tunnel was created in Phase 0.5 and its credentials are already encrypted,
-so cloudflared started with the first switch. Verify:
+cloudflared has been running since the first switch, but the tunnel still has no
+public hostnames, so nothing is routed yet. Bind them now: this is the cutover.
+
+Add three public hostnames to the `macmini62` tunnel:
+
+~~~text
+casa.uzair.page  -> http://127.0.0.1:8123     Home Assistant
+docs.uzair.page  -> http://127.0.0.1:28981    Paperless
+git.uzair.page   -> http://127.0.0.1:3000     Gitea
+~~~
+
+Cloudflare offers to replace the existing A/AAAA record for each name. Accept.
+Traffic moves to the tunnel within a minute. If the old Ubuntu box is still
+online, do this after 5.1-5.6 are verified; it is the point of no return for the
+old edge.
+
+Verify:
 
 ~~~bash
 systemctl status cloudflared-tunnel-macmini62
@@ -894,6 +1178,9 @@ curl -sI https://docs.uzair.page | head -3
 curl -sI https://git.uzair.page | head -3
 curl -sI https://casa.uzair.page | head -3
 ~~~
+
+502 means the connector is up but the local service is not listening. 1033 means
+the connector is not connected.
 
 Syncthing is deliberately not in the tunnel.
 
@@ -982,12 +1269,13 @@ Keep the HDD for 30 days. After that, it is a spare disk, not a backup.
 | Gitea repositories | `gitea-data.tar.gz` -> `gitea/git/repositories` | `/var/lib/gitea/repositories` | gitea:gitea |
 | Gitea app data | same -> `gitea/gitea` | `/var/lib/gitea/data` (drop `conf/app.ini`) | gitea:gitea |
 | Gitea database | `gitea.sql` (PG14 dump) | database `gitea` in PG16 | gitea |
-| Paperless documents | `paperless-files.tar.gz` -> `data`, `media`, `consume` | `/var/lib/paperless/...` (drop `data/index`) | paperless:paperless |
-| Paperless database | `paperless.sql` (PG13 dump) | database `paperless` in PG16 | paperless |
+| Paperless documents | `paperless-originals/` (30 PDFs) | re-ingested via UI or the Samba `scans` share | paperless:paperless |
+| Paperless database | none | created empty by the module | paperless |
 | Minecraft | `minecraft.tar.gz` -> `data`, `mods`, `plugins`, `config` | `/srv/minecraft/...` | root:root |
 | Home Assistant | `hass-config/` | `/var/lib/hass` | root:root |
 | Matter fabric | `matter-server/` | `/var/lib/matter-server` | root:root |
-| OpenClaw state | `openclaw.tar.gz` (no `openclaw.json`) | `/home/uzair/.openclaw` | uzair |
+| OpenClaw workspace | `openclaw/workspace.tar.gz` (no `openclaw.json`) | `/home/uzair/.openclaw` | uzair |
+| OpenClaw history | `openclaw/agent-main.sqlite` | `~/.openclaw/agents/main/agent/` (5.6) | uzair |
 | Reference only | `nginx/`, `letsencrypt/`, `*.sql`, `*compose*` | not restored | - |
 
 # Appendix B — users and paths

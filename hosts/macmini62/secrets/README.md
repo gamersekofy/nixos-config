@@ -16,10 +16,12 @@ before the host exists. Replace each one before the first real switch.
 
 ## One-time: collect both public keys
 
-Personal key, on precision-5560 (skip if `~/.config/age/keys.txt` exists):
+Personal key, on precision-5560:
 
 ~~~bash
+mkdir -p ~/.config/age && chmod 700 ~/.config/age
 nix shell nixpkgs#age -c age-keygen -o ~/.config/age/keys.txt
+chmod 600 ~/.config/age/keys.txt
 nix shell nixpkgs#age -c age-keygen -y ~/.config/age/keys.txt
 ~~~
 
