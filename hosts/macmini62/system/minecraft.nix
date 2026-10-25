@@ -3,7 +3,9 @@
   # The container data is restored to /srv/minecraft, so the image must still
   # be told it is Fabric and which version to run.
   virtualisation.oci-containers.containers.minecraft = {
-    image = "itzg/minecraft-server:java21";
+    # Fully qualified: Podman has no unqualified-search registry configured,
+    # so the bare Docker Hub short name fails with "short-name did not resolve".
+    image = "docker.io/itzg/minecraft-server:java21";
     ports = ["25565:25565"];
     volumes = [
       "/srv/minecraft/data:/data"

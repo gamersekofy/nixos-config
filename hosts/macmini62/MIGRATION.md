@@ -746,7 +746,7 @@ sudo nixos-rebuild switch --flake .#macmini62
 ~~~bash
 sudo ls -l /run/agenix/
 systemctl --failed
-systemctl status cloudflared-tunnel-macmini62 paperless
+systemctl status cloudflared-tunnel-macmini62 paperless-web
 ~~~
 
 Every secret should be present with the owner and mode declared in
@@ -993,6 +993,10 @@ Target layout:
 /srv/minecraft/config    <- ./config
 ~~~
 
+Restore before the first successful container start. If the container starts
+with an empty `/srv/minecraft/data`, it generates a fresh world that then has
+to be replaced.
+
 ~~~bash
 sudo install -d -o root -g root -m 0755 /srv/minecraft
 sudo tar xzf ~/backup/minecraft.tar.gz -C /srv/minecraft --strip-components=1
@@ -1034,8 +1038,8 @@ Delete any that report BAD; the image re-downloads them from the MODS list.
 Ownership stays `root:root`; the itzg image runs as root and no PUID is set.
 
 ~~~bash
-sudo systemctl start docker-minecraft
-sudo journalctl -u docker-minecraft -f
+sudo systemctl start podman-minecraft
+sudo journalctl -u podman-minecraft -f
 ~~~
 
 Wait for "Done" in the log, then check the port. Do not judge by the port
