@@ -775,7 +775,17 @@ up before touching Gitea, Paperless or Minecraft. By now 4.3 has decrypted the
 secrets and the first switch has created the gateway unit.
 
 Restore the workspace only. The config is Nix-managed and must not be replaced
-(see the note in 5.6):
+(see the note in 5.6). The full staging tree is copied in Phase 5, so fetch just
+the workspace archive now, from precision:
+
+~~~bash
+ssh uzair@192.168.86.120 'mkdir -p ~/backup/openclaw'
+rsync -a --info=progress2 \
+  ~/backups/macmini62/staging/openclaw/workspace.tar.gz \
+  uzair@192.168.86.120:~/backup/openclaw/
+~~~
+
+Then on macmini62:
 
 ~~~bash
 systemctl --user stop openclaw-gateway 2>/dev/null || true
@@ -783,7 +793,14 @@ tar xzf ~/backup/openclaw/workspace.tar.gz -C ~/.openclaw
 chown -R uzair:users ~/.openclaw/workspace
 ~~~
 
-That brings back SOUL.md, USER.md, MEMORY.md, memory/ and skills.
+That brings back SOUL.md, USER.md, MEMORY.md, memory/ and skills. It covers the
+main agent only. `linnea` and `alhaitham` use separate `workspace-linnea` and
+`workspace-alhaitham` directories; restore those from their git repositories:
+
+~~~bash
+git clone <linnea-repo> ~/.openclaw/workspace-linnea
+git clone <alhaitham-repo> ~/.openclaw/workspace-alhaitham
+~~~
 
 Tailscale is a new device after the reinstall:
 
@@ -1001,7 +1018,7 @@ to be replaced.
 sudo install -d -o root -g root -m 0755 /srv/minecraft
 sudo tar xzf ~/backup/minecraft.tar.gz -C /srv/minecraft --strip-components=1
 sudo find /srv/minecraft -maxdepth 1 -mindepth 1 | sort
-ls -l /srv/minecraft/data/level.dat
+ls -l /srv/minecraft/data/world/level.dat
 ~~~
 
 Expected: `config`, `data`, `mods`, `plugins`. If the archive has a different

@@ -14,7 +14,7 @@
       bind = "loopback";
       auth.token = {
         source = "file";
-        provider = "gatewayToken";
+        provider = "gateway-token";
         id = "/gatewayToken";
       };
     };
@@ -26,7 +26,7 @@
         mode = "json";
       };
 
-      gatewayToken = {
+      "gateway-token" = {
         source = "file";
         path = "/run/agenix/openclaw-gateway-token";
         mode = "json";
