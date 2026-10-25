@@ -48,6 +48,12 @@
 
     plugins.entries = {
       "device-pair".config.publicUrl = "wss://macmini62.tail9b9448.ts.net:8443";
+
+      typesafe.config.apiKey = {
+        source = "file";
+        provider = "agenix";
+        id = "/typesafe";
+      };
     };
   };
 in {
