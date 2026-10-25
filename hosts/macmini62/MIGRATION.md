@@ -820,6 +820,18 @@ systemctl --user status openclaw-gateway --no-pager
 openclaw status
 ~~~
 
+If the gateway restart-loops with `Refusing to run gateway state preparation
+because this OpenClaw binary ... is older than the config last written by
+OpenClaw ...`, update the flake input and rebuild:
+
+~~~bash
+nix flake update nix-openclaw
+sudo nixos-rebuild switch --flake .#macmini62
+~~~
+
+Do not bypass this with `OPENCLAW_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS`
+unless you intentionally want a downgrade.
+
 From the precision, confirm the gateway answers through Tailscale TLS:
 
 ~~~bash
