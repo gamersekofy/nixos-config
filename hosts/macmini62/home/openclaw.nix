@@ -4,7 +4,17 @@
   # overrides below replace host-specific values and inline secrets.
   legacy = lib.importJSON ../legacy/openclaw/openclaw.json;
 
-  config = lib.recursiveUpdate legacy {
+  # Remove plugin entries that this host must not carry. WhatsApp is not used at
+  # all here, and nix-openclaw does not package the Todoist plugin: the Todoist
+  # MCP server is configured natively under mcp.servers instead. Leaving either
+  # entry in place only produces "plugin not found" warnings at startup.
+  base = legacy // {
+    plugins = legacy.plugins // {
+      entries = lib.removeAttrs legacy.plugins.entries [ "whatsapp" "todoist" ];
+    };
+  };
+
+  config = lib.recursiveUpdate base {
     # The old setup used a persisted auth profile. Provider API keys now come
     # from the file secret provider below, so drop the stale profile.
     auth = null;
