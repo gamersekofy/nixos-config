@@ -45,12 +45,9 @@
     tmux
 
     # Headless browser for OpenClaw's Playwright automation. nixpkgs chromium
-    # is a real, patched binary - no snap, no FHS - so the Launchpad runs it
-    # directly over CDP. The fonts are not optional: this host had exactly one
-    # installed, which renders every screenshot as tofu boxes.
+    # is a real, patched binary - no snap, no FHS - so it is launched straight
+    # over CDP. Fonts live in hosts/common/system/fonts.nix: rendering is a
+    # system concern, not a per-user package.
     chromium
-    dejavu_fonts
-    liberation_ttf
-    noto-fonts-emoji
   ];
 }

@@ -1,4 +1,4 @@
-{lib, ...}: let
+{lib, pkgs, ...}: let
   # Ported from the legacy ~/.openclaw/openclaw.json. Keeping the JSON as the
   # base preserves the agents, skills, plugins and model policy exactly; the
   # overrides below replace host-specific values and inline secrets.
@@ -18,6 +18,17 @@
     # The old setup used a persisted auth profile. Provider API keys now come
     # from the file secret provider below, so drop the stale profile.
     auth = null;
+
+    # Playwright drives this over CDP on port 18800. The store path is used
+    # directly: without it Playwright downloads its own browser, which expects
+    # FHS paths (/lib64, /usr/lib) that do not exist on NixOS. Headless is the
+    # only mode here - the host has no DISPLAY.
+    browser = {
+      enabled = true;
+      executablePath = "${pkgs.chromium}/bin/chromium";
+      headless = true;
+      noSandbox = true;
+    };
 
     gateway = {
       # tailscale serve proxies 8443 -> loopback.

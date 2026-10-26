@@ -20,6 +20,9 @@
     ./backup.nix
 
     ../../common/system/tzLocale.nix
+    ../../common/system/fonts.nix
+    # Apple hardware: keeps the fan off the SMC's hands-off default curve.
+    ../../common/system/mbpfan.nix
     ../../common/system/users.nix
     ../../common/system/tailscale.nix
     ../../common/system/nixos-cli.nix
