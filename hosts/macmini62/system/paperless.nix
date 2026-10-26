@@ -20,9 +20,12 @@
       PAPERLESS_TIME_ZONE = "America/Los_Angeles";
       PAPERLESS_OCR_LANGUAGE = "eng";
       PAPERLESS_FILENAME_FORMAT = "{created_year}/{correspondent}/{title}";
-      PAPERLESS_URL = "https://docs.uzair.page";
+      # Docs are tailnet-only, so the canonical URL is the tailnet name. The
+      # port is non-default and CSRF_TRUSTED_ORIGINS must spell it out, or
+      # every POST - including the login form - dies with a 403.
+      PAPERLESS_URL = "https://macmini62.tail9b9448.ts.net:9443";
       PAPERLESS_TRUSTED_PROXIES = "127.0.0.1";
-      PAPERLESS_CSRF_TRUSTED_ORIGINS = "https://docs.uzair.page";
+      PAPERLESS_CSRF_TRUSTED_ORIGINS = "https://macmini62.tail9b9448.ts.net:9443";
     };
   };
 
