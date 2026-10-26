@@ -25,7 +25,9 @@
         ROOT_URL = "https://git.uzair.page/";
         # Loopback only: the Cloudflare Tunnel is the sole ingress.
         HTTP_ADDR = "127.0.0.1";
-        HTTP_PORT = 3000;
+        # 3000 is taken by Gotenberg, which services.paperless.configureTika
+        # hardcodes. Keep Gitea on 3001 and point the tunnel here.
+        HTTP_PORT = 3001;
         START_SSH_SERVER = true;
         SSH_USER = "gitea";
         SSH_DOMAIN = "git.uzair.page";

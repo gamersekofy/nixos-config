@@ -1009,7 +1009,7 @@ Start and verify:
 ~~~bash
 sudo systemctl start gitea
 sudo journalctl -u gitea -n 40 --no-pager
-curl -sI http://127.0.0.1:3000 | head -3
+curl -sI http://127.0.0.1:3001 | head -3
 sudo -u gitea psql -d gitea -c 'select count(*) from repository;'
 ~~~
 
@@ -1257,38 +1257,55 @@ they are identical except `gateway.auth.token`, which is deliberately replaced
 by a SecretRef. If you change OpenClaw settings after cutover, change the JSON
 in the repo and rebuild; runtime edits do not survive.
 
-## 5.7 Cloudflare Tunnel
+## 5.7 Ingress: tunnel for Gitea, tailnet for the rest
 
-cloudflared has been running since the first switch, but the tunnel still has no
-public hostnames, so nothing is routed yet. Bind them now: this is the cutover.
+Decision: privacy first. Cloudflare terminates TLS at the edge, so anything
+proxied through the tunnel is readable by Cloudflare. Gitea is the only public
+name; the Home Assistant and Paperless UIs stay on the tailnet, where no third
+party sees them and no port is open to the internet.
 
-Add three public hostnames to the `macmini62` tunnel:
+`tunnel.nix` declares the ingress and the connector runs as
+`cloudflared-tunnel-macmini62`. The tunnel is locally managed, so DNS is the
+missing half: it needs a CNAME, not a dashboard "public hostname". Add it in the
+Cloudflare DNS tab:
 
 ~~~text
-casa.uzair.page  -> http://127.0.0.1:8123     Home Assistant
-docs.uzair.page  -> http://127.0.0.1:28981    Paperless
-git.uzair.page   -> http://127.0.0.1:3000     Gitea
+git.uzair.page  CNAME  c657b96e-5931-4c14-9290-28482f60794b.cfargotunnel.com  Proxied
 ~~~
 
-Cloudflare offers to replace the existing A/AAAA record for each name. Accept.
-Traffic moves to the tunnel within a minute. If the old Ubuntu box is still
-online, do this after 5.1-5.6 are verified; it is the point of no return for the
-old edge.
+Delete the old A records for casa, docs and git. Leave `mc.uzair.page` alone
+for now; it is the one name that must bypass the proxy.
+
+Serve the tailnet-only UIs:
+
+~~~bash
+sudo tailscale serve --bg --https=443  http://127.0.0.1:8123    # Home Assistant
+sudo tailscale serve --bg --https=9443 http://127.0.0.1:28981   # Paperless
+sudo tailscale serve status
+~~~
+
+8443 is already taken by the OpenClaw gateway, hence 9443. `serve` state lives
+in `/var/lib/tailscale/tailscaled.state`, so it survives reboots without being
+declared in the flake.
+
+Then drop the router forwards for 80 and 443: the tunnel dials out and the
+tailnet does not need them. Keep 25565 until Minecraft moves off the port
+forward.
 
 Verify:
 
 ~~~bash
-systemctl status cloudflared-tunnel-macmini62
-sudo journalctl -u cloudflared-tunnel-macmini62 -n 40 --no-pager
-curl -sI https://docs.uzair.page | head -3
+systemctl status cloudflared-tunnel-macmini62 --no-pager | head -5
 curl -sI https://git.uzair.page | head -3
-curl -sI https://casa.uzair.page | head -3
+curl -s -o /dev/null -w '%{http_code}\n' https://macmini62.tail9b9448.ts.net/
+curl -s -o /dev/null -w '%{http_code}\n' https://macmini62.tail9b9448.ts.net:9443/
 ~~~
 
 502 means the connector is up but the local service is not listening. 1033 means
-the connector is not connected.
+the connector is not connected. A bare `curl -I` against Home Assistant returns
+405, which is normal: it only answers GET.
 
-Syncthing is deliberately not in the tunnel.
+Syncthing stays off both paths; the tailnet reaches it already.
 
 ## 5.8 Restic
 
@@ -1350,7 +1367,7 @@ Expected listening state:
 |---|---|---|
 | 22 | sshd | LAN and tailnet |
 | 2222 | Gitea SSH | LAN and tailnet |
-| 3000 | Gitea HTTP | loopback only |
+| 3001 | Gitea HTTP | loopback only |
 | 8123 | Home Assistant | LAN and tunnel |
 | 8384 | Syncthing GUI | loopback only |
 | 25565 | Minecraft | LAN |

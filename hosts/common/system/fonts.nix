@@ -12,5 +12,10 @@
 
     carlito
     vista-fonts
+
+    # Headless Chromium renders its own font fallback chain. Without these,
+    # screenshots come back as tofu boxes with no error in any log.
+    dejavu_fonts
+    noto-fonts-color-emoji
   ];
 }

@@ -64,10 +64,9 @@
     ];
     checkOpts = ["--read-data-subset=1/20"];
 
-    timerConfig = {
-      OnCalendar = "*-*-* 02:00:00";
-      Persistent = true;
-      RandomizedDelaySec = "15m";
-    };
+    # No timer on purpose: the repository lives on a laptop that sleeps, so a
+    # nightly run mostly fails at the SFTP handshake, silently. Trigger manually:
+    #   sudo systemctl start restic-backups-macmini62
+    timerConfig = null;
   };
 }
