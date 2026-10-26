@@ -1009,7 +1009,7 @@ Start and verify:
 ~~~bash
 sudo systemctl start gitea
 sudo journalctl -u gitea -n 40 --no-pager
-curl -sI http://127.0.0.1:3000 | head -3
+curl -sI http://127.0.0.1:3001 | head -3
 sudo -u gitea psql -d gitea -c 'select count(*) from repository;'
 ~~~
 
@@ -1267,7 +1267,7 @@ Add three public hostnames to the `macmini62` tunnel:
 ~~~text
 casa.uzair.page  -> http://127.0.0.1:8123     Home Assistant
 docs.uzair.page  -> http://127.0.0.1:28981    Paperless
-git.uzair.page   -> http://127.0.0.1:3000     Gitea
+git.uzair.page   -> http://127.0.0.1:3001     Gitea
 ~~~
 
 Cloudflare offers to replace the existing A/AAAA record for each name. Accept.
@@ -1350,7 +1350,7 @@ Expected listening state:
 |---|---|---|
 | 22 | sshd | LAN and tailnet |
 | 2222 | Gitea SSH | LAN and tailnet |
-| 3000 | Gitea HTTP | loopback only |
+| 3001 | Gitea HTTP | loopback only |
 | 8123 | Home Assistant | LAN and tunnel |
 | 8384 | Syncthing GUI | loopback only |
 | 25565 | Minecraft | LAN |
