@@ -1,0 +1,21 @@
+{pkgs, ...}: {
+  home.sessionVariables = {
+    NIXOS_CONFIG = "/home/uzair/Projects/nixos-config";
+    COLORTERM = "truecolor";
+  };
+
+  home.packages = with pkgs; [
+    wget
+    unzip
+    alejandra
+    nixd
+    aha
+
+    gogcli
+    ripgrep
+    jq
+    ffmpeg
+    poppler-utils
+    btop
+  ];
+}

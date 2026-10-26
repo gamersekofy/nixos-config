@@ -79,6 +79,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -206,6 +211,30 @@
           }
 
           ./hosts/wsl-sl7/system
+        ];
+      };
+
+      macmini62 = lib.nixosSystem {
+        pkgs = pkgsForSystem;
+        specialArgs = {inherit inputs;};
+        modules = [
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.extraSpecialArgs = {inherit inputs;};
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
+
+            home-manager.users.uzair = {
+              imports = [
+                ./hosts/macmini62/home/home.nix
+                inputs.nix-openclaw.homeManagerModules.openclaw
+              ];
+            };
+          }
+
+          inputs.agenix.nixosModules.default
+          ./hosts/macmini62/system
         ];
       };
     };

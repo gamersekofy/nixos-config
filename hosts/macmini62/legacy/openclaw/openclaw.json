@@ -1,0 +1,459 @@
+{
+  "wizard": {
+    "securityAcknowledgedAt": "2026-10-04T01:59:38.627Z",
+    "accessMode": "guarded",
+    "lastRunAt": "2026-10-19T06:16:01.778Z",
+    "lastRunVersion": "2026.10.4",
+    "lastRunCommand": "doctor",
+    "lastRunMode": "local"
+  },
+  "plugins": {
+    "entries": {
+      "anthropic": {
+        "config": {
+          "sessionCatalog": {
+            "enabled": false
+          }
+        }
+      },
+      "codex": {
+        "config": {
+          "sessionCatalog": {
+            "enabled": false
+          }
+        },
+        "enabled": true
+      },
+      "deepseek": {
+        "enabled": true
+      },
+      "whatsapp": {
+        "enabled": true
+      },
+      "device-pair": {
+        "config": {
+          "publicUrl": "wss://uzair-macmini.tail9b9448.ts.net:8443"
+        }
+      },
+      "todoist": {
+        "enabled": true
+      },
+      "zai": {
+        "enabled": true
+      },
+      "memory-core": {
+        "config": {
+          "dreaming": {
+            "frequency": "0 22 * * *"
+          }
+        },
+        "enabled": true
+      },
+      "file-transfer": {
+        "enabled": true,
+        "config": {
+          "policyVersion": 2,
+          "nodes": {
+            "a590c5f93d96c1010bac7f1e6bca1189fa43c13ed5c71169c00de51ebaf232b5": {
+              "ask": "off",
+              "followSymlinks": false,
+              "allowReadPaths": [
+                "/home/uzair/Projects/nixos-config",
+                "/home/uzair/Projects/nixos-config/**",
+                "/home/uzair/.ssh",
+                "/home/uzair/.ssh/**"
+              ],
+              "allowWritePaths": [
+                "/home/uzair/.ssh",
+                "/home/uzair/.ssh/**",
+                "/home/uzair/Projects/nixos-config",
+                "/home/uzair/Projects/nixos-config/**",
+                "/home/uzair/Desktop",
+                "/home/uzair/Desktop/**"
+              ]
+            }
+          }
+        }
+      },
+      "openai": {
+        "enabled": true
+      },
+      "typesafe": {
+        "enabled": true,
+        "config": {
+          "apiKey": {
+            "source": "store",
+            "provider": "default",
+            "id": "TYPESAFE_API_KEY"
+          }
+        }
+      }
+    }
+  },
+  "meta": {
+    "migrations": {
+      "modelPolicyAllowlist": true,
+      "utilityModelSeparation": true,
+      "webhookListeners": {
+        "telegram": [],
+        "feishu": [],
+        "nextcloud-talk": []
+      }
+    },
+    "lastTouchedVersion": "2026.10.5"
+  },
+  "agents": {
+    "defaults": {
+      "models": {
+        "deepseek/deepseek-v4-pro": {
+          "alias": "DeepSeek",
+          "agentRuntime": {
+            "id": "openclaw"
+          }
+        },
+        "deepseek/deepseek-flash": {},
+        "zai/glm-5.2": {},
+        "zai/glm-5.3-flash": {
+          "alias": "GLM"
+        }
+      },
+      "model": "deepseek/deepseek-flash",
+      "workspace": "/home/uzair/.openclaw/workspace",
+      "utilityModel": "zai/glm-5.3-flash",
+      "subagents": {
+        "model": {
+          "primary": "zai/glm-5.3-flash",
+          "fallbacks": [
+            "deepseek/deepseek-flash"
+          ]
+        }
+      },
+      "systemAgent": {
+        "agentId": "main"
+      },
+      "heartbeat": {
+        "agentId": "main"
+      },
+      "thinkingDefault": "low",
+      "decisionModel": "typesafe/jev-latest"
+    },
+    "ownership": "explicit",
+    "entries": {
+      "main": {
+        "models": {
+          "deepseek/deepseek-v4-pro": {
+            "agentRuntime": {
+              "id": "openclaw"
+            }
+          },
+          "zai/glm-5.2": {
+            "agentRuntime": {
+              "id": "openclaw"
+            }
+          }
+        },
+        "identity": {
+          "name": "Ineffa",
+          "avatar": "avatars/Ineffa.png",
+          "emoji": "🤖"
+        },
+        "workspace": "/home/uzair/.openclaw/workspace",
+        "subagents": {
+          "allowAgents": [
+            "alhaitham",
+            "linnea"
+          ]
+        }
+      },
+      "linnea": {
+        "name": "Linnea",
+        "workspace": "/home/uzair/.openclaw/workspace-linnea",
+        "agentDir": "/home/uzair/.openclaw/agents/linnea/agent",
+        "identity": {
+          "name": "Linnea",
+          "avatar": "avatars/Linnea.png"
+        },
+        "subagents": {
+          "allowAgents": [
+            "alhaitham"
+          ]
+        }
+      },
+      "alhaitham": {
+        "name": "Alhaitham",
+        "workspace": "/home/uzair/.openclaw/workspace-alhaitham",
+        "agentDir": "/home/uzair/.openclaw/agents/alhaitham/agent",
+        "identity": {
+          "name": "Alhaitham",
+          "emoji": "📜",
+          "avatar": "data:image/webp;base64,UklGRg4RAABXRUJQVlA4WAoAAAAQAAAAXwAAXwAAQUxQSOMEAAAB8IZtnyFJ/v9FRmVlu7tao7bGNhtr27Zt27bt3bdt2zbWdruPmrzvB5kZGfGqnOcRMQGqBHf8I/mz6pzKVE+rfb45Vgwx8vd/bJ4iwu66fLY0/5Is7hccOQlGw4M6G/wsyf2BJJv9fFDz/ZHNIbnt4t6CzpDljP6wtnnoiMd/+ufRyY++9dlD2muy5JiYLxSLIQEmFg+vzo4lMQRTv7k+E7RfXl6MgFbPLj1vWxanJiLGQBK5ry4p7f+PsYCZKcCRi0rqUyI0AyKAUVjkV/dp7egsjZfJ3xYjyeliAfLTWSXxtann2z5gPBAhCdDi11ZrVYK51v/1zBwmCaRg+oem1VaU5T15wXB108tMNrC6b29bU2VO3rPTm64jgThzEAmIGe3tnl6lxQU/qp4RgrRCgIghIuEvClV5T9xr+xX+GtIBQRKIIQ/wlfgmFnooEwTJbSOeJO8r4fQ3IgBgBUgiGO2Tpie/0c0EpkeKxJXCFnHfW0gwEYgDIra/7CvJl3PH12ma5BBf/MfHL18t6WFuQwEwCWfUBb4S7G/HS4xA9+GvuxvKtaCyjp8xigS4w+Tc9oZyLaeic56ZzJ3bGitzkjbFuAVSjNaU+56c/PRnpYAASRDYylOCdW0RSbBGkEgggBEl2ZtP24BJMhj/miT1VBJggDggHeL47zpBoQFNwNh0hsWx08ScaUAYGAK2hgIl9h0D0BWMwsvLpPQUJ5NswwQm5IdlQiYoHyBHjxloqxCh92IiBBEEj+uo1CL8MAGUDXB+Y+BJ+AZJgImQQ/LdGRVawA5MmQ5O+KWccn8kyKnLTCzC2rtTJK9wd8NRh63ZetNQ6IIkYGPz4MY1mxYfe74zLyj0rdvU/8MYwBatvDrQv2Z+c6BdeX6ha9natRtD8vskKPmw9WvXrehrCDxHumJaz4J5s79/AbkThf972eK58/tmVGpHuYpCU1N9bdOye3jx6zIQh4/+emdVobGxriLnyMvl837Or5+/YvgH+wkByfGhweXzq7XO+X7OcxTvF/pWbpxcOywi9suDA2t6a7WS61fPmr+k/0dPSQEu2rBueW9j4MnRfk3rnLlzN74q5uFFc7pn1eUFKZWra+vqWzZQlEH+ZEZtTUVeK8leUJjeNn/99hOREVcXPvthtfY8pZSnEzytPEfKC6rrO5ZuGJog+Q9rYcx4/4YT25VSQXXDrK5VZ1x28A23PnLndRccukP/rOba8pw15emg0Ll84x5H3YG/DNs6IBLuO7Tno39/+YMpWt5sTykvX9+zYlP/d3f94tuw88A9EYS0C8TRhVL5xt5V2xy7qf/zlr5Lp0K8fGP34pWrV71CiwClulFevnZGz9xF9/QPp2NGKJWramhun7vhLQtynXn5srJC68+ZXcrTuupAZplSXnCFEZA9eodxwEC+uxkvkBADiPPWfEzRoLR7p5iB9vyZn6d9ZEHhdVpEkmxL/t8oGPJ085eKTAknkJd7mOkBF+5T+SfTNeAAcKdXf8xMK/tukdlrovcv0j1EwczT3S9TJCTFJ+iLmNVx/ke0iAhAuACE6LtpNY4krAARhzCbHpKwIREOTJX/IM1hgBSAGRCRGfybaZCADEBELpiVsGYXToBMgAta27ICtpAVsIYM4RYRMEEE2QBrIIyAkoFJSoCljaTSxpYskwEAVlA4IAQMAACwLACdASpgAGAAPmUojUWkIqEara6oQAZEoAz9S1EMlbgYv84HG3P8wHnM+izzgOpD9ADpTPKqzS3+k+cLu5/K+EPge9O+1nq7ZX61n3d/UeV3eb8Vf731AvyD+ff7D0FnjeiX+19QL2b+l/8rwkdQLvd7AH8x/sfoN/lfAp+jf5/2AP5h/bv/D/hPdZ/kP/R/rPNl9A/9P/JfAL/LP6z/x/8P7WPrm/aL2L/1pZCG+QmXVpDJYP1s9BAItpQqbSsZ/qvl4h35XSb7pBl+LJ4TkHoOPpvTdtH4gYH7Su6jcmDZPHFH2Fjwex+P8p97FbwY7eDYhENZmoj1Zn/BNs1XLo+5C1MnMqWtqPwZ1YACsQNqa/d8qFvyldwvSp2fCtQE/ICv78nExW+YpMKHVrLbzIXmVLEb1sckkDWOc2dscb+HrgcohByjDOc9AlIb+EMSBdEW0uF+YKoRFFXletcexjiUhYMz0upderXkeAAA/v5HgzcvIhyYwnAzYZH5Sj834ux8eau18hfAK3Cc2THr0knKAehv+o2zAhM/KAcPR46UF1lRM0O59Rq6T/S/6gzrado4WmyxNHwE2dlMPKEJ2yQT4bbfIqNEMoB0rf/hLnSQNkTp16FC29RB1LrPqh7JMpW1tfMrjneXh427YxnuIFAKbglR2Uit5fhYe9/yK7vWbEgzY/y8LS9s3IZo8OJWkD+XBlOA0yE7kY45Xka3ciwomjlQAlajH7G+epfLzRkB88adGgLhkKKUtnDDW8Jv024mON9+4EN79UaU+NXIH6vcNYpbj5bDGgUXV9kp4+7tUfTLyeYlHgoOvx7TnyKQ1yvEULusHG4UFGUi/DnxDq/s8fvXespzgybPFbSkCLIWdoticJ56YjHTp49okRunHcvL5KLMpA+obZiwxFUq6J2NGdhSMyejOpCu11O6MIYTdKdrmdWH2/Lav7Pzk0ARz6RCUbC2tQS9ugPjVnPbCJK4LNf9sFYW4dakkqUElGHUytcE6XzIo7I/MQ8tDg+98fLNFM/AerZIgJcbQVvEqhnuBhhe9SwVayuvKlgjj/APKTTTNhx6AtvUSjm9hq05YXkNniYWtWvdZ/bRHWrPOTqvAzkFWuCJLmD1CfoX7TeZ+ps6gW7ALBvTrBlgzMxnjvbf77FAu1b+dsv2O5EkXryeX2JD93Mbhm0427VRH0RIbbg2eDXRxy5gql3DzvLy6glrNyhFKarrfO/3Xfr7JO3amTQHQJnNhpOzXbuIR4QCuGEgwSfnA86aVG8aGjGLaI37NcQtOu/P8Ap13OExFa/y5ekAl/3vEmJAbLiQNkoyk9uhrjlBbkUKePOceMhAwQDAtcIkgAKYjip05e8S9S+0sMbR4mhRGTGsJWPfiP19ssiiUlQ+uK7ocbDZDad+kcUlG039L+kbVruXwVk/FmSL1tgXLz/BFN87GaxfoC8+x+S51RgY0Aq5OGA6sf5zn/Pqmsk4E54LK2NwgHzu0Q7Zv5w35q+94ugBL6YwDD9gonGWrWaP+GauCbGYV/yM/y+Whx3PdmOd9SGW/Lm9KKhFxTm/7uCHABeQPi9IUHPVPHkQICFwu0RD9BW2mkqDXjO7lcv1smoj7DLv82IiNBPdmhtf3qRCPV0szsOsH5NchygKfhX7eHGtI7ILEoKVavThpwFyYwmuoAaLZKEMntkJk215EUV+E/OLoU4wBBK78RjQnU1U0jYYS/DAHW7yx/9B63gHiwisJKjoo6mLh2Qm23lI/oHKrEH3GMjh9VKc3701yIV4tG2JcP+ncACRws2H79JXEGEZ7qB3FkA5EFcToqpYCbCrbPwaw0fuAtt9Xs/0lPO7YeOh4OaxXNvB9CEWHv8ec3okqafPvaMQ/n81cdQEKnBIiFqD/77GibjezAuY/DAaKJIM+nV4+yGeOj0BUqfQFnk2y6m24omgkpn/oWLHalFk3jGtXvzHZx/lmTTnvYVGwGQ70mv9f+X2COwPTJwNXgC8ZyJgwdgmxR0QaA633HeWJvB6zjw4/BRuZd1+CjtXu9Y2JEhxwM1l736gc9Dk9Emo5pcwSPs8B/VuidZKnbw5ReilM9Apmt9qXJIcHMd6ZfIDFF1DcDOezuPTWHxg3bCD/M5ugif/7WtIOUjEHsIOCM2AD3oGQUhuZkDzHGnhxX9yU6bhVgk4sc59v+eyGeAFb/xTLHN/7/wOM59m1+hUsROrhsT+JIJ+QB6DCegvXvB3/hstd5mAQkBAHL9JORceUh/gKIh8G9wAKiZDzzCeI0l6LBF/eKLpjnK/8RIVH32aAW0eA1KVBV/slAAcuKuJfgAbi/F2wZiL2cAJaGuhBYxGsLs7xhbNIvC2s1gkMLqV3lnab4NfQfLa2rZdSPfowS4KRNUbNrg+FLAHH04rT6V1MbQxM0shN2VRHdhfrD3IpsRUJA866B+X37RIDVMdPNo5puAQDCT+LFz1WSz+icP8bQoogNoxWbLRiKG1KMteJ353t/ly5r29IhYxNBkStIg8taYDVk7t5y+0+5TKJx9e7h0bO9/Mw5dTK4ycqr4mL/v38g8T7Im3JBvx9N3AMzmR2Q5nn7/P3aASl5Mgf88jZMeVlF8BCH04moJvwwK2fFjpa5nxrLzC6Pt2moxUmvItuprcQs0wjbPbpjLffwMUg3HVBivWMx3o4o6wTabtxpyVhHe4GCHoRfiwiqhYD0Us134JwDfGo/2fP1hybEo9d2dEifZ6AKrl+awf0ay9ZAzgX4nOY6VxueNL0hyfYXdQjI7NNim7Xiz8GK0OMRZaOXQut/h4FZWg2S0vUDMhB+JmW3f4y2mzWUENqanbsVHpFUu983BLyZGKBPlcAR+S+JrnBMItDE4oyoiD3ygw62YqeeHtkGhNr9u4vvvNEMEAzzFHX04TRLs5LRW0JOVISDYkPkRMMNIFGcFS4ccUBIpSweKdsMazpv3OjQyNntEQU5j5DpyxIn5L64U30ZIGtcRQC2qJChu60d2IHcChPL8QIU0aQ+cSaxb3X8i2wiXHVZYiEUi28bEU1ZmX6JsfxOX1WMGAB/nr73YLaWl5PYt5xmvgDjX2Qkbkg/cmp0EwTosp8xEe4HMSiHhA1RYuHxxUYGmW/nNH54p2RHGiBawFoQL5gUCuz7gAFH45HFTqm3qtcBSeLhvbDKlOh4vD8t4ctboA1PhHjOQJqCdKTO/K/Q5nI7FDh8hdkDSnpn1We5oYv3wyL1WkPV0X24znGJ/5lAjAJNH7BP+u+5flhFGCRyA+6n/PvpKOxn7/o3/v1Jf4G91X8xYX5jJL4UjohVr8w/8IaKr40a21gFgPkov/iyb1QO6bFzchYbPIx3RFYXI4tHPXmBMkzfy+2CCcP8+wXS88tMIP1xuNulD+DfgHJ0FZkwnCgtZEm47SsEwQIuEsFBZR8dMbj5AP7fZHFLDnHH40F8+pvPMa6XSs1i3Afpatf5SB/Jr3Fb2GGH8E/hdugiHSfAB4LBIQj37kpzhFJHtH+Pt7rcZRca29CHx+ypjftDOZ49nizH9eBvIRui7hp84vJ7qKN4+jLdseoK+uYnW6ETEPdGPr/UT6uOejsmT6OC3RpmcOoHGH5GjfmAIUQm4O5HGfpSsmewkYWmad4oRj4rRqxfwgTaYtm89Ev1lxUa0BpAexDfuxR9j7d5/4VRfqczYxw5l5H41MP0VrtOYAHn1BUsTfqIb5K/06X8rAJIGfIfDYHlMICLvScEKiZyidbmV1G9RH3Jb4pi32KVw1mEiWPBttWQ3zbQ0+KQfIV9Xvfx1SimUu0JFryM/OGklfvi6Y1SPZUNKNe2Y27FDkB1utEFc7HN4+BNWynZR/NOSxCdHZqi7bswkYMZrf7vVGNuMnWF7Yh13ShdG/Sj5D6J0p4239YAzG12jZJx9Wwq7lW33mJXaZsaUpyysyvGJ/1EE9f5tqduwgxsW6CGv6WjYbZsG5udK14lX5M9IIw3ddvBMT1cNPZcL/F56R0uxRQvGYfcjzhrHFEXZMTPHkB8/lNssTPnlvYA9bq2eb9IkacqRpB62vb/sgotO/icKEmo9IZ60nQClqThjDve68VSIwGV4u0gDCsIsRu4EgqAAA"
+        },
+        "model": "openai/gpt-6.1-sol",
+        "tools": {
+          "profile": "coding",
+          "fs": {
+            "workspaceOnly": true
+          },
+          "deny": [
+            "bundle-mcp",
+            "message",
+            "conversations_list",
+            "conversations_send",
+            "conversations_turn",
+            "sessions_list",
+            "sessions_history",
+            "sessions_search",
+            "sessions_spawn",
+            "nodes",
+            "computer",
+            "browser",
+            "gateway",
+            "cron",
+            "automations",
+            "image_generate",
+            "music_generate",
+            "video_generate",
+            "tts",
+            "terminal",
+            "portal",
+            "canvas",
+            "openclaw",
+            "plugins",
+            "secrets",
+            "presence",
+            "sessions",
+            "dashboard",
+            "theme",
+            "subagents",
+            "agents_wait"
+          ],
+          "alsoAllow": [
+            "pdf"
+          ]
+        },
+        "subagents": {
+          "allowAgents": []
+        }
+      }
+    }
+  },
+  "auth": {
+    "profiles": {
+      "deepseek:setup-fa7ee186-b6fd-4ecd-a9be-84dc509edd9d": {
+        "provider": "deepseek",
+        "mode": "api_key"
+      }
+    }
+  },
+  "models": {
+    "providers": {
+      "deepseek": {
+        "baseUrl": "https://api.deepseek.com",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "deepseek-flash",
+            "name": "deepseek-flash"
+          }
+        ]
+      },
+      "zai": {
+        "baseUrl": "https://api.z.ai/api/paas/v4",
+        "api": "openai-completions",
+        "models": []
+      }
+    }
+  },
+  "skills": {
+    "entries": {
+      "1password": {
+        "enabled": false
+      },
+      "blogwatcher": {
+        "enabled": false
+      },
+      "blucli": {
+        "enabled": false
+      },
+      "camsnap": {
+        "enabled": false
+      },
+      "coding-agent": {
+        "enabled": false
+      },
+      "eightctl": {
+        "enabled": false
+      },
+      "gemini": {
+        "enabled": false
+      },
+      "gh-issues": {
+        "enabled": false
+      },
+      "gifgrep": {
+        "enabled": false
+      },
+      "github": {
+        "enabled": false
+      },
+      "gog": {
+        "enabled": true
+      },
+      "goplaces": {
+        "enabled": false
+      },
+      "himalaya": {
+        "enabled": false
+      },
+      "mcporter": {
+        "enabled": false
+      },
+      "model-usage": {
+        "enabled": false
+      },
+      "nano-pdf": {
+        "enabled": false
+      },
+      "obsidian": {
+        "enabled": false
+      },
+      "openai-whisper": {
+        "enabled": false
+      },
+      "openai-whisper-api": {
+        "enabled": false
+      },
+      "openhue": {
+        "enabled": false
+      },
+      "oracle": {
+        "enabled": false
+      },
+      "ordercli": {
+        "enabled": false
+      },
+      "sag": {
+        "enabled": false
+      },
+      "sherpa-onnx-tts": {
+        "enabled": false
+      },
+      "songsee": {
+        "enabled": false
+      },
+      "sonoscli": {
+        "enabled": false
+      },
+      "spotify-player": {
+        "enabled": false
+      },
+      "summarize": {
+        "enabled": false
+      },
+      "tmux": {
+        "enabled": false
+      },
+      "trello": {
+        "enabled": false
+      },
+      "xurl": {
+        "enabled": false
+      },
+      "wacli": {
+        "enabled": false
+      },
+      "apple-notes": {
+        "enabled": false
+      },
+      "apple-reminders": {
+        "enabled": false
+      },
+      "bear-notes": {
+        "enabled": false
+      },
+      "canvas": {
+        "enabled": false
+      },
+      "notion": {
+        "enabled": false
+      },
+      "peekaboo": {
+        "enabled": false
+      },
+      "things-mac": {
+        "enabled": false
+      }
+    }
+  },
+  "telemetry": {
+    "enabled": true,
+    "consentedAt": "2026-10-04T02:12:33.638Z"
+  },
+  "gateway": {
+    "mode": "local",
+    "port": 18789,
+    "bind": "tailnet",
+    "auth": {
+      "mode": "token"
+    },
+    "tailscale": {
+      "mode": "off"
+    },
+    "trustedProxies": [
+      "127.0.0.1"
+    ],
+    "nodes": {
+      "commands": {
+        "allow": [
+          "file.fetch",
+          "dir.list",
+          "dir.fetch",
+          "system.run",
+          "system.run.prepare",
+          "system.which"
+        ],
+        "deny": [
+          "ollama.chat",
+          "ollama.models"
+        ]
+      }
+    }
+  },
+  "tools": {
+    "profile": "full",
+    "agentToAgent": {
+      "allow": [
+        "main",
+        "linnea",
+        "alhaitham"
+      ]
+    }
+  },
+  "hooks": {
+    "internal": {
+      "entries": {
+        "session-memory": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "channels": {},
+  "mcp": {
+    "servers": {
+      "todoist": {
+        "url": "https://ai.todoist.net/mcp",
+        "auth": "oauth",
+        "transport": "streamable-http"
+      }
+    }
+  },
+  "talk": {
+    "agentId": "main"
+  },
+  "memory": {
+    "search": {
+      "provider": "none"
+    }
+  }
+}
