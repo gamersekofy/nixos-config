@@ -16,14 +16,15 @@
       };
       devices = {
         "uzairPhone" = {id = "NA6LMLH-LWJ3L4L-PMVSSCH-BFUHRUU-B7TXBGU-746NUWZ-P5F5DFK-QJQM2QD";};
-        # TODO after the macmini62 reinstall: replace with the new device ID
-        # (`sudo -u uzair syncthing --device-id` on the macmini62) and rebuild
-        # precision-5560. overrideDevices = true means GUI edits are reverted.
-        "macMiniServer" = {id = "QC24M4F-TRQWXMF-NLRPLAI-LLELUIW-S7ISMPM-K5CPKX5-HSNUBEL-HIMNUAG";};
+        # The reinstall generated a new identity on the macmini62. Taken from
+        # /home/uzair/Documents/syncthing/config/config.xml on that host.
+        "macMiniServer" = {id = "FZ42UBM-WWE33JP-PDT63WT-UQMP6LY-27BO2IM-IXSXBJG-FMYXQ5W-3S4SMAP";};
       };
       folders = {
         "Music" = {
           path = "/home/uzair/Music";
+          # The Mac mini holds the backup copy, so this side only sends.
+          type = "sendonly";
           devices = ["macMiniServer"];
         };
         "Secrets" = {
