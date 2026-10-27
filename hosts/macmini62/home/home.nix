@@ -34,20 +34,4 @@
 
   # The shared fish module signs commits; this host has no YubiKey, so don't.
   programs.fish.shellAbbrs.gc = lib.mkForce "git commit -m";
-
-  home.packages = with pkgs; [
-    gogcli
-    ripgrep
-    jq
-    ffmpeg
-    poppler-utils
-    btop
-    tmux
-
-    # Headless browser for OpenClaw's Playwright automation. nixpkgs chromium
-    # is a real, patched binary - no snap, no FHS - so it is launched straight
-    # over CDP. Fonts live in hosts/common/system/fonts.nix: rendering is a
-    # system concern, not a per-user package.
-    chromium
-  ];
 }
