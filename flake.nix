@@ -101,6 +101,8 @@
 
       overlays = [
         inputs.nix-openclaw.overlays.default
+        # gogcli 0.47.1, ahead of the nixpkgs pin.
+        (import ./hosts/common/overlays/gogcli.nix)
       ];
 
       config = {
