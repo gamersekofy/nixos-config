@@ -17,7 +17,6 @@
     ffmpeg
     poppler-utils
     btop
-    tmux
 
     gh
 
