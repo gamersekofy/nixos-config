@@ -29,6 +29,7 @@
       AUTOPAUSE_TIMEOUT_EST = "40";
 
       RESOURCE_PACK = "https://cdn.modrinth.com/data/uvpymuxq/versions/XWtayRKd/Better-Leaves-9.5.zip";
+
       MODS = ''
         https://cdn.modrinth.com/data/P7dR8mSH/versions/i5tSkVBH/fabric-api-0.141.3%2B1.21.11.jar
         https://cdn.modrinth.com/data/Fb4jn8m6/versions/Hnj3s9Ez/FallingTree-1.21.11-1.21.11.3.jar
@@ -58,6 +59,10 @@
         https://cdn.modrinth.com/data/aTaCgKLW/versions/tgYliGAU/silk-all-1.11.5.jar
         https://cdn.modrinth.com/data/lhGA9TYQ/versions/uNdfrcQ8/architectury-19.0.1-fabric.jar
         https://cdn.modrinth.com/data/XkisZUfp/versions/lQ0CiYEU/BuildingWands-fabric-MC1.21.11-3.0.2.jar
+
+        https://cdn.modrinth.com/data/uXXizFIs/versions/Ii0gP3D8/ferritecore-8.2.0-fabric.jar?mr_download_reason=standalone&mr_game_version=1.21.11&mr_loader=fabric
+        https://cdn.modrinth.com/data/fQEb0iXm/versions/O9LmWYR7/krypton-0.2.10.jar?mr_download_reason=standalone&mr_game_version=1.21.11&mr_loader=fabric
+        https://cdn.modrinth.com/data/gvQqBUqZ/versions/Ow7wA0kG/lithium-fabric-0.21.4%2Bmc1.21.11.jar?mr_download_reason=standalone&mr_game_version=1.21.11&mr_loader=fabric
       '';
 
       ICON = "https://i.imgur.com/xRIDs7x.png";
