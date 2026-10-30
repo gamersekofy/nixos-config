@@ -103,6 +103,8 @@
         inputs.nix-openclaw.overlays.default
         # gogcli 0.47.1, ahead of the nixpkgs pin.
         (import ./hosts/common/overlays/gogcli.nix)
+        # mbpfan 2.4.0 + applesmc hwmon ABI fallback for Linux 7.3.
+        (import ./hosts/common/overlays/mbpfan.nix)
       ];
 
       config = {
