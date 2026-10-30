@@ -11,7 +11,7 @@
   home.packages = with pkgs; [
     gimp3
     kdePackages.kdenlive
-    digikam
+    # digikam
     haruna
     qtscrcpy
     nicotine-plus
