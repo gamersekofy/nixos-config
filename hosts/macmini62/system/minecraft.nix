@@ -24,9 +24,9 @@
       ONLINE_MODE = "TRUE";
       INIT_MEMORY = "1G";
       MAX_MEMORY = "8G";
-      ENABLE_AUTOPAUSE = "TRUE";
-      AUTOPAUSE_TIMEOUT_INIT = "120";
-      AUTOPAUSE_TIMEOUT_EST = "40";
+      # ENABLE_AUTOPAUSE = "TRUE";
+      # AUTOPAUSE_TIMEOUT_INIT = "120";
+      # AUTOPAUSE_TIMEOUT_EST = "40";
 
       RESOURCE_PACK = "https://cdn.modrinth.com/data/uvpymuxq/versions/XWtayRKd/Better-Leaves-9.5.zip";
 
