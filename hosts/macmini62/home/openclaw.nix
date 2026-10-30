@@ -19,6 +19,27 @@
     # from the file secret provider below, so drop the stale profile.
     auth = null;
 
+    # Miko: Entertainment agent. Sibling workspace, own memory, and no
+    # execution, messaging, mail, calendar or MCP tools - she can only read and
+    # write inside her own workspace. thinkingDefault stays off by request.
+    agents.entries.miko = {
+      name = "Miko";
+      workspace = "/home/uzair/.openclaw/workspace-miko";
+      agentDir = "/home/uzair/.openclaw/agents/miko/agent";
+      model = "deepseek/deepseek-v4-pro";
+      thinkingDefault = "off";
+      identity = {
+        name = "Yae Miko";
+        emoji = "🦊";
+        avatar = "avatars/Miko.png";
+      };
+      tools = {
+        profile = "minimal";
+        alsoAllow = [ "group:fs" "view_image" "group:memory" ];
+        deny = [ "gateway" ];
+      };
+    };
+
     # Playwright drives this over CDP on port 18800. The store path is used
     # directly: without it Playwright downloads its own browser, which expects
     # FHS paths (/lib64, /usr/lib) that do not exist on NixOS. Headless is the
