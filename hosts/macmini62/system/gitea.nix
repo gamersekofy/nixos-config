@@ -21,7 +21,6 @@
 
     settings = {
       server = {
-        DOMAIN = "git.uzair.page";
         ROOT_URL = "https://git.uzair.page/";
         # Loopback only: the Cloudflare Tunnel is the sole ingress.
         HTTP_ADDR = "127.0.0.1";
