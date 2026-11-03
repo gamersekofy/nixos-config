@@ -4,6 +4,7 @@
     nerd-fonts.caskaydia-cove
     nerd-fonts._3270
     nerd-fonts.departure-mono
+    nerd-fonts.go-mono
     anakron
 
     noto-fonts
