@@ -40,6 +40,17 @@
       };
     };
 
+    # Alhaitham: coursework repos live outside his agent workspace, under
+    # /home/uzair/Projects. OpenClaw has no per-directory allowlist - the only
+    # boundary is the per-agent workspace jail - and his exec already reaches
+    # the whole host, so lift the file-tool jail for this agent only. This makes
+    # read/write/edit/apply_patch usable on absolute paths outside the
+    # workspace; other agents stay jailed.
+    agents.entries.alhaitham.tools = {
+      fs.workspaceOnly = false;
+      exec.applyPatch.workspaceOnly = false;
+    };
+
     # Playwright drives this over CDP on port 18800. The store path is used
     # directly: without it Playwright downloads its own browser, which expects
     # FHS paths (/lib64, /usr/lib) that do not exist on NixOS. Headless is the
