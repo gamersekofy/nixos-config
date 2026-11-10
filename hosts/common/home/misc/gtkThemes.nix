@@ -5,10 +5,7 @@
 }: {
   gtk = {
     enable = true;
-    gtk2 = {
-      enable = true;
-      force = true;
-    };
+    gtk2.enable = false;
 
     gtk3.enable = true;
     gtk4 = {

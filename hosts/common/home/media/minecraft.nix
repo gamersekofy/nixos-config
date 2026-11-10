@@ -7,7 +7,6 @@
       # Change Java runtimes available to Prism Launcher
       jdks = [
         graalvmPackages.graalvm-ce
-        zulu8
         zulu17
         zulu
       ];
