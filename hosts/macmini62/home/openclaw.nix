@@ -26,7 +26,7 @@
       name = "Miko";
       workspace = "/home/uzair/.openclaw/workspace-miko";
       agentDir = "/home/uzair/.openclaw/agents/miko/agent";
-      model = "deepseek/deepseek-v4-pro";
+      model = "deepseek/deepseek-flash";
       thinkingDefault = "off";
       identity = {
         name = "Yae Miko";
