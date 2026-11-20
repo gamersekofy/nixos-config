@@ -72,6 +72,11 @@
       };
     };
 
+    # Newer OpenClaw builds archive visible dashboard sessions after seven
+    # days without activity. Keep conversations until they are archived by
+    # hand instead of having the sidebar empty itself.
+    session.maintenance.archiveDashboardAfter = false;
+
     secrets.providers = {
       agenix = {
         source = "file";
